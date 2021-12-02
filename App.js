@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { 
+  KeyboardAvoidingView, 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  Keyboard,
+  Alert,
+  Button
+} from 'react-native';
 import Task from './components/task';
 
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
+
+  const confirmDeleteAlert = (index) =>
+    Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      { text: 'Delete', onPress: () => completeTask(index), 
+        style: 'destructive' 
+      },
+    ]);
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -25,9 +47,10 @@ export default function App() {
         <View style={styles.items}>
           {taskItems.map((item, index) => {
             return (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+              <TouchableOpacity key={index} onPress={() => confirmDeleteAlert() }>
                 <Task text={item}/>
               </TouchableOpacity>
+
             )
           })
           }
