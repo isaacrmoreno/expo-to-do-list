@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
 import { Feather } from '@expo/vector-icons'; 
 
-const Task = ({text, confirmDeleteAlert}) => {
+const Task = ({text, confirmDeleteAlert, handleEditTask}) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
@@ -10,14 +10,15 @@ const Task = ({text, confirmDeleteAlert}) => {
           style={styles.editButton} 
           name="edit" 
           size={24} 
-          color="black" />
+          color="black"
+          onPress={() => handleEditTask()} />
         <Text style={styles.itemText}>{text}</Text>
       </View>
       <Feather 
         name="trash-2" 
         size={24} 
         color="black"
-        onPress={() => confirmDeleteAlert() } />
+        onPress={() => confirmDeleteAlert()} />
     </View>
   );
 }

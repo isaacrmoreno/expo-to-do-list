@@ -9,9 +9,9 @@ import {
   TouchableOpacity, 
   Keyboard,
   Alert,
-  Button
 } from 'react-native';
-import { Feather } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
+
 
 import Task from './components/task';
 
@@ -24,6 +24,11 @@ export default function App() {
     setTaskItems([...taskItems, task]);
     setTask(null);
   }
+
+  // const handleEditTask = (index) => {
+  //   setTask(taskItems[index]);
+  //   console.log('taskItems[index]',taskItems[index])
+  // }
 
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
@@ -43,6 +48,7 @@ export default function App() {
     ]);
 
   return (
+
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Task List</Text>
@@ -50,7 +56,7 @@ export default function App() {
           {taskItems.map((item) => {
             return (
               <View>
-                <Task text={item} confirmDeleteAlert={confirmDeleteAlert} /> 
+                <Task text={item} confirmDeleteAlert={confirmDeleteAlert} handleEditTask={handleEditTask} /> 
               </View>
             )
           })
@@ -64,9 +70,14 @@ export default function App() {
           <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
 
           <TouchableOpacity onPress={() => handleAddTask()}>
-            <View style={styles.addWrapper}>
-              <Text>+</Text>
+            <> 
+              {/* if state is set to add. render this. */}
+            <View style={styles.addWrapper}>              
+              <AntDesign name="plus" size={24} color="black" />
+              {/*  if state is set to edit. render this. */}
+              {/* <AntDesign name="check" size={24} color="black" /> */}
             </View>
+            </>
           </TouchableOpacity>
         </KeyboardAvoidingView>
 
