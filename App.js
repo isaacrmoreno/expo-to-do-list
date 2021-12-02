@@ -65,7 +65,7 @@ export default function App() {
 
           <TouchableOpacity onPress={() => handleAddTask()}>
             <View style={styles.addWrapper}>
-              <Text style={styles.addText}>+</Text>
+              <Text>+</Text>
             </View>
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -116,6 +116,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#C0C0C0',
     borderWidth: 1,
-  },
-  addText: {},
+  }
 });
