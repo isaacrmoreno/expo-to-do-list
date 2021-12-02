@@ -18,67 +18,86 @@ import Task from './components/task';
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
+  const [updateTask, setUpdateTask] = useState(false);
 
+// this function will be called when the user presses the plus icon - works!
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask(null);
   }
 
-  // const handleEditTask = (index) => {
-  //   setTask(taskItems[index]);
-  //   console.log('taskItems[index]',taskItems[index])
-  // }
+  // this function is called when the user presses the edit icon - works!
+  const EditTask = () => {
+    setUpdateTask(true)
+  }
 
+  // this function will be called when the user pressed the check mark icon
+  const handleUpdateTask = () => {
+    setUpdateTask(false);
+    Keyboard.dismiss();
+    setTaskItems([...taskItems, task]);
+    setTask(null);
+  }
+
+  // this function is called when the user presses the trash icon
+  const confirmDeleteAlert = (index) =>
+  Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
+    {
+      text: 'Cancel',
+      style: 'cancel',
+    },
+    { text: 'Delete', onPress: () => completeTask(index), 
+      style: 'destructive' 
+    },
+  ]);
+
+  // this function is called when the user presses delete on the alert pop up
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
   }
 
-    const confirmDeleteAlert = (index) =>
-    Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      { text: 'Delete', onPress: () => completeTask(index), 
-        style: 'destructive' 
-      },
-    ]);
-
   return (
-
+    
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <Text style={styles.sectionTitle}>Task List</Text>
         <View style={styles.items}>
-          {taskItems.map((item) => {
+          {taskItems.map((item, index) => {
             return (
               <View>
-                <Task text={item} confirmDeleteAlert={confirmDeleteAlert} handleEditTask={handleEditTask} /> 
+                <Task text={item} key={index} confirmDeleteAlert={confirmDeleteAlert} EditTask={EditTask} /> 
               </View>
             )
           })
-          }
+        }
         </View>
       </View>
-
+        
         <KeyboardAvoidingView 
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.writeTaskWrapper}>
           <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
 
-          <TouchableOpacity onPress={() => handleAddTask()}>
-            <> 
-              {/* if state is set to add. render this. */}
-            <View style={styles.addWrapper}>              
-              <AntDesign name="plus" size={24} color="black" />
-              {/*  if state is set to edit. render this. */}
-              {/* <AntDesign name="check" size={24} color="black" /> */}
-            </View>
-            </>
-          </TouchableOpacity>
+          {updateTask === true ? 
+            <TouchableOpacity onPress={() => handleUpdateTask()}>
+              <> 
+              <View style={styles.addWrapper}>              
+                <AntDesign name="check" size={24} color="black" />
+              </View>
+              </>
+            </TouchableOpacity>
+            :
+            <TouchableOpacity onPress={() => handleAddTask()}>
+              <> 
+              <View style={styles.addWrapper}>              
+                <AntDesign name="plus" size={24} color="black" />
+              </View>
+              </>
+            </TouchableOpacity>
+          } 
         </KeyboardAvoidingView>
 
     </View>
