@@ -27,35 +27,25 @@ export default function App() {
     setTask(null);
   }
 
-  // this function is called when the user presses the edit icon
-  const EditTask = (task, index) => {
+  // this function is called when the user presses the edit icon - works!
+  const EditTask = (index) => {
     setUpdateIcon(true)
-    let updateTaskCopy = [...taskItems];
-    updateTaskCopy[index] = task;
-
-    // console.log('task', task) // undefined
-    console.log('taskItems', taskItems)
-    // console.log('taskItems[index]', taskItems[index]) // undefined
-    // console.log('taskItems[id]', taskItems[id]) // undefined
-
-    // console.log('index', index) // undefined
-    // setTask(taskItems[index, 1]);
-    // when I click this I have to retrieve the index of the task that I want to edit
-    // let updateTaskCopy = [...taskItems];
-    // setTaskItems(updateTaskCopy);
+    const newTask = taskItems[index];
+    setTask(newTask);
   }
 
   // this function will be called when the user pressed the check mark icon
-  const handleUpdateTask = () => {
+  const handleUpdateTask = (index) => {
     setUpdateIcon(false);
     Keyboard.dismiss();
-    // when I click this I must return the list with the update task.
 
-    setTaskItems([...taskItems, task]); 
-    // setTaskItems([...taskItems, task]); // adds task to list.
-    setTask(null); // clears input field. 
-    console.log('clicked')
-  }
+    let taskItemsCopy = [...taskItems];
+
+    const taskToUpdate = taskItemsCopy[index];
+    setTaskItems([taskToUpdate, task]); 
+    
+    setTask(null);
+  } //gets rid of first value, makes second blank, and then updates the task. 
 
   // this function is called when the user presses the trash icon - works!
   const confirmDeleteAlert = (index) =>
@@ -85,7 +75,7 @@ export default function App() {
           {taskItems.map((item, index) => {
             return (
               <View>
-                <Task text={item} key={index} confirmDeleteAlert={confirmDeleteAlert} EditTask={EditTask} /> 
+                <Task text={item} key={index} confirmDeleteAlert={confirmDeleteAlert} EditTask={EditTask} index={index}/> 
               </View>
               )
             })
@@ -96,23 +86,19 @@ export default function App() {
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}>
-        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
 
         {updateIcon === true ? 
           <TouchableOpacity onPress={() => handleUpdateTask()}>
-            <> 
             <View style={styles.addWrapper}>              
               <AntDesign name="check" size={24} color="black" />
             </View>
-            </>
           </TouchableOpacity>
           :
           <TouchableOpacity onPress={() => handleAddTask()}>
-            <> 
             <View style={styles.addWrapper}>              
               <AntDesign name="plus" size={24} color="black" />
             </View>
-            </>
           </TouchableOpacity>
         } 
       </KeyboardAvoidingView>
