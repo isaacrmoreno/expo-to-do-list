@@ -43,9 +43,10 @@ export default function App() {
 
     const taskToUpdate = taskItemsCopy[index];
     setTaskItems([taskToUpdate, task]); 
-    
+    // setTaskItems([taskItemsCopy, taskToUpdate])
+
     setTask(null);
-  } //gets rid of first value, makes second blank, and then updates the task. 
+  }
 
   // this function is called when the user presses the trash icon - works!
   const confirmDeleteAlert = (index) =>
@@ -141,8 +142,8 @@ const styles = StyleSheet.create({
     width: 250,
   },
   addWrapper: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     backgroundColor: '#fff',
     borderRadius: 60,
     justifyContent: 'center',
