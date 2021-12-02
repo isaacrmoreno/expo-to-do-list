@@ -18,7 +18,7 @@ import Task from './components/task';
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
-  const [updateTask, setUpdateTask] = useState(false);
+  const [updateIcon, setUpdateIcon] = useState(false);
 
 // this function will be called when the user presses the plus icon - works!
   const handleAddTask = () => {
@@ -27,20 +27,37 @@ export default function App() {
     setTask(null);
   }
 
-  // this function is called when the user presses the edit icon - works!
-  const EditTask = () => {
-    setUpdateTask(true)
+  // this function is called when the user presses the edit icon
+  const EditTask = (task, index) => {
+    setUpdateIcon(true)
+    let updateTaskCopy = [...taskItems];
+    updateTaskCopy[index] = task;
+
+    // console.log('task', task) // undefined
+    console.log('taskItems', taskItems)
+    // console.log('taskItems[index]', taskItems[index]) // undefined
+    // console.log('taskItems[id]', taskItems[id]) // undefined
+
+    // console.log('index', index) // undefined
+    // setTask(taskItems[index, 1]);
+    // when I click this I have to retrieve the index of the task that I want to edit
+    // let updateTaskCopy = [...taskItems];
+    // setTaskItems(updateTaskCopy);
   }
 
   // this function will be called when the user pressed the check mark icon
   const handleUpdateTask = () => {
-    setUpdateTask(false);
+    setUpdateIcon(false);
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
+    // when I click this I must return the list with the update task.
+
+    setTaskItems([...taskItems, task]); 
+    // setTaskItems([...taskItems, task]); // adds task to list.
+    setTask(null); // clears input field. 
+    console.log('clicked')
   }
 
-  // this function is called when the user presses the trash icon
+  // this function is called when the user presses the trash icon - works!
   const confirmDeleteAlert = (index) =>
   Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
     {
@@ -52,7 +69,7 @@ export default function App() {
     },
   ]);
 
-  // this function is called when the user presses delete on the alert pop up
+  // this function is called when the user presses delete on the alert pop up - works!
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -70,35 +87,35 @@ export default function App() {
               <View>
                 <Task text={item} key={index} confirmDeleteAlert={confirmDeleteAlert} EditTask={EditTask} /> 
               </View>
-            )
-          })
-        }
+              )
+            })
+          }
         </View>
       </View>
         
-        <KeyboardAvoidingView 
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.writeTaskWrapper}>
-          <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.writeTaskWrapper}>
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)}/>
 
-          {updateTask === true ? 
-            <TouchableOpacity onPress={() => handleUpdateTask()}>
-              <> 
-              <View style={styles.addWrapper}>              
-                <AntDesign name="check" size={24} color="black" />
-              </View>
-              </>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity onPress={() => handleAddTask()}>
-              <> 
-              <View style={styles.addWrapper}>              
-                <AntDesign name="plus" size={24} color="black" />
-              </View>
-              </>
-            </TouchableOpacity>
-          } 
-        </KeyboardAvoidingView>
+        {updateIcon === true ? 
+          <TouchableOpacity onPress={() => handleUpdateTask()}>
+            <> 
+            <View style={styles.addWrapper}>              
+              <AntDesign name="check" size={24} color="black" />
+            </View>
+            </>
+          </TouchableOpacity>
+          :
+          <TouchableOpacity onPress={() => handleAddTask()}>
+            <> 
+            <View style={styles.addWrapper}>              
+              <AntDesign name="plus" size={24} color="black" />
+            </View>
+            </>
+          </TouchableOpacity>
+        } 
+      </KeyboardAvoidingView>
 
     </View>
   );
