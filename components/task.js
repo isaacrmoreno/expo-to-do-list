@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet} from 'react-native';
+import { Feather } from '@expo/vector-icons'; 
 
 const Task = (props) => {
   return (
@@ -8,7 +9,9 @@ const Task = (props) => {
         <View style={styles.square}></View>
         <Text style={styles.itemText}>{props.text}</Text>
       </View>
-      <View style={styles.circular}></View>
+      {/* <View style={styles.circular}></View> */}
+      <Feather name="trash-2" size={24} color="black"
+      onPress={() => props.confirmDeleteAlert() } />
     </View>
   );
 }

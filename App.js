@@ -11,22 +11,13 @@ import {
   Alert,
   Button
 } from 'react-native';
+import { Feather } from '@expo/vector-icons'; 
+
 import Task from './components/task';
 
 export default function App() {
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
-
-  const confirmDeleteAlert = (index) =>
-    Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      { text: 'Delete', onPress: () => completeTask(index), 
-        style: 'destructive' 
-      },
-    ]);
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -40,17 +31,27 @@ export default function App() {
     setTaskItems(itemsCopy);
   }
 
+    const confirmDeleteAlert = (index) =>
+    Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      { text: 'Delete', onPress: () => completeTask(index), 
+        style: 'destructive' 
+      },
+    ]);
+
   return (
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
-        <Text style={styles.sectionTitle}>To Do</Text>
+        <Text style={styles.sectionTitle}>Task List</Text>
         <View style={styles.items}>
-          {taskItems.map((item, index) => {
+          {taskItems.map((item) => {
             return (
-              <TouchableOpacity key={index} onPress={() => confirmDeleteAlert() }>
-                <Task text={item}/>
-              </TouchableOpacity>
-
+              <View>
+                <Task text={item} confirmDeleteAlert={confirmDeleteAlert} /> 
+              </View>
             )
           })
           }
