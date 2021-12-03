@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 interface TaskProps {
-  text: string;
+  text: string | null;
   index: number;
   confirmDeleteAlert: (index: number) => void;
   editTask: (index: number) => void;
