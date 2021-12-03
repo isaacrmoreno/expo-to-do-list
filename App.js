@@ -11,57 +11,38 @@ import {
   Alert,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import 'react-native-get-random-values';
 
-import Task from './components/task';
+import Task from './components/Task';
 
 export default function App() {
-  const [task, setTask] = useState<null | ''>('');
-  const [taskItems, setTaskItems] = useState<Array<null | ''>>([]);
-  const [updateIcon, setUpdateIcon] = useState<Boolean>(false);
+  const [task, setTask] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [taskItems, setTaskItems] = useState([]);
+  const [updateIcon, setUpdateIcon] = useState(false);
 
-  // this function will be called when the user presses the plus icon - works!
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
     setTask(null);
   };
 
-  // this function is called when the user presses the edit icon - works!
   const editTask = (index) => {
     setUpdateIcon(true);
     const newTask = taskItems[index];
     setTask(newTask);
+    setCurrentIndex(index);
   };
 
-  // this function will be called when the user pressed the check mark icon
-  const handleUpdateTask = (index) => {
-    setUpdateIcon(false); // updates icon to plus icon
-    Keyboard.dismiss(); // gets rid of keyboard
-    let taskItemsCopy = [...taskItems]; // copies of array
-    taskItemsCopy[index] = task; // updates index task value
-    console.log('task', task);
-
-    // taskItemsCopy.push(task)
-    // setTaskItems(taskItemsCopy); // updates taskItems
-
-    // taskItemsCopy.splice(index, 1); // removes the task from the array // needs index inputted into function.
-
-    // taskItemsCopy.indexOf(index);
-    // if (index !== -1) {
-    //   taskItemsCopy[index] = task;
-    // }
-
-    setTaskItems([...taskItemsCopy, task]); // updates array with new task - doesn't work!
-
-    // setTaskItems(taskItemsCopy => taskItemsCopy.concat(task)); // updates array with new task - works!
+  const handleUpdateTask = () => {
+    setUpdateIcon(false);
+    Keyboard.dismiss(); 
+    let taskItemsCopy = [...taskItems];
+    taskItemsCopy.splice(currentIndex, 1, task);
+    setTaskItems(taskItemsCopy);
     setTask(null);
   };
 
-  // maybe should be object...
-  // maybe use uuidv4?
-  // maybe consider storing info in database instead of array.
-
-  // this function is called when the user presses the trash icon - works!
   const confirmDeleteAlert = (index) =>
     Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
       {
@@ -71,7 +52,6 @@ export default function App() {
       { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
     ]);
 
-  // this function is called when the user presses delete on the alert pop up - works!
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -110,13 +90,13 @@ export default function App() {
         />
 
         {updateIcon === true ? (
-          <TouchableOpacity onPress={() => handleUpdateTask()}>
+          <TouchableOpacity onPress={handleUpdateTask}>
             <View style={styles.addWrapper}>
               <AntDesign name='check' size={24} color='black' />
             </View>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={() => handleAddTask()}>
+          <TouchableOpacity onPress={handleAddTask}>
             <View style={styles.addWrapper}>
               <AntDesign name='plus' size={24} color='black' />
             </View>
