@@ -36,15 +36,12 @@ export default function App() {
 
   // this function will be called when the user pressed the check mark icon
   const handleUpdateTask = (index) => {
-    setUpdateIcon(false);
-    Keyboard.dismiss();
+    setUpdateIcon(false); // updates icon to plus icon
+    Keyboard.dismiss(); // gets rid of keyboard
+    let taskItemsCopy = [...taskItems]; // copy of array
+    // let taskItemsCopy = [...taskItems[index]]; // copy of array
 
-    let taskItemsCopy = [...taskItems];
-
-    const taskToUpdate = taskItemsCopy[index];
-    setTaskItems([taskToUpdate, task]); 
-    // setTaskItems([taskItemsCopy, taskToUpdate])
-
+    setTaskItems([...taskItemsCopy, task]); // updates array with new task - doesn't work!
     setTask(null);
   }
 
