@@ -32,6 +32,8 @@ const Task: React.FC<TaskProps> = ({ index, text, confirmDeleteAlert, editTask }
   );
 };
 
+export default Task;
+
 const styles = StyleSheet.create({
   item: {
     backgroundColor: '#fff',
@@ -54,5 +56,3 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
 });
-
-export default Task;
