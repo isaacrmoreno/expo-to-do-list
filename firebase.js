@@ -1,35 +1,36 @@
-import * as firebase from 'firebase';
-import { getFirestore } from "firebase/firestore"
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
-// }
+import { initializeApp } from 'firebase/app';
+import { 
+  getFirestore, collection, getDocs
+} from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBxZgdo00vR_aoPSK09cK-KKZXqGHDWIt8",
-  authDomain: "expo-to-do-list.firebaseapp.com",
-  projectId: "expo-to-do-list",
-  storageBucket: "expo-to-do-list.appspot.com",
-  messagingSenderId: "383655563055",
-  appId: "1:383655563055:web:93228a361361b76b545bda"
+  apiKey: "AIzaSyBUT5ggHFQAITm8HoOVJkecfNobPzL3cs0",
+  authDomain: "expo-task-list.firebaseapp.com",
+  projectId: "expo-task-list",
+  storageBucket: "expo-task-list.appspot.com",
+  messagingSenderId: "583160570566",
+  appId: "1:583160570566:web:352936f5a163ef979a2dc7"
 };
 
-// Initialize Firebase
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
-} else {
-  app = firebase.app()
-}
+// Initialize Firebase app
+initializeApp(firebaseConfig);
 
-const auth = firebase.auth()
+// Initialize services
+const db = getFirestore();
 
-export { auth }
+// collection ref
+const colRef = collection(db, 'users');
+
+// get collection data
+getDocs(colRef)
+  .then((snapshot) => {
+    // console.log(snapshot.docs);
+    let books = []
+    snapshot.docs.forEach((doc) => {
+    books.push({...doc.data(), id: doc.id})
+    })
+    console.log(books)
+    .catch(err => {
+      console.log(err.message)
+    })
+  })

@@ -15,7 +15,9 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../firebase';
+// import { auth } from '../../firebase';
+
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 import Task from './Task';
 
@@ -64,23 +66,41 @@ export default function TaskButtons() {
     setTaskItems(itemsCopy);
   };
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace('Login');
-      })
-      .catch((error: { message: string }) => alert(error.message));
-  };
+  // const handleSignOut = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       navigation.replace('Login');
+  //     })
+  //     .catch((error: { message: string }) => alert(error.message));
+  // };
+
+  // const addTaskToFirestore = document.querySelector('.add');
+  //   addTaskToFirestore.addEventListener('click', () => {
+  //   });
+
+  // const addTaskToFirestore = () => {
+  //   getFirestore().collection('tasks').add({
+  //     task: task,
+  //     completed: false,
+  //     index: taskItems.length,
+  //   });
+  // };
+
+  // const addTaskToFirestore = () => {
+  //   addDoc(colRef, {
+  //     task: task,
+  //   });
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.taskWrapper}>
         <View style={styles.headerWrapper}>
           <Text style={styles.sectionTitle}>Task List</Text>
-          <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
+          {/* <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
             <Text>Sign Out</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <ScrollView style={styles.scrollView}>
           {taskItems.map((item, index) => {

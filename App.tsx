@@ -1,7 +1,7 @@
 import React from 'react';
-import TaskScreen from './screens/TaskScreen';
-import HomeScreen from './screens/HomeScreen';
-import LoginScreen from './screens/LoginScreen';
+import TaskScreen from './src/screens/TaskScreen';
+// import HomeScreen from './src/screens/HomeScreen';
+// import LoginScreen from './src/screens/LoginScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -16,7 +16,7 @@ export default function App() {
           name='Task'
           component={TaskScreen}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           options={{ headerShown: false }}
           name='Login'
           component={LoginScreen}
@@ -25,7 +25,7 @@ export default function App() {
           options={{ headerShown: false }}
           name='Home'
           component={HomeScreen}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
