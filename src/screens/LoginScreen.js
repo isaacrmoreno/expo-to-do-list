@@ -37,7 +37,7 @@ const LoginScreen = () => {
     }
   }
 
-  const Login = async () => {
+  const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
       console.log(user)
@@ -67,7 +67,7 @@ const LoginScreen = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-        onPress={Login}
+        onPress={login}
         style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
