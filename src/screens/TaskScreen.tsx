@@ -18,6 +18,7 @@ import { auth } from '../../firebase';
 
 import TaskItem from '../components/TaskItem';
 import LogOutButton from '../components/LogOutButton';
+import HomeButton from '../components/HomeButton';
 
 export default function TaskButtons() {
   const [task, setTask] = useState<string | null>('');
@@ -69,6 +70,9 @@ export default function TaskButtons() {
           <Text style={styles.sectionTitle}>Task List</Text>
           <TouchableOpacity>
             <LogOutButton />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <HomeButton />
           </TouchableOpacity>
           <Text>Email: {auth.currentUser?.email}</Text>
         </View>

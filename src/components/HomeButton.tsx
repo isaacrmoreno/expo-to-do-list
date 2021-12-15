@@ -5,31 +5,31 @@ import { StackNavigationProp } from '@react-navigation/stack/';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
 
-const LogOutButton = () => {
+const HomeButton = () => {
   type RootStackParamList = {
-    Login: undefined;
+    Home: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const logOut = async () => {
+  const navigateHome = async () => {
     await signOut(auth)
       .then(() => {
-        navigation.replace('Login');
+        navigation.replace('Home');
       })
       .catch((error: { message: string }) => alert(error.message));
   };
 
   return (
     <View>
-      <TouchableOpacity onPress={logOut} style={styles.signOutButton}>
-        <Text>Log Out</Text>
+      <TouchableOpacity onPress={navigateHome} style={styles.signOutButton}>
+        <Text>Home</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default LogOutButton;
+export default HomeButton;
 
 const styles = StyleSheet.create({
   signOutButton: {

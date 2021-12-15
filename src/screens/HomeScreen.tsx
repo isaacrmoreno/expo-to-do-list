@@ -1,18 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// import logo from '../../assets/icon.png';
+import logo from '../../assets/icon.png';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+  type RootStackParamList = {
+    Login: undefined;
+  };
+
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const navigateHome = async () => {
+    navigation.replace('Login');
+  };
 
   return (
     <View style={styles.container}>
-      {/* <Image source={logo} /> */}
+      <Image source={logo} style={styles.logo} />
 
-      <Text>By continuing, you agree to our User Agreement and Privacy Policy</Text>
+      <Text style={styles.baseText}>
+        By continuing, you agree to our{' '}
+        <Text style={styles.innerText}>User Agreement </Text>
+        and <Text style={styles.innerText}>Privacy Policy.</Text>
+      </Text>
 
       <TouchableOpacity style={styles.button}>
         <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
@@ -29,7 +42,14 @@ const HomeScreen = () => {
         <Text style={styles.buttonText}>Continue with Email</Text>
       </TouchableOpacity>
 
-      <Text>Already a member? Log In</Text>
+      <View>
+        <Text>
+          Already a member?{' '}
+          <Text onPress={navigateHome} style={styles.innerText}>
+            Log In
+          </Text>
+        </Text>
+      </View>
     </View>
   );
 };
@@ -38,15 +58,16 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     flex: 1,
     marginHorizontal: 20,
+    marginBottom: 35,
   },
   button: {
     backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -54,11 +75,26 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonText: {
+    fontSize: 16,
     flex: 1,
     textAlign: 'center',
   },
   buttonIcon: {
     position: 'absolute',
     left: 15,
+  },
+  baseText: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  innerText: {
+    fontWeight: 'bold',
+  },
+  logo: {
+    width: 80,
+    height: 80,
+    marginBottom: 275,
+    borderRadius: 100,
   },
 });
