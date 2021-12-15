@@ -9,7 +9,7 @@ interface TaskProps {
   editTask: (index: number) => void;
 }
 
-const Task: React.FC<TaskProps> = ({ index, text, confirmDeleteAlert, editTask }) => {
+const TaskItem: React.FC<TaskProps> = ({ index, text, confirmDeleteAlert, editTask }) => {
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
@@ -32,7 +32,7 @@ const Task: React.FC<TaskProps> = ({ index, text, confirmDeleteAlert, editTask }
   );
 };
 
-export default Task;
+export default TaskItem;
 
 const styles = StyleSheet.create({
   item: {
