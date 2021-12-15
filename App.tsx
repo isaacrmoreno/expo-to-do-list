@@ -2,6 +2,7 @@ import React from 'react';
 import TaskScreen from './src/screens/TaskScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import SignUpEmailScreen from './src/screens/SignUpEmailScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -17,7 +18,7 @@ export default function App() {
           component={TaskScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
           name='Login'
           component={LoginScreen}
         />
@@ -25,6 +26,11 @@ export default function App() {
           options={{ headerShown: false }}
           name='Home'
           component={HomeScreen}
+        />
+        <Stack.Screen
+          // options={{ headerShown: true }}
+          name='Email'
+          component={SignUpEmailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

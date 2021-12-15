@@ -2,17 +2,19 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import logo from '../../assets/icon.png';
-import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-const HomeScreen = () => {
+const SignUpEmailScreen = () => {
   type RootStackParamList = {
-    Login: undefined;
     Email: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  const navigateToEmailSignUp = async () => {
+    navigation.replace('Email');
+  };
 
   return (
     <View style={styles.container}>
@@ -25,35 +27,16 @@ const HomeScreen = () => {
       </Text>
 
       <TouchableOpacity style={styles.button}>
-        <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Google</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button}>
-        <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Apple</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Email')}>
         <MaterialIcons style={styles.buttonIcon} name='email' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Email</Text>
       </TouchableOpacity>
 
-      <View>
-        <Text>
-          Already a member?{' '}
-          <Text onPress={() => navigation.navigate('Login')} style={styles.innerText}>
-            Log In
-          </Text>
-        </Text>
-      </View>
+      <View></View>
     </View>
   );
 };
 
-export default HomeScreen;
+export default SignUpEmailScreen;
 
 const styles = StyleSheet.create({
   container: {
