@@ -15,11 +15,15 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-// import { auth } from '../../firebase';
-
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { StackNavigationProp } from '@react-navigation/stack/';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
 
 import Task from './Task';
+
+type RootStackParamList = {
+  Login: undefined;
+};
 
 export default function TaskButtons() {
   const [task, setTask] = useState<string | null>('');
@@ -27,7 +31,7 @@ export default function TaskButtons() {
   const [taskItems, setTaskItems] = useState<Array<string | null>>([]);
   const [updateIcon, setUpdateIcon] = useState<Boolean>(false);
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -66,41 +70,22 @@ export default function TaskButtons() {
     setTaskItems(itemsCopy);
   };
 
-  // const handleSignOut = () => {
-  //   auth
-  //     .signOut()
-  //     .then(() => {
-  //       navigation.replace('Login');
-  //     })
-  //     .catch((error: { message: string }) => alert(error.message));
-  // };
-
-  // const addTaskToFirestore = document.querySelector('.add');
-  //   addTaskToFirestore.addEventListener('click', () => {
-  //   });
-
-  // const addTaskToFirestore = () => {
-  //   getFirestore().collection('tasks').add({
-  //     task: task,
-  //     completed: false,
-  //     index: taskItems.length,
-  //   });
-  // };
-
-  // const addTaskToFirestore = () => {
-  //   addDoc(colRef, {
-  //     task: task,
-  //   });
-  // };
+  const logout = async () => {
+    await signOut(auth)
+      .then(() => {
+        navigation.replace('Login');
+      })
+      .catch((error: { message: string }) => alert(error.message));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.taskWrapper}>
         <View style={styles.headerWrapper}>
           <Text style={styles.sectionTitle}>Task List</Text>
-          {/* <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
+          <TouchableOpacity style={styles.signOutButton} onPress={logout}>
             <Text>Sign Out</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollView}>
           {taskItems.map((item, index) => {

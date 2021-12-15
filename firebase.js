@@ -1,36 +1,22 @@
 import { initializeApp } from 'firebase/app';
-import { 
-  getFirestore, collection, getDocs
-} from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBUT5ggHFQAITm8HoOVJkecfNobPzL3cs0",
-  authDomain: "expo-task-list.firebaseapp.com",
-  projectId: "expo-task-list",
-  storageBucket: "expo-task-list.appspot.com",
-  messagingSenderId: "583160570566",
-  appId: "1:583160570566:web:352936f5a163ef979a2dc7"
+  apiKey: "AIzaSyBxZgdo00vR_aoPSK09cK-KKZXqGHDWIt8",
+  authDomain: "expo-to-do-list.firebaseapp.com",
+  projectId: "expo-to-do-list",
+  storageBucket: "expo-to-do-list.appspot.com",
+  messagingSenderId: "383655563055",
+  appId: "1:383655563055:web:93228a361361b76b545bda"
 };
 
 // Initialize Firebase app
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-// Initialize services
-const db = getFirestore();
+// Initialize Auth Services
+export const auth = getAuth(app);
 
-// collection ref
-const colRef = collection(db, 'users');
+// Initialize Firestore Database
+export const db = getFirestore(app);
 
-// get collection data
-getDocs(colRef)
-  .then((snapshot) => {
-    // console.log(snapshot.docs);
-    let books = []
-    snapshot.docs.forEach((doc) => {
-    books.push({...doc.data(), id: doc.id})
-    })
-    console.log(books)
-    .catch(err => {
-      console.log(err.message)
-    })
-  })
