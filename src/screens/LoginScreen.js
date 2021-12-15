@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native' 
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { Entypo } from '@expo/vector-icons';
 
 const LoginScreen = () => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const [displayPassword, setDisplayPassword] = React.useState(false)
 
   const [user, setUser] = useState({});
 
@@ -20,6 +23,18 @@ const LoginScreen = () => {
   //   })
   //   return unsubscribe
   // }, [])
+
+  const usersRef = collection(db, "users");
+
+  // await setDoc(doc(usersRef, "1"), { name: "John Doe" });
+
+  const viewPassword = () => {
+    setDisplayPassword(true)
+  }
+
+  const hidePassword = () => {
+    setDisplayPassword(false)
+  }
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(user)
@@ -49,20 +64,48 @@ const LoginScreen = () => {
   return (
     <KeyboardAvoidingView
     style={styles.container}
-    behavior={'padding'}
-    >
+    behavior={'padding'}>
       <View style={styles.inputContainer}>
         <TextInput
+          style={styles.input}
           placeholder='email'
           value={email}
-          onChangeText={text =>  setEmail(text)}
-          style={styles.input}/>
-          <TextInput
-          placeholder='password'
-          value={password}
-          onChangeText={text => setPassword(text)}
-          style={styles.input}
-          secureTextEntry/>
+          onChangeText={text =>  setEmail(text)}/>
+
+          {displayPassword === true ? 
+          (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder='password'
+              value={password}
+              onChangeText={text => setPassword(text)} 
+              secureTextEntry={false}
+              />
+            <TouchableOpacity style={styles.icon} onPress={hidePassword}>
+            <Entypo
+              name="eye-with-line"
+              size={24}
+              color="black" />
+            </TouchableOpacity>
+          </View>
+          ) : (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder='password'
+              value={password}
+              onChangeText={text => setPassword(text)}
+              secureTextEntry={true}
+              />
+            <TouchableOpacity style={styles.icon} onPress={viewPassword} >
+            <Entypo
+              name="eye" 
+              size={24} 
+              color="black" />
+            </TouchableOpacity>
+          </View>
+          )}
       </View>
 
       <View style={styles.buttonContainer}>
@@ -130,5 +173,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
+  icon: {
+    position: 'absolute',
+    right: 12,
+    top: 11,
+  }
 })
 

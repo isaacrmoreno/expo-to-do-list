@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -20,3 +20,11 @@ export const auth = getAuth(app);
 // Initialize Firestore Database
 export const db = getFirestore(app);
 
+// Collection Reference
+const colRef = collection(db, 'users');
+
+// Get Collection Data
+getDocs(colRef)
+  .then((snapshot) => {
+
+  })
