@@ -14,18 +14,17 @@ import {
   StatusBar,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 
-import Task from './Task';
+import TaskItem from '../components/TaskItem';
+import LogOutButton from '../components/LogOutButton';
+import HomeButton from '../components/HomeButton';
 
 export default function TaskButtons() {
   const [task, setTask] = useState<string | null>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [taskItems, setTaskItems] = useState<Array<string | null>>([]);
   const [updateIcon, setUpdateIcon] = useState<Boolean>(false);
-
-  const navigation = useNavigation();
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -64,29 +63,24 @@ export default function TaskButtons() {
     setTaskItems(itemsCopy);
   };
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigation.replace('Login');
-      })
-      .catch((error: { message: string }) => alert(error.message));
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.taskWrapper}>
         <View style={styles.headerWrapper}>
           <Text style={styles.sectionTitle}>Task List</Text>
-          <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-            <Text>Sign Out</Text>
+          <TouchableOpacity>
+            <LogOutButton />
           </TouchableOpacity>
+          <TouchableOpacity>
+            <HomeButton />
+          </TouchableOpacity>
+          <Text>Email: {auth.currentUser?.email}</Text>
         </View>
         <ScrollView style={styles.scrollView}>
           {taskItems.map((item, index) => {
             return (
               <View key={index}>
-                <Task
+                <TaskItem
                   text={item}
                   index={index}
                   confirmDeleteAlert={confirmDeleteAlert}
