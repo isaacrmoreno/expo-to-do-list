@@ -1,28 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Header from '../components/Header';
 import Logo from '../components/Logo';
+import ReusableButton from '../components/ReusableButton';
 
 const SignUpEmailScreen = () => {
   type RootStackParamList = {
     Email: undefined;
+    Login: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const navigateToEmailSignUp = async () => {
-    navigation.replace('Email');
-  };
+  // const navigateToEmailSignUp = async () => {
+  //   navigation.replace('Email');
+  // };
 
   return (
     <View style={styles.container}>
+      <Header ScreenTitle={'Sign Up'} />
       <Logo />
-      <Text style={styles.title}>Sign Up</Text>
-      <TouchableOpacity style={styles.leftArrow} onPress={() => navigation.goBack()}>
-        <AntDesign name='left' size={24} color='black' />
-      </TouchableOpacity>
+      <ReusableButton text='Sign Up' onPress={() => navigation.navigate('Login')} />
     </View>
   );
 };
@@ -63,17 +63,5 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontWeight: 'bold',
-  },
-  title: {
-    position: 'absolute',
-    top: 35,
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
-  },
-  leftArrow: {
-    position: 'absolute',
-    top: 60,
-    left: 0,
   },
 });

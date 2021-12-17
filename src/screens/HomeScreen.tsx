@@ -12,6 +12,7 @@ const HomeScreen = () => {
     Email: undefined;
     Apple: undefined;
     Google: undefined;
+    SignUp: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -44,21 +45,21 @@ const HomeScreen = () => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Email')}>
+        onPress={() => navigation.navigate('Login')}>
         <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Google</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Email')}>
+        onPress={() => navigation.navigate('Login')}>
         <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Apple</Text>
+        <Text style={styles.buttonText}>Continue with Apple </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Email')}>
+        onPress={() => navigation.navigate('SignUp')}>
         <AntDesign style={styles.buttonIcon} name='mail' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Email</Text>
       </TouchableOpacity>
@@ -66,7 +67,7 @@ const HomeScreen = () => {
       <View>
         <Text>
           Already a member?{' '}
-          <Text onPress={() => navigation.navigate('Login')} style={styles.innerText}>
+          <Text onPress={() => navigation.navigate('Login1')} style={styles.innerText}>
             Log In
           </Text>
         </Text>

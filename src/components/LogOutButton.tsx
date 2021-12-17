@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth';
 
 const LogOutButton = () => {
   type RootStackParamList = {
-    Login: undefined;
+    Home: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -15,7 +15,7 @@ const LogOutButton = () => {
   const logOut = async () => {
     await signOut(auth)
       .then(() => {
-        navigation.replace('Login');
+        navigation.replace('Home');
       })
       .catch((error: { message: string }) => alert(error.message));
   };

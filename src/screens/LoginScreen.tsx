@@ -1,132 +1,138 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native' 
-import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { auth, db } from '../../firebase'
-import { collection, doc, setDoc } from 'firebase/firestore'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { auth, db } from '../../firebase';
+import { collection } from 'firebase/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from 'firebase/auth';
 import { Entypo } from '@expo/vector-icons';
 
 const LoginScreen = () => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [displayPassword, setDisplayPassword] = React.useState(false)
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [displayPassword, setDisplayPassword] = React.useState(false);
 
   const [user, setUser] = useState({});
 
-  const navigation = useNavigation()
+  type RootStackParamList = {
+    Login: undefined;
+    Task: undefined;
+  };
+
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged(user => {
   //     if (user) {
   //       navigation.replace('Task')
-  //     } 
+  //     }
   //   })
   //   return unsubscribe
   // }, [])
 
-  const usersRef = collection(db, "users");
+  const usersRef = collection(db, 'users');
 
   // await setDoc(doc(usersRef, "1"), { name: "John Doe" });
 
   const viewPassword = () => {
-    setDisplayPassword(true)
-  }
+    setDisplayPassword(true);
+  };
 
   const hidePassword = () => {
-    setDisplayPassword(false)
-  }
+    setDisplayPassword(false);
+  };
 
   onAuthStateChanged(auth, (currentUser) => {
-    setUser(user)
+    setUser(user);
     if (currentUser) {
-      navigation.replace('Task')
+      navigation.replace('Task');
     }
-  })
+  });
 
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password)
-      console.log(user)
-    } catch (error) {
-      console.log(error.message)
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error: any) {
+      console.log(error.message);
     }
-  }
+  };
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password)
-      console.log(user)
-    } catch (error) {
-      console.log(error.message)
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error: any) {
+      console.log(error.message);
     }
-  }
+  };
 
   return (
-    <KeyboardAvoidingView
-    style={styles.container}
-    behavior={'padding'}>
+    <KeyboardAvoidingView style={styles.container} behavior={'padding'}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           placeholder='email'
           value={email}
-          onChangeText={text =>  setEmail(text)}/>
+          onChangeText={(text) => setEmail(text)}
+        />
 
-          {displayPassword === true ? 
-          (
+        {displayPassword === true ? (
           <View>
             <TextInput
               style={styles.input}
               placeholder='password'
               value={password}
-              onChangeText={text => setPassword(text)} 
+              onChangeText={(text) => setPassword(text)}
               secureTextEntry={false}
-              />
+            />
             <TouchableOpacity style={styles.icon} onPress={hidePassword}>
-            <Entypo
-              name="eye-with-line"
-              size={24}
-              color="black" />
+              <Entypo name='eye-with-line' size={24} color='black' />
             </TouchableOpacity>
           </View>
-          ) : (
+        ) : (
           <View>
             <TextInput
               style={styles.input}
               placeholder='password'
               value={password}
-              onChangeText={text => setPassword(text)}
+              onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
-              />
-            <TouchableOpacity style={styles.icon} onPress={viewPassword} >
-            <Entypo
-              name="eye" 
-              size={24} 
-              color="black" />
+            />
+            <TouchableOpacity style={styles.icon} onPress={viewPassword}>
+              <Entypo name='eye' size={24} color='black' />
             </TouchableOpacity>
           </View>
-          )}
+        )}
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-        onPress={login}
-        style={styles.button}>
+        <TouchableOpacity onPress={login} style={styles.button}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-        onPress={register}
-        style={[styles.button, styles.buttonOutline]}>
+          onPress={register}
+          style={[styles.button, styles.buttonOutline]}>
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
-
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -162,7 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 16,
   },
-  buttonOutline: {  
+  buttonOutline: {
     backgroundColor: 'white',
     marginTop: 5,
     borderColor: '#0782F9',
@@ -177,6 +183,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 12,
     top: 11,
-  }
-})
-
+  },
+});
