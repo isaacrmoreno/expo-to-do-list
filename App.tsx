@@ -28,7 +28,7 @@ export default function App() {
           component={HomeScreen}
         />
         <Stack.Screen
-          // options={{ headerShown: true }}
+          options={{ headerShown: false }}
           name='Email'
           component={SignUpEmailScreen}
         />

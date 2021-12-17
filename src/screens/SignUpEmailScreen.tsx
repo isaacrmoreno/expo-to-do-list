@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import logo from '../../assets/icon.png';
-import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { StackNavigationProp } from '@react-navigation/stack';
+import Logo from '../components/Logo';
 
 const SignUpEmailScreen = () => {
   type RootStackParamList = {
@@ -18,20 +18,11 @@ const SignUpEmailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={logo} style={styles.logo} />
-
-      <Text style={styles.baseText}>
-        By continuing, you agree to our{' '}
-        <Text style={styles.innerText}>User Agreement </Text>
-        and <Text style={styles.innerText}>Privacy Policy.</Text>
-      </Text>
-
-      <TouchableOpacity style={styles.button}>
-        <MaterialIcons style={styles.buttonIcon} name='email' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Email</Text>
+      <Logo />
+      <Text style={styles.title}>Sign Up</Text>
+      <TouchableOpacity style={styles.leftArrow} onPress={() => navigation.goBack()}>
+        <AntDesign name='left' size={24} color='black' />
       </TouchableOpacity>
-
-      <View></View>
     </View>
   );
 };
@@ -73,10 +64,16 @@ const styles = StyleSheet.create({
   innerText: {
     fontWeight: 'bold',
   },
-  logo: {
-    width: 80,
-    height: 80,
-    marginBottom: 275,
-    borderRadius: 100,
+  title: {
+    position: 'absolute',
+    top: 35,
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  leftArrow: {
+    position: 'absolute',
+    top: 60,
+    left: 0,
   },
 });
