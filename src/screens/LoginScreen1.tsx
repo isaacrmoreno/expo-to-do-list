@@ -54,7 +54,7 @@ const LoginScreen1 = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={'height'}>
+    <View style={styles.container}>
       <Header ScreenTitle='Log In' />
       <Logo />
       <View style={styles.inputContainer}>
@@ -94,12 +94,12 @@ const LoginScreen1 = () => {
         )}
       </View>
 
-      <View style={styles.buttonContainer}>
+      <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
         <TouchableOpacity onPress={login} style={styles.button}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     width: '80%',
     alignItems: 'center',
-    marginBottom: 20,
   },
   button: {
     backgroundColor: '#fff',
@@ -137,6 +136,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+    marginBottom: 15,
   },
   buttonText: {
     fontSize: 16,

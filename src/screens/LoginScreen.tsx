@@ -125,7 +125,7 @@ const LoginScreen = () => {
         <TouchableOpacity
           onPress={register}
           style={[styles.button, styles.buttonOutline]}>
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonOutlineText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
