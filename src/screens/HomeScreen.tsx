@@ -1,21 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 import Logo from '../components/Logo';
-import SignUpButton from '../components/SignUpButton';
 
-const HomeScreen = () => {
+interface HomeProps {
+  text: any;
+}
+
+const HomeScreen: React.FC<HomeProps> = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   type RootStackParamList = {
     Login: undefined;
-    Email: undefined;
-    Apple: undefined;
-    Google: undefined;
-    SignUp: undefined;
+    SignUpApple: undefined;
+    SignUpGoogle: undefined;
+    SignUpEmail: undefined;
   };
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const constructionAlert = () => {
+    Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
+      { text: 'OK', onPress: () => console.log('OK Pressed') },
+    ]);
+  };
+
+  // const navigateToLoginSignUpScreen = async () => {
+  //   navigation.navigate('Login');
+  //   setSelectLoginScreen(true);
+  // };
 
   return (
     <View style={styles.container}>
@@ -27,39 +40,19 @@ const HomeScreen = () => {
         and <Text style={styles.innerText}>Privacy Policy.</Text>
       </Text>
 
-      {/* <SignUpButton
-        icon='google'
-        text='Continue With Google'
-        onPress={() => navigation.navigate('Google')}
-      />
-      <SignUpButton
-        icon='apple1'
-        text='Continue With Apple'
-        onPress={() => navigation.navigate('Apple')}
-      />
-      <SignUpButton
-        icon='mail'
-        text='Continue With Email'
-        onPress={() => navigation.navigate('Email')}
-      /> */}
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity style={styles.button} onPress={constructionAlert}>
         <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity style={styles.button} onPress={constructionAlert}>
         <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Apple </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('SignUp')}>
+        onPress={() => navigation.navigate('SignUpEmail')}>
         <AntDesign style={styles.buttonIcon} name='mail' size={24} color='black' />
         <Text style={styles.buttonText}>Continue with Email</Text>
       </TouchableOpacity>
@@ -67,7 +60,7 @@ const HomeScreen = () => {
       <View>
         <Text>
           Already a member?{' '}
-          <Text onPress={() => navigation.navigate('Login1')} style={styles.innerText}>
+          <Text onPress={() => navigation.navigate('Login')} style={styles.innerText}>
             Log In
           </Text>
         </Text>

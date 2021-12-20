@@ -9,20 +9,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { auth, db } from '../../firebase';
-import { collection } from 'firebase/firestore';
+import { auth } from '../../firebase';
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { Entypo } from '@expo/vector-icons';
+import Logo from '../components/Logo';
+import Header from '../components/Header';
+
+// interface loginScreenProps {
+//   selectLoginScreen: boolean;
+// }
 
 const LoginScreen = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [displayPassword, setDisplayPassword] = React.useState(false);
-
   const [user, setUser] = useState({});
 
   type RootStackParamList = {
@@ -31,19 +35,6 @@ const LoginScreen = () => {
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       navigation.replace('Task')
-  //     }
-  //   })
-  //   return unsubscribe
-  // }, [])
-
-  const usersRef = collection(db, 'users');
-
-  // await setDoc(doc(usersRef, "1"), { name: "John Doe" });
 
   const viewPassword = () => {
     setDisplayPassword(true);
@@ -60,15 +51,6 @@ const LoginScreen = () => {
     }
   });
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  };
-
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
@@ -78,8 +60,19 @@ const LoginScreen = () => {
     }
   };
 
+  const signUp = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={'padding'}>
+    <View style={styles.container}>
+      <Logo />
+      <Header ScreenTitle='Log In' />
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -117,18 +110,20 @@ const LoginScreen = () => {
         )}
       </View>
 
-      <View style={styles.buttonContainer}>
+      {/* {selectLoginScreen === true ? ( */}
+      <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
         <TouchableOpacity onPress={login} style={styles.button}>
           <Text style={styles.buttonText}>Log In</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={register}
-          style={[styles.button, styles.buttonOutline]}>
-          <Text style={styles.buttonOutlineText}>Sign Up</Text>
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+      {/* ) : (
+        <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+          <TouchableOpacity onPress={signUp} style={styles.button}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      )} */}
+    </View>
   );
 };
 
@@ -139,8 +134,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    marginBottom: 35,
   },
   inputContainer: {
+    position: 'absolute',
+    top: '35%',
     width: '80%',
   },
   input: {
@@ -148,40 +146,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
-    marginTop: 5,
+    marginTop: 10,
   },
   buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
+    width: '80%',
     alignItems: 'center',
-    marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
-    width: '100%',
+    backgroundColor: '#fff',
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 25,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: 15,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: '700',
     fontSize: 16,
-  },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#0782F9',
-    borderWidth: 2,
-  },
-  buttonOutlineText: {
-    color: '#0782F9',
+    textAlign: 'center',
+    flex: 1,
     fontWeight: '700',
-    fontSize: 16,
   },
   icon: {
     position: 'absolute',
-    right: 12,
-    top: 11,
+    right: 15,
+    top: 15,
   },
 });
