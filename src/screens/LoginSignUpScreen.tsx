@@ -115,19 +115,17 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({ selectLogin }) =>
         )}
       </View>
 
-      {selectLogin === true ? (
-        <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+      <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+        {selectLogin === true ? (
           <TouchableOpacity onPress={login} style={styles.button}>
             <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      ) : (
-        <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+        ) : (
           <TouchableOpacity onPress={signUp} style={styles.button}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      )}
+        )}
+      </KeyboardAvoidingView>
     </View>
   );
 };
