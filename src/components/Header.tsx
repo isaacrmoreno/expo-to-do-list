@@ -1,13 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+// import { StackNavigationProp } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 interface HeaderProps {
   ScreenTitle: string;
 }
 
+// type RootStackParamList = {
+//   Home: undefined;
+// };
+
 const Header: React.FC<HeaderProps> = ({ ScreenTitle }) => {
   const navigation = useNavigation();
+  // const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   return (
     <View style={styles.container}>
@@ -27,7 +33,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     marginHorizontal: 20,
-    // marginBottom: 35,
     width: '100%',
   },
   title: {

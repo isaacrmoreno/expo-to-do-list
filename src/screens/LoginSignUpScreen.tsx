@@ -19,18 +19,17 @@ import { Entypo } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
 
-// interface loginScreenProps {
-//   selectLoginScreen: boolean;
-// }
+interface loginSignUpScreenProps {
+  selectLogin: boolean;
+}
 
-const LoginScreen = () => {
+const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({ selectLogin }) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [displayPassword, setDisplayPassword] = React.useState(false);
   const [user, setUser] = useState({});
 
   type RootStackParamList = {
-    Login: undefined;
     Task: undefined;
   };
 
@@ -72,7 +71,13 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Logo />
-      <Header ScreenTitle='Log In' />
+
+      {selectLogin === true ? (
+        <Header ScreenTitle='Log In' />
+      ) : (
+        <Header ScreenTitle='Sign Up' />
+      )}
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -110,31 +115,30 @@ const LoginScreen = () => {
         )}
       </View>
 
-      {/* {selectLoginScreen === true ? ( */}
-      <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
-        <TouchableOpacity onPress={login} style={styles.button}>
-          <Text style={styles.buttonText}>Log In</Text>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-      {/* ) : (
+      {selectLogin === true ? (
+        <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+          <TouchableOpacity onPress={login} style={styles.button}>
+            <Text style={styles.buttonText}>Log In</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      ) : (
         <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
           <TouchableOpacity onPress={signUp} style={styles.button}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
-      )} */}
+      )}
     </View>
   );
 };
 
-export default LoginScreen;
+export default LoginSignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    marginBottom: 35,
   },
   inputContainer: {
     position: 'absolute',
