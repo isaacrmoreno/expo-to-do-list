@@ -13,17 +13,19 @@ const HomeScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   type RootStackParamList = {
-    Login: undefined;
+    LoginSignUp: undefined;
     SignUpApple: undefined;
     SignUpGoogle: undefined;
   };
 
   const handleLogin = () => {
     setSelectLogin(true);
+    // navigation.navigate('LoginSignUp');
   };
 
   const handleSignUp = () => {
     setSelectSignUp(true);
+    // navigation.navigate('LoginSignUp');
   };
 
   const constructionAlert = () => {
@@ -38,6 +40,10 @@ const HomeScreen = () => {
         <LoginSignUpScreen selectLogin={selectLogin} />
       ) : (
         <>
+          {/* <View style={styles.LoginSignUp}> */}
+          {/* <LoginSignUpScreen selectLogin={selectLogin} /> */}
+          {/* </View> */}
+
           <Logo />
           <Text style={styles.baseText}>
             By continuing, you agree to our{' '}
@@ -106,5 +112,8 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontWeight: 'bold',
+  },
+  LoginSignUp: {
+    display: 'none',
   },
 });

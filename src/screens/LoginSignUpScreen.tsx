@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    marginBottom: 15,
   },
   inputContainer: {
     position: 'absolute',
