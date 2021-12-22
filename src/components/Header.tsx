@@ -1,24 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigation } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 interface HeaderProps {
   ScreenTitle: string;
 }
 
-type RootStackParamList = {
-  Home: undefined;
-};
-
 const Header: React.FC<HeaderProps> = ({ ScreenTitle }) => {
-  // const navigation = useNavigation();
-  const navigation = useNavigation<StackNavigation<RootStackParamList>>();
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{ScreenTitle}</Text>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backArrow}>
+      <TouchableOpacity style={styles.backArrow} onPress={() => navigation.goBack()}>
         {console.log('clicked')}
         <AntDesign name='left' size={24} color='black' />
       </TouchableOpacity>
