@@ -13,6 +13,7 @@ const Header: React.FC<HeaderProps> = ({ ScreenTitle }) => {
     <View style={styles.container}>
       <Text style={styles.title}>{ScreenTitle}</Text>
       <TouchableOpacity style={styles.backArrow} onPress={() => navigation.goBack()}>
+        {console.log('clicked')}
         <AntDesign name='left' size={24} color='black' />
       </TouchableOpacity>
     </View>
@@ -23,23 +24,18 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
     flex: 1,
-    marginHorizontal: 20,
-    // marginBottom: 35,
-    width: '100%',
   },
   title: {
-    position: 'absolute',
     top: 35,
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
   },
   backArrow: {
+    padding: 10,
     position: 'absolute',
-    top: 55,
-    left: 5,
+    top: 50,
+    right: 180,
   },
 });

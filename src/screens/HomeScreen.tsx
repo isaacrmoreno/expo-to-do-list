@@ -4,67 +4,68 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 import Logo from '../components/Logo';
+import LoginSignUpScreen from './LoginSignUpScreen';
 
-interface HomeProps {
-  text: any;
-}
+const HomeScreen = () => {
+  const [selectLogin, setSelectLogin] = React.useState(false);
+  const [selectSignUp, setSelectSignUp] = React.useState(false);
 
-const HomeScreen: React.FC<HomeProps> = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   type RootStackParamList = {
     Login: undefined;
     SignUpApple: undefined;
     SignUpGoogle: undefined;
-    SignUpEmail: undefined;
+  };
+
+  const handleLogin = () => {
+    setSelectLogin(true);
+  };
+
+  const handleSignUp = () => {
+    setSelectSignUp(true);
   };
 
   const constructionAlert = () => {
     Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
-      { text: 'OK', onPress: () => console.log('OK Pressed') },
+      { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
     ]);
   };
 
-  // const navigateToLoginSignUpScreen = async () => {
-  //   navigation.navigate('Login');
-  //   setSelectLoginScreen(true);
-  // };
-
   return (
     <View style={styles.container}>
-      <Logo />
-
-      <Text style={styles.baseText}>
-        By continuing, you agree to our{' '}
-        <Text style={styles.innerText}>User Agreement </Text>
-        and <Text style={styles.innerText}>Privacy Policy.</Text>
-      </Text>
-
-      <TouchableOpacity style={styles.button} onPress={constructionAlert}>
-        <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Google</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={constructionAlert}>
-        <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Apple </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SignUpEmail')}>
-        <AntDesign style={styles.buttonIcon} name='mail' size={24} color='black' />
-        <Text style={styles.buttonText}>Continue with Email</Text>
-      </TouchableOpacity>
-
-      <View>
-        <Text>
-          Already a member?{' '}
-          <Text onPress={() => navigation.navigate('Login')} style={styles.innerText}>
-            Log In
+      {selectLogin || selectSignUp === true ? (
+        <LoginSignUpScreen selectLogin={selectLogin} />
+      ) : (
+        <>
+          <Logo />
+          <Text style={styles.baseText}>
+            By continuing, you agree to our{' '}
+            <Text style={styles.innerText}>User Agreement </Text>
+            and <Text style={styles.innerText}>Privacy Policy.</Text>
           </Text>
-        </Text>
-      </View>
+          <TouchableOpacity style={styles.button} onPress={constructionAlert}>
+            <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
+            <Text style={styles.buttonText}>Continue with Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={constructionAlert}>
+            <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
+            <Text style={styles.buttonText}>Continue with Apple </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+            <AntDesign style={styles.buttonIcon} name='mail' size={24} color='black' />
+            <Text style={styles.buttonText}>Continue with Email</Text>
+          </TouchableOpacity>
+          <View>
+            <Text>
+              Already a member?{' '}
+              <Text onPress={handleLogin} style={styles.innerText}>
+                Log In
+              </Text>
+            </Text>
+          </View>
+        </>
+      )}
     </View>
   );
 };
