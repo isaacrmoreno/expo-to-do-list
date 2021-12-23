@@ -17,11 +17,6 @@ export default function App() {
           component={HomeScreen}
         />
         <Stack.Screen
-          options={{ headerShown: false }}
-          name='LoginSignUp'
-          component={LoginSignUpScreen}
-        />
-        <Stack.Screen
           options={{ headerShown: false, title: 'Task' }}
           name='Task'
           component={TaskScreen}

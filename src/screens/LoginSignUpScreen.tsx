@@ -21,9 +21,13 @@ import Header from '../components/Header';
 
 interface loginSignUpScreenProps {
   selectLogin: boolean;
+  toggleLoginSignUp: () => void;
 }
 
-const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({ selectLogin }) => {
+const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
+  selectLogin,
+  toggleLoginSignUp,
+}) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [displayPassword, setDisplayPassword] = React.useState(false);
@@ -113,6 +117,23 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({ selectLogin }) =>
             </TouchableOpacity>
           </View>
         )}
+        <View>
+          {selectLogin === true ? (
+            <Text style={styles.baseText}>
+              Dont have an account?{' '}
+              <Text style={styles.innerText} onPress={toggleLoginSignUp}>
+                Sign Up
+              </Text>
+            </Text>
+          ) : (
+            <Text style={styles.baseText}>
+              Already a member?{' '}
+              <Text style={styles.innerText} onPress={toggleLoginSignUp}>
+                Log In
+              </Text>
+            </Text>
+          )}
+        </View>
       </View>
 
       <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
@@ -137,11 +158,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    marginBottom: 15,
   },
   inputContainer: {
     position: 'absolute',
-    top: '35%',
+    top: '30%',
     width: '80%',
   },
   input: {
@@ -163,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 15,
+    marginBottom: 20,
   },
   buttonText: {
     fontSize: 16,
@@ -175,5 +195,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 15,
     top: 15,
+  },
+  baseText: {
+    marginTop: 10,
+    textAlign: 'center',
+    fontSize: 13,
+  },
+  innerText: {
+    fontWeight: 'bold',
   },
 });

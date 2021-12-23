@@ -20,12 +20,25 @@ const HomeScreen = () => {
 
   const handleLogin = () => {
     setSelectLogin(true);
-    // navigation.navigate('LoginSignUp');
   };
 
   const handleSignUp = () => {
     setSelectSignUp(true);
-    // navigation.navigate('LoginSignUp');
+  };
+
+  const resetLoginSignUp = () => {
+    setSelectLogin(false);
+    setSelectSignUp(false);
+  };
+
+  const toggleLoginSignUp = () => {
+    if (selectLogin === true) {
+      setSelectLogin(false);
+      setSelectSignUp(true);
+    } else {
+      setSelectLogin(true);
+      setSelectSignUp(false);
+    }
   };
 
   const constructionAlert = () => {
@@ -37,13 +50,17 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       {selectLogin || selectSignUp === true ? (
-        <LoginSignUpScreen selectLogin={selectLogin} />
+        <>
+          <LoginSignUpScreen
+            selectLogin={selectLogin}
+            toggleLoginSignUp={toggleLoginSignUp}
+          />
+          <TouchableOpacity style={styles.backArrow} onPress={resetLoginSignUp}>
+            <AntDesign name='left' size={24} color='black' />
+          </TouchableOpacity>
+        </>
       ) : (
         <>
-          {/* <View style={styles.LoginSignUp}> */}
-          {/* <LoginSignUpScreen selectLogin={selectLogin} /> */}
-          {/* </View> */}
-
           <Logo />
           <Text style={styles.baseText}>
             By continuing, you agree to our{' '}
@@ -113,7 +130,10 @@ const styles = StyleSheet.create({
   innerText: {
     fontWeight: 'bold',
   },
-  LoginSignUp: {
-    display: 'none',
+  backArrow: {
+    padding: 10,
+    position: 'absolute',
+    top: 50,
+    left: -10,
   },
 });
