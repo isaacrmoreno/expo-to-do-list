@@ -25,6 +25,4 @@ const colRef = collection(db, 'users');
 
 // Get Collection Data
 getDocs(colRef)
-  .then((snapshot) => {
-
-  })
+  .then((snapshot) => {})

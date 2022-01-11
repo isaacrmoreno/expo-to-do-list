@@ -30,8 +30,7 @@ const GoogleSignIn = () => {
 
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
-      // GoogleAuthProvider.credential(id_token);
-      const credential = GoogleAuthProvider.credential(id_token);
+      const credential = provider.credential(id_token);
       signInWithCredential(auth, credential);
     }
   }, [response]);
