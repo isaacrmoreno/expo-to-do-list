@@ -41,6 +41,10 @@ const HomeScreen = () => {
     }
   };
 
+  const handleGoogleSignIn = () => {
+    navigation.navigate('SignUpGoogle');
+  };
+
   const constructionAlert = () => {
     Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
       { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
@@ -67,7 +71,7 @@ const HomeScreen = () => {
             <Text style={styles.innerText}>User Agreement </Text>
             and <Text style={styles.innerText}>Privacy Policy.</Text>
           </Text>
-          <TouchableOpacity style={styles.button} onPress={constructionAlert}>
+          <TouchableOpacity style={styles.button} onPress={handleGoogleSignIn}>
             <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
             <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
