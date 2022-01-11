@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import { ResponseType } from 'expo-auth-session';
+// import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { Button } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 // Initialize Firebase
@@ -30,33 +30,40 @@ const GoogleSignIn = () => {
 
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
-      const credential = provider.credential(id_token);
+      // GoogleAuthProvider.credential(id_token);
+      const credential = GoogleAuthProvider.credential(id_token);
       signInWithCredential(auth, credential);
     }
   }, [response]);
 
   return (
-    <Button
-      style={styles.signInButton}
-      disabled={!request}
-      title='Login'
-      onPress={() => {
-        promptAsync();
-      }}
-    />
+    <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.signInButton}
+        disabled={!request}
+        onPress={() => {
+          promptAsync();
+        }}>
+        <Text>Login</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 export default GoogleSignIn;
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
   signInButton: {
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
     backgroundColor: '#fff',
-    borderRadius: 60,
-    borderColor: 'red',
-    borderWidth: 1,
+    borderRadius: 80,
     width: 100,
   },
 });
