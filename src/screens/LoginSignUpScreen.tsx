@@ -18,6 +18,7 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
+import SignUpButton from '../components/SignUpButton'
 
 interface loginSignUpScreenProps {
   selectLogin: boolean;
@@ -28,10 +29,10 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   selectLogin,
   toggleLoginSignUp,
 }) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [displayPassword, setDisplayPassword] = React.useState(false);
-  const [user, setUser] = useState({});
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [displayPassword, setDisplayPassword] = useState<boolean>(false);
+  const [user, setUser] = useState<{}>({});
 
   type RootStackParamList = {
     Task: undefined;
@@ -49,9 +50,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(user);
-    if (currentUser) {
-      navigation.replace('Task');
-    }
+    (currentUser) ? navigation.replace('Task') : null  // maybe display toast error message.
   });
 
   const login = async () => {
@@ -75,13 +74,10 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   return (
     <View style={styles.container}>
       <Logo />
-
-      {selectLogin === true ? (
-        <Header ScreenTitle='Log In' />
-      ) : (
-        <Header ScreenTitle='Sign Up' />
-      )}
-
+      {(selectLogin) 
+			? (<Header ScreenTitle='Log In' />) 
+			: (<Header ScreenTitle='Sign Up' />)
+			}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}

@@ -5,6 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import LoginSignUpScreen from './LoginSignUpScreen';
+import SignUpButton from '../components/SignUpButton'
 
 const HomeScreen = () => {
   const [selectLogin, setSelectLogin] = React.useState(false);
@@ -55,34 +56,25 @@ const HomeScreen = () => {
     <View style={styles.container}>
       {selectLogin || selectSignUp === true ? (
         <>
+          <TouchableOpacity style={styles.backArrow} onPress={resetLoginSignUp}>
+            <AntDesign name='left' size={24} color='black' />
+          </TouchableOpacity>
           <LoginSignUpScreen
             selectLogin={selectLogin}
             toggleLoginSignUp={toggleLoginSignUp}
           />
-          <TouchableOpacity style={styles.backArrow} onPress={resetLoginSignUp}>
-            <AntDesign name='left' size={24} color='black' />
-          </TouchableOpacity>
         </>
       ) : (
         <>
           <Logo />
-          <Text style={styles.baseText}>
+          {/* <Text style={styles.baseText}>
             By continuing, you agree to our{' '}
             <Text style={styles.innerText}>User Agreement </Text>
             and <Text style={styles.innerText}>Privacy Policy.</Text>
           </Text>
-          <TouchableOpacity style={styles.button} onPress={handleGoogleSignIn}>
-            <AntDesign style={styles.buttonIcon} name='google' size={24} color='black' />
-            <Text style={styles.buttonText}>Continue with Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={constructionAlert}>
-            <AntDesign style={styles.buttonIcon} name='apple1' size={24} color='black' />
-            <Text style={styles.buttonText}>Continue with Apple </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-            <AntDesign style={styles.buttonIcon} name='mail' size={24} color='black' />
-            <Text style={styles.buttonText}>Continue with Email</Text>
-          </TouchableOpacity>
+					<SignUpButton name='google' authType='Google' size={24} color='black' onPress={handleGoogleSignIn}/>
+					<SignUpButton name='apple1' authType='Apple' size={24} color='black' onPress={constructionAlert}/> */}
+					<SignUpButton name='mail' authType='Email' size={24} color='black' onPress={handleSignUp}/>
           <View>
             <Text>
               Already a member?{' '}
