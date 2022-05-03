@@ -66,7 +66,7 @@ export default function TaskButtons() {
     <SafeAreaView style={styles.container}>
       <View style={styles.taskWrapper}>
         <View style={styles.headerWrapper}>
-          <Text style={styles.sectionTitle}>Task List</Text>
+
           <TouchableOpacity>
             <LogOutButton />
           </TouchableOpacity>
@@ -98,7 +98,7 @@ export default function TaskButtons() {
           onChangeText={(text) => setTask(text)}
         />
 
-        {updateIcon === true ? (
+        {(updateIcon) ? (
           <TouchableOpacity onPress={handleUpdateTask}>
             <View style={styles.addWrapper}>
               <AntDesign name='check' size={24} color='black' />
@@ -130,10 +130,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
   writeTaskWrapper: {
     position: 'absolute',
