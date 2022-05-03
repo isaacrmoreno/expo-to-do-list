@@ -99,25 +99,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginBottom: 35,
   },
-  button: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 25,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    width: '100%',
-  },
-  buttonText: {
-    fontSize: 16,
-    flex: 1,
-    textAlign: 'center',
-  },
-  buttonIcon: {
-    position: 'absolute',
-    left: 15,
-  },
   baseText: {
     fontSize: 14,
     textAlign: 'center',
