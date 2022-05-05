@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-interface HeaderProps {
-  ScreenTitle: string;
-}
+import { HeaderProps } from '../types/index'
 
 const Header: React.FC<HeaderProps> = ({ ScreenTitle }) => {
   return (

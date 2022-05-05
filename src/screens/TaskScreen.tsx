@@ -13,7 +13,6 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import { auth } from '../../firebase';
 
 import TaskItem from '../components/TaskItem';
