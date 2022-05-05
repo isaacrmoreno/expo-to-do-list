@@ -3,50 +3,52 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  Text,
   View,
   TextInput,
-  TouchableOpacity,
   Keyboard,
   Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
 } from 'react-native';
-import { auth } from '../../firebase';
 
 import TaskItem from '../components/TaskItem';
-import LogOutButton from '../components/LogOutButton';
 import AddTaskButton from '../components/AddTaskButton';
 
 export default function TaskButtons() {
-  const [task, setTask] = useState<string | null>('');
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [taskItems, setTaskItems] = useState<Array<string | null>>([]);
-  const [updateIcon, setUpdateIcon] = useState<Boolean>(false);
+const [task, setTask] = useState<string | null>('');
+const [currentIndex, setCurrentIndex] = useState<number>(0);
+const [taskItems, setTaskItems] = useState<Array<string | null>>([]);
+const [updateIcon, setUpdateIcon] = useState<Boolean>(false);
 
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
-  };
+const handleAddTask = () => {
+Keyboard.dismiss();
+setTaskItems([...taskItems, task]);
+setTask(null);
+};
 
-  const editTask = (index: number) => {
-    setUpdateIcon(true);
-    const newTask = taskItems[index];
-    setTask(newTask);
-    setCurrentIndex(index);
-  };
+const editTask = (index: number) => {
+setUpdateIcon(true);
+const newTask = taskItems[index];
+setTask(newTask);
+setCurrentIndex(index);
+};
 
-  const handleUpdateTask = () => {
-    setUpdateIcon(false);
-    Keyboard.dismiss();
-    let taskItemsCopy = [...taskItems];
-    taskItemsCopy.splice(currentIndex, 1, task);
-    setTaskItems(taskItemsCopy);
-    setTask(null);
-  };
+const handleUpdateTask = () => {
+setUpdateIcon(false);
+Keyboard.dismiss();
+let taskItemsCopy = [...taskItems];
+taskItemsCopy.splice(currentIndex, 1, task);
+setTaskItems(taskItemsCopy);
+setTask(null);
+};
 
+const completeTask = (index: number) => {
+	let itemsCopy = [...taskItems];
+	itemsCopy.splice(index, 1);
+	setTaskItems(itemsCopy);
+};
+		
   const confirmDeleteAlert = (index: number) =>
     Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
       {
@@ -56,22 +58,9 @@ export default function TaskButtons() {
       { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
     ]);
 
-  const completeTask = (index: number) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.taskWrapper}>
-        <View style={styles.headerWrapper}>
-
-          <TouchableOpacity>
-            <LogOutButton />
-          </TouchableOpacity>
-          <Text>Email: {auth.currentUser?.email}</Text>
-        </View>
         <ScrollView style={styles.scrollView}>
           {taskItems.map((item, index) => {
             return (
@@ -87,7 +76,6 @@ export default function TaskButtons() {
           })}
         </ScrollView>
       </View>
-
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}>
@@ -97,7 +85,6 @@ export default function TaskButtons() {
           value={task}
           onChangeText={(text) => setTask(text)}
         />
-
         {(updateIcon) 
 					? (<AddTaskButton name='check' size={24} color='black' onPress={handleUpdateTask}/>) 
 					: (<AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask}/>)}
@@ -113,17 +100,11 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight,
   },
   taskWrapper: {
-    paddingTop: 80,
     paddingHorizontal: 20,
-  },
-  headerWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 30,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {
+	Button,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
@@ -18,6 +19,7 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
+import Toast from 'react-native-toast-message';
 import SignUpButton from '../components/SignUpButton'
 
 interface loginSignUpScreenProps {
@@ -50,12 +52,12 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(user);
-    (currentUser) ? navigation.replace('Drawer') : null  // maybe display toast error message.
+    (currentUser) ? navigation.replace('Drawer') : null
   });
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      const user = await signInWithEmailAndPassword(auth, email, password)
       console.log(user);
     } catch (error: any) {
       console.log(error.message);
