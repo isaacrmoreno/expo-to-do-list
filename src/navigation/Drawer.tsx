@@ -1,4 +1,6 @@
-import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
 
