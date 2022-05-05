@@ -18,6 +18,7 @@ import { auth } from '../../firebase';
 
 import TaskItem from '../components/TaskItem';
 import LogOutButton from '../components/LogOutButton';
+import AddTaskButton from '../components/AddTaskButton';
 
 export default function TaskButtons() {
   const [task, setTask] = useState<string | null>('');
@@ -98,19 +99,9 @@ export default function TaskButtons() {
           onChangeText={(text) => setTask(text)}
         />
 
-        {(updateIcon) ? (
-          <TouchableOpacity onPress={handleUpdateTask}>
-            <View style={styles.addWrapper}>
-              <AntDesign name='check' size={24} color='black' />
-            </View>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={handleAddTask}>
-            <View style={styles.addWrapper}>
-              <AntDesign name='plus' size={24} color='black' />
-            </View>
-          </TouchableOpacity>
-        )}
+        {(updateIcon) 
+					? (<AddTaskButton name='check' size={24} color='black' onPress={handleUpdateTask}/>) 
+					: (<AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask}/>)}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -147,17 +138,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 250,
-  },
-  addWrapper: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#fff',
-    borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
+    width: 300,
   },
   scrollView: {
     marginTop: 30,
