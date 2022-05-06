@@ -87,7 +87,6 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
-
         {displayPassword === true ? (
           <View>
             <TextInput

@@ -37,7 +37,6 @@ export default LogOutButton;
 
 const styles = StyleSheet.create({
   signOutButton: {
-		// paddingTop: 50,
 		marginTop: 200, 
     justifyContent: 'center',
     alignItems: 'center',
