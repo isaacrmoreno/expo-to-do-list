@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -8,76 +8,72 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { auth } from '../../firebase';
+  ActivityIndicator,
+} from 'react-native'
+import { auth } from '../../firebase'
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
-} from 'firebase/auth';
-import { Entypo } from '@expo/vector-icons';
-import Logo from '../components/Logo';
-import Header from '../components/Header';
-import { loginSignUpScreenProps } from '../types';
-import Toast from 'react-native-toast-message';
+} from 'firebase/auth'
+import { Entypo } from '@expo/vector-icons'
+import Logo from '../components/Logo'
+import Header from '../components/Header'
+import { loginSignUpScreenProps } from '../types'
+import Toast from 'react-native-toast-message'
 import SignUpButton from '../components/SignUpButton'
 
 const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   selectLogin,
   toggleLoginSignUp,
 }) => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [displayPassword, setDisplayPassword] = useState<boolean>(false);
-  const [user, setUser] = useState<{}>({});
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [displayPassword, setDisplayPassword] = useState<boolean>(false)
+  const [user, setUser] = useState<{}>({})
 
   type RootStackParamList = {
-    Drawer: undefined;
-  };
+    Drawer: undefined
+  }
 
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
   const viewPassword = () => {
-    setDisplayPassword(true);
-  };
+    setDisplayPassword(true)
+  }
 
   const hidePassword = () => {
-    setDisplayPassword(false);
-  };
+    setDisplayPassword(false)
+  }
 
   onAuthStateChanged(auth, (currentUser) => {
-    setUser(user);
-    (currentUser) ? navigation.replace('Drawer') : null
-  });
+    setUser(user)
+    currentUser ? navigation.replace('Drawer') : null
+  })
 
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
-      // console.log('user',user);
-			console.log('auth',auth)
-			// console.log('email',email)
-			// console.log('password',password)
+      console.log('user', user)
+      console.log('auth', auth)
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   const signUp = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      const user = await createUserWithEmailAndPassword(auth, email, password)
+      console.log(user)
     } catch (error: any) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   return (
     <View style={styles.container}>
       <Logo />
-      {(selectLogin) 
-			? (<Header ScreenTitle='Log In' />) 
-			: (<Header ScreenTitle='Sign Up' />)
-			}
+      {selectLogin ? <Header ScreenTitle='Log In' /> : <Header ScreenTitle='Sign Up' />}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -131,6 +127,8 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         </View>
       </View>
 
+      {/* <ActivityIndicator size='large' animating={false} /> */}
+
       <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
         {selectLogin === true ? (
           <TouchableOpacity onPress={login} style={styles.button}>
@@ -143,10 +141,10 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         )}
       </KeyboardAvoidingView>
     </View>
-  );
-};
+  )
+}
 
-export default LoginSignUpScreen;
+export default LoginSignUpScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -199,4 +197,4 @@ const styles = StyleSheet.create({
   innerText: {
     fontWeight: 'bold',
   },
-});
+})
