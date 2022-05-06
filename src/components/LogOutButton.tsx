@@ -21,11 +21,10 @@ const LogOutButton = () => {
   };
 
   return (
-    <View>
-			<View style={styles.headerWrapper}>
-				<Text>Email: {auth.currentUser?.email}</Text>
+    <View style={styles.containerWrapper}>
+			<View style={styles.auth}>
+				<Text>Logged In: {auth.currentUser?.email}</Text>
 			</View>
-      {/* <TouchableOpacity onPress={() => alert('hi')} style={styles.signOutButton}> */}
       <TouchableOpacity onPress={logOut} style={styles.signOutButton}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
@@ -36,20 +35,27 @@ const LogOutButton = () => {
 export default LogOutButton;
 
 const styles = StyleSheet.create({
+	containerWrapper: { 
+		flex: 1,
+		justifyContent: 'center',
+    alignItems: 'center',
+		position: 'relative',
+    paddingHorizontal: 20,
+	},
   signOutButton: {
-		marginTop: 200, 
+		position: 'absolute',
+		bottom: 60,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 60,
     borderColor: '#C0C0C0',
     borderWidth: 1,
-    width: 100,
     height: 30,
+		width: '100%'
   },
-		headerWrapper: {
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		auth: {
+		position: 'absolute',
+		bottom: 100,
 	},
 });
