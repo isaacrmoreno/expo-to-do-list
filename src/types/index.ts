@@ -9,6 +9,11 @@ export interface HeaderProps {
   ScreenTitle: string;
 }
 
+export interface loginSignUpScreenProps {
+  selectLogin: boolean;
+  toggleLoginSignUp: () => void;
+}
+
 export interface SignUpButtonProps {
   name: 'google' | 'apple1' | 'mail'
 	authType: string

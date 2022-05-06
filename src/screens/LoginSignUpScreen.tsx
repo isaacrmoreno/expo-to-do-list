@@ -18,13 +18,9 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import Header from '../components/Header';
+import { loginSignUpScreenProps } from '../types';
 import Toast from 'react-native-toast-message';
 import SignUpButton from '../components/SignUpButton'
-
-interface loginSignUpScreenProps {
-  selectLogin: boolean;
-  toggleLoginSignUp: () => void;
-}
 
 const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   selectLogin,
@@ -57,7 +53,10 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password)
-      console.log(user);
+      // console.log('user',user);
+			console.log('auth',auth)
+			// console.log('email',email)
+			// console.log('password',password)
     } catch (error: any) {
       console.log(error.message);
     }
