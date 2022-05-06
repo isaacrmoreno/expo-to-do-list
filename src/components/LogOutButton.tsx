@@ -22,9 +22,12 @@ const LogOutButton = () => {
 
   return (
     <View style={styles.containerWrapper}>
-			<View style={styles.auth}>
-				<Text>Logged In: {auth.currentUser?.email}</Text>
-			</View>
+				{(auth?.currentUser === null
+					? null 
+					: <View style={styles.auth}>
+							<Text>Logged In: {auth.currentUser?.email}</Text> 
+						</View>
+				)}
       <TouchableOpacity onPress={logOut} style={styles.signOutButton}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
