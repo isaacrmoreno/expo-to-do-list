@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import React from 'react'
+import tw from 'twrnc'
+import { View, Text } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 import { TaskItemProps } from '../types/index'
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -10,16 +11,16 @@ const TaskItem: React.FC<TaskItemProps> = ({
   editTask,
 }) => {
   return (
-    <View style={styles.item}>
-      <View style={styles.itemLeft}>
+    <View style={tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`}>
+      <View style={tw`flex-row items-center`}>
         <Feather
-          style={styles.editButton}
+          style={tw`mr-4`}
           name='edit'
           size={24}
           color='black'
           onPress={() => editTask(index)}
         />
-        <Text style={styles.itemText}>{text}</Text>
+        <Text style={tw`max-w-65`}>{text}</Text>
       </View>
       <Feather
         name='trash-2'
@@ -28,30 +29,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         onPress={() => confirmDeleteAlert(index)}
       />
     </View>
-  );
-};
+  )
+}
 
-export default TaskItem;
-
-const styles = StyleSheet.create({
-  item: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  itemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  itemText: {
-    maxWidth: '80%',
-  },
-  editButton: {
-    marginRight: 15,
-  },
-});
+export default TaskItem

@@ -1,19 +1,10 @@
-import React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import logo from '../../assets/icon.png';
+import React from 'react'
+import tw from 'twrnc'
+import { Image } from 'react-native'
+import logo from '../../assets/icon.png'
 
 const Logo = () => {
-  return <Image source={logo} style={styles.logo} />;
-};
+  return <Image source={logo} style={tw`absolute w-20 h-20 top-35 rounded-full`} />
+}
 
-export default Logo;
-
-const styles = StyleSheet.create({
-  logo: {
-    position: 'absolute',
-    top: 140,
-    width: 80,
-    height: 80,
-    borderRadius: 100,
-  },
-});
+export default Logo

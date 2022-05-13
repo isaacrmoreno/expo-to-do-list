@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import tw from 'twrnc'
+import { Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack/'
 import * as WebBrowser from 'expo-web-browser'
@@ -28,17 +29,18 @@ const LogOutButton = () => {
   }
 
   return (
-    <View style={styles.containerWrapper}>
+    <View style={tw`flex-1 items-center px-5`}>
       {auth?.currentUser === null ? null : (
-        <View style={styles.auth}>
+        <View style={tw`absolute bottom-25`}>
           <Text>Logged In: {auth.currentUser?.email}</Text>
         </View>
       )}
-
-      <TouchableOpacity onPress={logOut} style={styles.signOutButton}>
+      <TouchableOpacity
+        onPress={logOut}
+        style={tw`absolute bottom-16 justify-center items-center bg-slate-100 border rounded-full h-6 w-full`}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
-      <View style={styles.footer}>
+      <View style={tw`absolute flex-row bottom-5 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
           <AntDesign name='github' size={30} color='black' />
         </TouchableOpacity>
@@ -49,49 +51,3 @@ const LogOutButton = () => {
 }
 
 export default LogOutButton
-
-const styles = StyleSheet.create({
-  containerWrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    paddingHorizontal: 20,
-  },
-  signOutButton: {
-    position: 'absolute',
-    bottom: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    height: 30,
-    width: '100%',
-  },
-  githubButton: {
-    position: 'absolute',
-    bottom: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    height: 30,
-    width: '100%',
-  },
-  auth: {
-    position: 'absolute',
-    bottom: 100,
-  },
-  footer: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingHorizontal: 30,
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 20,
-  },
-})

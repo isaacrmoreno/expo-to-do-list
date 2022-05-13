@@ -1,31 +1,14 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import tw from 'twrnc'
+import { Text, View } from 'react-native'
 import { HeaderProps } from '../types/index'
 
 const Header: React.FC<HeaderProps> = ({ ScreenTitle }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{ScreenTitle}</Text>
+    <View style={tw`flex-1`}>
+      <Text style={tw`top-14 font-bold text-2xl`}>{ScreenTitle}</Text>
     </View>
-  );
-};
+  )
+}
 
-export default Header;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  title: {
-    top: 35,
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 20,
-  },
-  backArrow: {
-    padding: 10,
-    position: 'absolute',
-    top: 50,
-    right: 180,
-  },
-});
+export default Header
