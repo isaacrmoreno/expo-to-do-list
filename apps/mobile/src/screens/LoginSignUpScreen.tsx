@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
+import tw from 'twrnc'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import {
   KeyboardAvoidingView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -21,7 +21,6 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import { loginSignUpScreenProps } from '../types'
 import Toast from 'react-native-toast-message'
-import SignUpButton from '../components/SignUpButton'
 
 const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   selectLogin,
@@ -85,12 +84,12 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={tw`flex-1 justify-center items-center`}>
       <Logo />
       {selectLogin ? <Header ScreenTitle='Log In' /> : <Header ScreenTitle='Sign Up' />}
-      <View style={styles.inputContainer}>
+      <View style={tw`absolute top-1/3 w-10/12`}>
         <TextInput
-          style={styles.input}
+          style={tw`bg-white px-5 py-3 rounded-xl mb-4`}
           placeholder='email'
           value={email}
           onChangeText={(text) => setEmail(text)}
@@ -98,49 +97,48 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         {displayPassword === true ? (
           <View>
             <TextInput
-              style={styles.input}
+              style={tw`bg-white px-5 py-3 rounded-xl mb-2`}
               placeholder='password'
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={false}
             />
-            <TouchableOpacity style={styles.icon} onPress={hidePassword}>
+            <TouchableOpacity style={tw`absolute top-3 right-5`} onPress={hidePassword}>
               <Entypo name='eye-with-line' size={24} color='black' />
             </TouchableOpacity>
           </View>
         ) : (
           <View>
             <TextInput
-              style={styles.input}
+              style={tw`bg-white px-5 py-3 rounded-xl mb-2`}
               placeholder='password'
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
-            <TouchableOpacity style={styles.icon} onPress={viewPassword}>
+            <TouchableOpacity style={tw`absolute top-3 right-5`} onPress={viewPassword}>
               <Entypo name='eye' size={24} color='black' />
             </TouchableOpacity>
           </View>
         )}
         <View>
           {selectLogin === true ? (
-            <Text style={styles.baseText}>
+            <Text style={tw`font-base text-center`}>
               Dont have an account?{' '}
-              <Text style={styles.innerText} onPress={toggleLoginSignUp}>
+              <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
                 Sign Up
               </Text>
             </Text>
           ) : (
-            <Text style={styles.baseText}>
+            <Text style={tw`font-base text-center`}>
               Already a member?{' '}
-              <Text style={styles.innerText} onPress={toggleLoginSignUp}>
+              <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
                 Log In
               </Text>
             </Text>
           )}
         </View>
       </View>
-
       {/* {user === true ? (
         <ActivityIndicator
           size='large'
@@ -154,15 +152,18 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
           style={styles.activityIndicator}
         />
       )} */}
-
-      <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
+      <KeyboardAvoidingView style={tw`items-center w-10/12`} behavior='position'>
         {selectLogin === true ? (
-          <TouchableOpacity onPress={login} style={styles.button}>
-            <Text style={styles.buttonText}>Log In</Text>
+          <TouchableOpacity
+            onPress={login}
+            style={tw`bg-white p-4 flex-row w-full rounded-full`}>
+            <Text style={tw`flex-1 text-lg font-bold text-center`}>Log In</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={signUp} style={styles.button}>
-            <Text style={styles.buttonText}>Sign Up</Text>
+          <TouchableOpacity
+            onPress={signUp}
+            style={tw`bg-white p-4 flex-row w-full rounded-full`}>
+            <Text style={tw`flex-1 text-lg font-bold text-center`}>Sign Up</Text>
           </TouchableOpacity>
         )}
       </KeyboardAvoidingView>
@@ -171,60 +172,3 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
 }
 
 export default LoginSignUpScreen
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  inputContainer: {
-    position: 'absolute',
-    top: '30%',
-    width: '80%',
-  },
-  input: {
-    backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  buttonContainer: {
-    width: '80%',
-    alignItems: 'center',
-  },
-  button: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 25,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 20,
-  },
-  buttonText: {
-    fontSize: 16,
-    textAlign: 'center',
-    flex: 1,
-    fontWeight: '700',
-  },
-  icon: {
-    position: 'absolute',
-    right: 15,
-    top: 15,
-  },
-  baseText: {
-    marginTop: 10,
-    textAlign: 'center',
-    fontSize: 13,
-  },
-  innerText: {
-    fontWeight: 'bold',
-  },
-  activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-})

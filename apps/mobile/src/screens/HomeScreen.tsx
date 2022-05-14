@@ -1,48 +1,51 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import Logo from '../components/Logo';
-import LoginSignUpScreen from './LoginSignUpScreen';
+import React from 'react'
+import tw from 'twrnc'
+import { Text, TouchableOpacity, View, Alert } from 'react-native'
+import { AntDesign } from '@expo/vector-icons'
+import Logo from '../components/Logo'
+import LoginSignUpScreen from './LoginSignUpScreen'
 import SignUpButton from '../components/SignUpButton'
 
 const HomeScreen = () => {
-  const [selectLogin, setSelectLogin] = React.useState(false);
-  const [selectSignUp, setSelectSignUp] = React.useState(false);
+  const [selectLogin, setSelectLogin] = React.useState(false)
+  const [selectSignUp, setSelectSignUp] = React.useState(false)
 
   const handleLogin = () => {
-    setSelectLogin(true);
-  };
+    setSelectLogin(true)
+  }
 
   const handleSignUp = () => {
-    setSelectSignUp(true);
-  };
+    setSelectSignUp(true)
+  }
 
   const resetLoginSignUp = () => {
-    setSelectLogin(false);
-    setSelectSignUp(false);
-  };
+    setSelectLogin(false)
+    setSelectSignUp(false)
+  }
 
   const toggleLoginSignUp = () => {
     if (selectLogin === true) {
-      setSelectLogin(false);
-      setSelectSignUp(true);
+      setSelectLogin(false)
+      setSelectSignUp(true)
     } else {
-      setSelectLogin(true);
-      setSelectSignUp(false);
+      setSelectLogin(true)
+      setSelectSignUp(false)
     }
-  };
+  }
 
-  // const constructionAlert = () => {
-  //   Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
-  //     { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
-  //   ]);
-  // };
+  const constructionAlert = () => {
+    Alert.alert('🚧 Under Construction', 'Please Come Back Later 🚧', [
+      { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
+    ])
+  }
 
   return (
-    <View style={styles.container}>
+    <View style={tw`flex-1 justify-end items-center mx-6 mb-8`}>
       {selectLogin || selectSignUp === true ? (
         <>
-          <TouchableOpacity style={styles.backArrow} onPress={resetLoginSignUp}>
+          <TouchableOpacity
+            style={tw`absolute top-15 -left-2`}
+            onPress={resetLoginSignUp}>
             <AntDesign name='left' size={24} color='black' />
           </TouchableOpacity>
           <LoginSignUpScreen
@@ -53,17 +56,34 @@ const HomeScreen = () => {
       ) : (
         <>
           <Logo />
-          {/* <Text style={styles.baseText}>
+          <Text style={tw`font-base text-center mb-4`}>
             By continuing, you agree to our{' '}
-            <Text style={styles.innerText}>User Agreement </Text>
-            and <Text style={styles.innerText}>Privacy Policy.</Text>
+            <Text style={tw`font-bold`} onPress={constructionAlert}>
+              User Agreement{' '}
+            </Text>
+            and{' '}
+            <Text style={tw`font-bold`} onPress={constructionAlert}>
+              Privacy Policy.
+            </Text>
           </Text>
-					<SignUpButton name='apple1' authType='Apple' size={24} color='black' onPress={constructionAlert}/> */}
-					<SignUpButton name='mail' authType='Email' size={24} color='black' onPress={handleSignUp}/>
+          {/* <SignUpButton
+            name='apple1'
+            authType='Apple'
+            size={24}
+            color='black'
+            onPress={constructionAlert}
+          /> */}
+          <SignUpButton
+            name='mail'
+            authType='Email'
+            size={24}
+            color='black'
+            onPress={handleSignUp}
+          />
           <View>
             <Text>
               Already a member?{' '}
-              <Text onPress={handleLogin} style={styles.innerText}>
+              <Text onPress={handleLogin} style={tw`font-bold`}>
                 Log In
               </Text>
             </Text>
@@ -71,31 +91,7 @@ const HomeScreen = () => {
         </>
       )}
     </View>
-  );
-};
+  )
+}
 
-export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    flex: 1,
-    marginHorizontal: 20,
-    marginBottom: 35,
-  },
-  baseText: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: 15,
-  },
-  innerText: {
-    fontWeight: 'bold',
-  },
-  backArrow: {
-    padding: 10,
-    position: 'absolute',
-    top: 50,
-    left: -10,
-  },
-});
+export default HomeScreen

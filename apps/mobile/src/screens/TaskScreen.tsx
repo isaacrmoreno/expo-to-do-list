@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import tw from 'twrnc'
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,7 +8,6 @@ import {
   TextInput,
   Keyboard,
   Alert,
-  SafeAreaView,
   ScrollView,
   StatusBar,
 } from 'react-native'
@@ -59,9 +59,12 @@ export default function TaskScreen() {
     ])
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.taskWrapper}>
-        <ScrollView style={styles.scrollView}>
+    <View style={tw`flex-1 relative bg-slate-100`}>
+      <View
+        style={tw`px-5`}
+        // this view is the view that hides the taskItems after they reach a certain length.
+      >
+        <ScrollView style={tw`px-5 mt-8`}>
           {taskItems.map((item, index) => {
             return (
               <View key={index}>
@@ -79,9 +82,9 @@ export default function TaskScreen() {
       <KeyboardAvoidingView
         behavior='position'
         // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.writeTaskWrapper}>
+        style={tw`mb-8 items-center absolute px-5 bottom-12 w-full flex-row, justify-around`}>
         <TextInput
-          style={styles.input}
+          style={tw`p-4 bg-white rounded-full border w-full`}
           placeholder={'Write a task'}
           value={task}
           onChangeText={(text) => setTask(text)}
@@ -97,41 +100,6 @@ export default function TaskScreen() {
           <AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask} />
         )}
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#E8EAED',
-    paddingTop: StatusBar.currentHeight,
-    position: 'relative',
-  },
-  taskWrapper: {
-    paddingHorizontal: 20,
-  },
-  writeTaskWrapper: {
-    // marginBottom: 80,
-    alignItems: 'center',
-    position: 'absolute',
-    paddingHorizontal: 20,
-    bottom: 50,
-    // width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  input: {
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    backgroundColor: '#fff',
-    borderRadius: 60,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    width: '100%',
-  },
-  scrollView: {
-    marginTop: 30,
-    // marginBottom: 115,
-  },
-})
