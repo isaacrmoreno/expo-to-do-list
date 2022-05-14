@@ -2,15 +2,13 @@ import React, { useState } from 'react'
 import tw from 'twrnc'
 import {
   KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
   View,
   TextInput,
   Keyboard,
   Alert,
   ScrollView,
-  StatusBar,
 } from 'react-native'
+import { Text, Platform, TouchableWithoutFeedback, Button } from 'react-native'
 
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
@@ -59,32 +57,25 @@ export default function TaskScreen() {
     ])
 
   return (
-    <View style={tw`flex-1 relative bg-slate-100`}>
-      <View
-        style={tw`px-5`}
-        // this view is the view that hides the taskItems after they reach a certain length.
-      >
-        <ScrollView style={tw`px-5 mt-8`}>
-          {taskItems.map((item, index) => {
-            return (
-              <View key={index}>
-                <TaskItem
-                  text={item}
-                  index={index}
-                  confirmDeleteAlert={confirmDeleteAlert}
-                  editTask={editTask}
-                />
-              </View>
-            )
-          })}
-        </ScrollView>
-      </View>
-      <KeyboardAvoidingView
-        behavior='position'
-        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={tw`mb-8 items-center absolute px-5 bottom-12 w-full flex-row justify-around`}>
+    <View style={tw`flex-1 bg-slate-100`}>
+      <ScrollView style={tw`p-5`}>
+        {taskItems.map((item, index) => {
+          return (
+            <View key={index}>
+              <TaskItem
+                text={item}
+                index={index}
+                confirmDeleteAlert={confirmDeleteAlert}
+                editTask={editTask}
+              />
+            </View>
+          )
+        })}
+      </ScrollView>
+
+      {/* <KeyboardAvoidingView behavior='position' style={tw`flex-row bg-green-300`}>
         <TextInput
-          style={tw`p-4 bg-white rounded-full border w-full`}
+          style={tw`p-4 bg-white rounded-full border w-4/5`}
           placeholder={'Write a task'}
           value={task}
           onChangeText={(text) => setTask(text)}
@@ -99,7 +90,43 @@ export default function TaskScreen() {
         ) : (
           <AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask} />
         )}
+      </KeyboardAvoidingView> */}
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={tw`flex-1 bg-red-500`}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={tw`flex-1 p-5 justify-around bg-green-300`}>
+            <TextInput
+              placeholder='Write a task'
+              style={tw`h-10 border-b mb-18 mt-12 bg-green-500`}
+            />
+          </View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
+
+      {/* <KeyboardAvoidingView
+        behavior='position'
+        style={tw`items-center absolute bottom-12 w-full flex-row justify-between bg-green-300`}>
+        <View style={tw`flex-row justify-between bg-red-200`}>
+          <TextInput
+            style={tw`p-4 bg-white rounded-full border w-4/5`}
+            placeholder={'Write a task'}
+            value={task}
+            onChangeText={(text) => setTask(text)}
+          />
+          {updateIcon ? (
+            <AddTaskButton
+              name='check'
+              size={24}
+              color='black'
+              onPress={handleUpdateTask}
+            />
+          ) : (
+            <AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask} />
+          )}
+        </View>
+      </KeyboardAvoidingView> */}
     </View>
   )
 }
