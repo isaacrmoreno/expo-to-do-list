@@ -8,7 +8,11 @@ const Drawer = createDrawerNavigator()
 const MyDrawer: React.FC = () => {
   return (
     <Drawer.Navigator useLegacyImplementation drawerContent={() => <LogOutButton />}>
-      <Drawer.Screen name='Task' component={TaskScreen} />
+      <Drawer.Screen
+        name='Task'
+        component={TaskScreen}
+        options={{ headerShown: false }}
+      />
     </Drawer.Navigator>
   )
 }
