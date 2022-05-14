@@ -89,7 +89,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
       {selectLogin ? <Header ScreenTitle='Log In' /> : <Header ScreenTitle='Sign Up' />}
       <View style={tw`absolute top-1/3 w-10/12`}>
         <TextInput
-          style={tw`bg-white px-5 py-3 rounded-xl mb-4`}
+          style={tw`bg-white px-5 py-3 rounded-full mb-4`}
           placeholder='email'
           value={email}
           onChangeText={(text) => setEmail(text)}
@@ -97,40 +97,40 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         {displayPassword === true ? (
           <View>
             <TextInput
-              style={tw`bg-white px-5 py-3 rounded-xl mb-2`}
+              style={tw`bg-white px-5 py-3 rounded-full mb-2`}
               placeholder='password'
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={false}
             />
-            <TouchableOpacity style={tw`absolute top-3 right-5`} onPress={hidePassword}>
+            <TouchableOpacity style={tw`absolute top-2 right-5`} onPress={hidePassword}>
               <Entypo name='eye-with-line' size={24} color='black' />
             </TouchableOpacity>
           </View>
         ) : (
           <View>
             <TextInput
-              style={tw`bg-white px-5 py-3 rounded-xl mb-2`}
+              style={tw`bg-white px-5 py-3 rounded-full mb-2`}
               placeholder='password'
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
-            <TouchableOpacity style={tw`absolute top-3 right-5`} onPress={viewPassword}>
+            <TouchableOpacity style={tw`absolute top-2 right-5`} onPress={viewPassword}>
               <Entypo name='eye' size={24} color='black' />
             </TouchableOpacity>
           </View>
         )}
         <View>
           {selectLogin === true ? (
-            <Text style={tw`font-base text-center`}>
+            <Text style={tw`text-center`}>
               Dont have an account?{' '}
               <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
                 Sign Up
               </Text>
             </Text>
           ) : (
-            <Text style={tw`font-base text-center`}>
+            <Text style={tw`text-center`}>
               Already a member?{' '}
               <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
                 Log In
@@ -153,19 +153,15 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         />
       )} */}
       <KeyboardAvoidingView style={tw`items-center w-10/12`} behavior='position'>
-        {selectLogin === true ? (
-          <TouchableOpacity
-            onPress={login}
-            style={tw`bg-white p-4 flex-row w-full rounded-full`}>
+        <TouchableOpacity
+          onPress={login}
+          style={tw`bg-white p-2 flex-row w-full rounded-full mb-2`}>
+          {selectLogin === true ? (
             <Text style={tw`flex-1 text-lg font-bold text-center`}>Log In</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            onPress={signUp}
-            style={tw`bg-white p-4 flex-row w-full rounded-full`}>
+          ) : (
             <Text style={tw`flex-1 text-lg font-bold text-center`}>Sign Up</Text>
-          </TouchableOpacity>
-        )}
+          )}
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
   )

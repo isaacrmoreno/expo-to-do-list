@@ -56,7 +56,7 @@ const HomeScreen = () => {
       ) : (
         <>
           <Logo />
-          <Text style={tw`font-base text-center mb-4`}>
+          <Text style={tw`text-center mb-4`}>
             By continuing, you agree to our{' '}
             <Text style={tw`font-bold`} onPress={constructionAlert}>
               User Agreement{' '}
