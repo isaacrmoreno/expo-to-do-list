@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import tw from 'twrnc'
 import { Text, TouchableOpacity, View, Alert, useColorScheme } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
@@ -7,8 +7,8 @@ import LoginSignUpScreen from './LoginSignUpScreen'
 import SignUpButton from '../components/SignUpButton'
 
 const HomeScreen = () => {
-  const [selectLogin, setSelectLogin] = React.useState(false)
-  const [selectSignUp, setSelectSignUp] = React.useState(false)
+  const [selectLogin, setSelectLogin] = useState<boolean>(false)
+  const [selectSignUp, setSelectSignUp] = useState<boolean>(false)
 
   const colorScheme = useColorScheme()
 
@@ -48,7 +48,11 @@ const HomeScreen = () => {
           <TouchableOpacity
             style={tw`absolute top-15 -left-2`}
             onPress={resetLoginSignUp}>
-            <AntDesign name='left' size={24} color='black' />
+            {colorScheme === 'dark' ? (
+              <AntDesign name='left' size={24} color='white' />
+            ) : (
+              <AntDesign name='left' size={24} color='black' />
+            )}
           </TouchableOpacity>
           <LoginSignUpScreen
             selectLogin={selectLogin}

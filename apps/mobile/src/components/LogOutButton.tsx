@@ -1,7 +1,6 @@
 import React from 'react'
 import tw from 'twrnc'
-import { useColorScheme } from 'react-native'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View, useColorScheme } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack/'
 import * as WebBrowser from 'expo-web-browser'
@@ -35,7 +34,9 @@ const LogOutButton = () => {
     <View style={tw`flex-1 items-center px-5`}>
       {auth?.currentUser === null ? null : (
         <View style={tw`absolute bottom-28`}>
-          <Text>Logged In: {auth.currentUser?.email}</Text>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+            Logged In: {auth.currentUser?.email}
+          </Text>
         </View>
       )}
       <TouchableOpacity
@@ -50,7 +51,11 @@ const LogOutButton = () => {
       </TouchableOpacity>
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
-          <AntDesign name='github' size={30} color='black' />
+          {colorScheme === 'dark' ? (
+            <AntDesign name='github' size={30} color='white' />
+          ) : (
+            <AntDesign name='github' size={30} color='black' />
+          )}
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           - Version - {Constants?.manifest?.version}
