@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import tw from 'twrnc'
+import { useColorScheme } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import {
@@ -8,7 +9,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ActivityIndicator,
 } from 'react-native'
 import { auth } from '../../firebase'
 import {
@@ -30,6 +30,8 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   const [password, setPassword] = useState<string>('')
   const [displayPassword, setDisplayPassword] = useState<boolean>(false)
   const [user, setUser] = useState<{}>({})
+
+  const colorScheme = useColorScheme()
 
   type RootStackParamList = {
     Drawer: undefined
@@ -122,21 +124,12 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
           </View>
         )}
         <View>
-          {selectLogin === true ? (
-            <Text style={tw`text-center`}>
-              Dont have an account?{' '}
-              <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
-                Sign Up
-              </Text>
+          <Text style={tw`text-center`}>
+            {selectLogin === true ? 'Dont have an account? ' : 'Already a member?'}
+            <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
+              {selectLogin === true ? 'Sign Up' : 'Log In'}
             </Text>
-          ) : (
-            <Text style={tw`text-center`}>
-              Already a member?{' '}
-              <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
-                Log In
-              </Text>
-            </Text>
-          )}
+          </Text>
         </View>
       </View>
       {/* {user === true ? (
@@ -155,12 +148,17 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
       <KeyboardAvoidingView style={tw`items-center w-10/12`} behavior='position'>
         <TouchableOpacity
           onPress={login}
-          style={tw`bg-white p-2 flex-row w-full rounded-full mb-2`}>
-          {selectLogin === true ? (
-            <Text style={tw`flex-1 text-lg font-bold text-center`}>Log In</Text>
-          ) : (
-            <Text style={tw`flex-1 text-lg font-bold text-center`}>Sign Up</Text>
-          )}
+          style={[
+            tw`p-2 flex-row w-full rounded-full mb-2`,
+            colorScheme === 'dark' ? tw`bg-slate-600` : tw`bg-white`,
+          ]}>
+          <Text
+            style={[
+              tw`flex-1 text-lg font-bold text-center`,
+              colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+            ]}>
+            {selectLogin === true ? 'Log In' : 'Sign Up'}
+          </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </View>
