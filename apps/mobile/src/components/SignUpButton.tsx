@@ -16,7 +16,7 @@ const SignUpButton: React.FC<SignUpButtonProps> = ({
     <TouchableOpacity
       style={[
         tw`flex-row w-full p-4 rounded-full items-center mb-4`,
-        colorScheme === 'dark' ? tw`bg-gray-600` : tw`bg-white`,
+        colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
       ]}
       onPress={onPress}>
       <AntDesign style={tw`absolute left-6`} name={name} size={size} color={color} />

@@ -81,18 +81,32 @@ export default function TaskScreen() {
       <KeyboardAvoidingView behavior='position' style={tw`bottom-4`}>
         <View style={tw`flex-row justify-between px-5`}>
           <TextInput
-            style={tw`p-4 mb-4 bg-white rounded-full border w-4/5`}
+            style={[
+              tw`p-4 mb-4 bg-white rounded-full border w-4/5`,
+              colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
+            ]}
             placeholder={'Write a task'}
             value={task}
             onChangeText={(text) => setTask(text)}
           />
           {updateIcon ? (
-            <AddTaskButton
-              name='check'
-              size={24}
-              color='black'
-              onPress={handleUpdateTask}
-            />
+            colorScheme === 'dark' ? (
+              <AddTaskButton
+                name='check'
+                size={24}
+                color='white'
+                onPress={handleUpdateTask}
+              />
+            ) : (
+              <AddTaskButton
+                name='check'
+                size={24}
+                color='black'
+                onPress={handleUpdateTask}
+              />
+            )
+          ) : colorScheme === 'dark' ? (
+            <AddTaskButton name='plus' size={24} color='white' onPress={handleAddTask} />
           ) : (
             <AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask} />
           )}
