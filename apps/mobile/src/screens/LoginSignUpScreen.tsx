@@ -171,20 +171,37 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         />
       )} */}
       <KeyboardAvoidingView style={tw`items-center w-10/12`} behavior='position'>
-        <TouchableOpacity
-          onPress={login}
-          style={[
-            tw`p-2 flex-row w-full rounded-full mb-2`,
-            colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
-          ]}>
-          <Text
+        {selectLogin === true ? (
+          <TouchableOpacity
+            onPress={login}
             style={[
-              tw`flex-1 text-lg font-bold text-center`,
-              colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+              tw`p-2 flex-row w-full rounded-full mb-2`,
+              colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
             ]}>
-            {selectLogin === true ? 'Log In' : 'Sign Up'}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={[
+                tw`flex-1 text-lg font-bold text-center`,
+                colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+              ]}>
+              Log In
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={signUp}
+            style={[
+              tw`p-2 flex-row w-full rounded-full mb-2`,
+              colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
+            ]}>
+            <Text
+              style={[
+                tw`flex-1 text-lg font-bold text-center`,
+                colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+              ]}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+        )}
       </KeyboardAvoidingView>
     </View>
   )
