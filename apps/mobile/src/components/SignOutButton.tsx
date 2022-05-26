@@ -43,7 +43,7 @@ const SignOutButton = () => {
           </Text>
         </View>
       )}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={logOut}
         style={[
           tw`absolute bottom-16 justify-center items-center border rounded-full p-2 w-full`,
@@ -52,7 +52,7 @@ const SignOutButton = () => {
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           Sign Out
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
           {colorScheme === 'dark' ? (

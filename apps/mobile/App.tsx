@@ -4,7 +4,7 @@ import HomeScreen from './src/screens/HomeScreen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Toast from 'react-native-toast-message'
-import MenuDrawer from './src/navigation/Drawer'
+import MenuDrawer from './src/navigation/MenuDrawer'
 
 const Stack = createNativeStackNavigator()
 
