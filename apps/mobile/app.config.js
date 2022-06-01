@@ -2,7 +2,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development'
 
 export default {
   expo: {
-    name: IS_DEV ? 'Quail (Dev)' : 'Quail',
+    name: 'Quail',
     slug: 'expo-to-do-list',
     version: '1.0.0',
     orientation: 'portrait',
