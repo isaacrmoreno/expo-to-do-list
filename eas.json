@@ -12,7 +12,7 @@
         "buildConfiguration": "Debug"
       }
     },
-    "preview": {
+    "beta": {
       "distribution": "internal"
     },
     "production": {}

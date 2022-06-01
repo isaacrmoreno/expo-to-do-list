@@ -6,7 +6,7 @@ export default {
     slug: 'expo-to-do-list',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: IS_DEV ? './assets/icon-development.png' : './assets/icon-preview.png',
+    icon: IS_DEV ? './assets/icon-development.png' : './assets/icon-beta.png',
     userInterfaceStyle: 'automatic',
     jsEngine: 'hermes',
     splash: {
@@ -20,14 +20,14 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.prev',
+      bundleIdentifier: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.beta',
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
-      package: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.prev',
+      package: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.beta',
     },
     web: {
       favicon: './assets/favicon.png',

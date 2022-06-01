@@ -56,7 +56,7 @@ const SignOutButton = () => {
           )}
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-          - Version - {Constants?.manifest?.version}
+          {'  '}- Version - {Constants?.manifest?.version}
         </Text>
       </View>
     </View>
