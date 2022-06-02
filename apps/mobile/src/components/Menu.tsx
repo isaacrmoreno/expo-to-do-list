@@ -9,7 +9,7 @@ import { auth } from '../../firebase'
 import { signOut } from 'firebase/auth'
 import Constants from 'expo-constants'
 
-const SignOutButton = () => {
+const Menu = () => {
   type RootStackParamList = {
     Home: undefined
   }
@@ -49,11 +49,7 @@ const SignOutButton = () => {
       </TouchableOpacity>
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
-          <AntDesign
-            name='github'
-            size={30}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-          />
+          <AntDesign name='github' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           {'  '}- Version - {Constants?.manifest?.version}
@@ -63,4 +59,4 @@ const SignOutButton = () => {
   )
 }
 
-export default SignOutButton
+export default Menu
