@@ -1,4 +1,16 @@
-const IS_DEV = process.env.APP_VARIANT === 'development'
+let ENVIRONMENT = process.env.ENVIRONMENT
+
+const logo = () => {
+  let filePath = './assets/icon.png'
+  if (ENVIRONMENT === 'prod') {
+    return filePath
+  } else if (ENVIRONMENT === 'beta') {
+    filePath = './assets/icon-beta.png'
+    return filePath
+  } else ENVIRONMENT === 'dev'
+  filePath = './assets/icon-development.png'
+  return filePath
+}
 
 export default {
   expo: {
@@ -6,9 +18,8 @@ export default {
     slug: 'expo-to-do-list',
     version: '1.0.0',
     orientation: 'portrait',
-    icon: IS_DEV ? './assets/icon-development.png' : './assets/icon-beta.png',
+    icon: logo(),
     userInterfaceStyle: 'automatic',
-    jsEngine: 'hermes',
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
@@ -20,14 +31,14 @@ export default {
     assetBundlePatterns: ['**/*'],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.beta',
+      bundleIdentifier: `com.expotodolist.${ENVIRONMENT}`,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
-      package: IS_DEV ? 'com.expotodolist.dev' : 'com.expotodolist.beta',
+      package: `com.expotodolist.${ENVIRONMENT}`,
     },
     web: {
       favicon: './assets/favicon.png',
