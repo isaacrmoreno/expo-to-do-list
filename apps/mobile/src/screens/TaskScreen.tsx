@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from 'twrnc'
 import {
   KeyboardAvoidingView,
@@ -49,6 +49,19 @@ export default function TaskScreen() {
     itemsCopy.splice(index, 1)
     setTaskItems(itemsCopy)
   }
+
+  const isBlank = () => {
+    taskItems.includes('' || null) || task?.length === 0
+  }
+
+  useEffect(() => {
+    console.log('taskItems:', taskItems) // ""
+    if (taskItems.includes('' || null)) {
+      const blankTask = taskItems.findIndex(isBlank)
+      console.log('blankTask:', blankTask) // -1 always fails
+      completeTask(blankTask)
+    }
+  }, [handleAddTask])
 
   const confirmDeleteAlert = (index: number) =>
     Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
