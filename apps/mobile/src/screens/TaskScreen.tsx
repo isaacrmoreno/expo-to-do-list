@@ -93,8 +93,9 @@ export default function TaskScreen() {
               colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
             ]}
             ref={inputRef}
-            placeholder={'Write a task'}
             value={task}
+            placeholder={'Write a task'}
+            clearButtonMode='while-editing'
             onChangeText={(text) => setTask(text)}
           />
           {updateIcon ? (
