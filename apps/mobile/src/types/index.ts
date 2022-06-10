@@ -4,8 +4,13 @@ export interface addTaskButtonProps {
   onPress: () => void
 }
 
-export interface HeaderProps {
-  ScreenTitle: string
+export interface ScreenTitleProps {
+  title: string
+}
+
+export interface LoginSignUpButtonProps {
+  onPress: () => void
+  text: string
 }
 
 export interface loginSignUpScreenProps {
@@ -13,11 +18,10 @@ export interface loginSignUpScreenProps {
   toggleLoginSignUp: () => void
 }
 
-export interface SignUpButtonProps {
+export interface ContinueWithButtonProps {
   name: 'google' | 'apple1' | 'mail'
   authType: string
   size: number
-  color: string
   onPress: () => void
 }
 

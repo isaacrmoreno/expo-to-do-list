@@ -4,8 +4,7 @@ import { Text, TouchableOpacity, View, Alert, useColorScheme } from 'react-nativ
 import { AntDesign } from '@expo/vector-icons'
 import Logo from '../components/Logo'
 import LoginSignUpScreen from './LoginSignUpScreen'
-import SignUpButton from '../components/SignUpButton'
-import { color } from 'react-native-reanimated'
+import ContinueWithButton from '../components/ContinueWithButton'
 
 const HomeScreen = () => {
   const [selectLogin, setSelectLogin] = useState<boolean>(false)
@@ -67,7 +66,7 @@ const HomeScreen = () => {
       ) : (
         <View style={tw`flex-1 justify-end items-center mx-6 mb-8`}>
           <Logo />
-          <Text
+          {/* <Text
             style={[
               tw`text-center mb-4`,
               colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
@@ -80,19 +79,17 @@ const HomeScreen = () => {
             <Text style={tw`font-bold`} onPress={constructionAlert}>
               Privacy Policy.
             </Text>
-          </Text>
-          {/* <SignUpButton
+          </Text> */}
+          {/* <ContinueWithButton
             name='apple1'
             authType='Apple'
             size={24}
-            color='black'
             onPress={constructionAlert}
           /> */}
-          <SignUpButton
+          <ContinueWithButton
             name='mail'
             authType='Email'
             size={24}
-            color='black'
             onPress={handleSignUp}
           />
           <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>

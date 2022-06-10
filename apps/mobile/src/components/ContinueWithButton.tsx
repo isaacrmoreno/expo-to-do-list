@@ -2,13 +2,12 @@ import React from 'react'
 import tw from 'twrnc'
 import { TouchableOpacity, Text, useColorScheme } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
-import { SignUpButtonProps } from '../types/index'
+import { ContinueWithButtonProps } from '../types/index'
 
-const SignUpButton: React.FC<SignUpButtonProps> = ({
+const ContinueWithButton: React.FC<ContinueWithButtonProps> = ({
   name,
   authType,
   size,
-  color,
   onPress,
 }) => {
   const colorScheme = useColorScheme()
@@ -19,7 +18,11 @@ const SignUpButton: React.FC<SignUpButtonProps> = ({
         colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
       ]}
       onPress={onPress}>
-      <AntDesign style={tw`absolute left-6`} name={name} size={size} color={color} />
+      {colorScheme === 'dark' ? (
+        <AntDesign style={tw`absolute left-6`} name={name} size={size} color='white' />
+      ) : (
+        <AntDesign style={tw`absolute left-6`} name={name} size={size} color='black' />
+      )}
       <Text
         style={[
           tw`flex-1 text-center`,
@@ -31,4 +34,4 @@ const SignUpButton: React.FC<SignUpButtonProps> = ({
   )
 }
 
-export default SignUpButton
+export default ContinueWithButton

@@ -18,9 +18,10 @@ import {
 } from 'firebase/auth'
 import { Entypo } from '@expo/vector-icons'
 import Logo from '../components/Logo'
-import Header from '../components/Header'
+import ScreenTitle from '../components/ScreenTitle'
 import { loginSignUpScreenProps } from '../types'
 import Toast from 'react-native-toast-message'
+import LoginSignUpButton from '../components/LoginSignUpButton'
 
 const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   selectLogin,
@@ -92,7 +93,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         colorScheme === 'dark' && tw`bg-neutral-800`,
       ]}>
       <Logo />
-      {selectLogin ? <Header ScreenTitle='Log In' /> : <Header ScreenTitle='Sign Up' />}
+      {selectLogin ? <ScreenTitle title='Log In' /> : <ScreenTitle title='Sign Up' />}
       <View style={tw`absolute top-1/3 w-10/12`}>
         <TextInput
           style={[
@@ -150,7 +151,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
               tw`text-center`,
               colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
             ]}>
-            {selectLogin === true ? 'Dont have an account? ' : 'Already a member?'}
+            {selectLogin === true ? 'Dont have an account? ' : 'Already a member? '}
             <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
               {selectLogin === true ? 'Sign Up' : 'Log In'}
             </Text>
@@ -172,35 +173,9 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
       )} */}
       <KeyboardAvoidingView style={tw`items-center w-10/12`} behavior='position'>
         {selectLogin === true ? (
-          <TouchableOpacity
-            onPress={login}
-            style={[
-              tw`p-2 flex-row w-full rounded-full mb-2`,
-              colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
-            ]}>
-            <Text
-              style={[
-                tw`flex-1 text-lg font-bold text-center`,
-                colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-              ]}>
-              Log In
-            </Text>
-          </TouchableOpacity>
+          <LoginSignUpButton onPress={login} text='Log In' />
         ) : (
-          <TouchableOpacity
-            onPress={signUp}
-            style={[
-              tw`p-2 flex-row w-full rounded-full mb-2`,
-              colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
-            ]}>
-            <Text
-              style={[
-                tw`flex-1 text-lg font-bold text-center`,
-                colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-              ]}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>
+          <LoginSignUpButton onPress={signUp} text='Sign Up' />
         )}
       </KeyboardAvoidingView>
     </View>

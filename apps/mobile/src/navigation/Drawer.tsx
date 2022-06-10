@@ -1,13 +1,13 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import LogOutButton from '../components/LogOutButton'
+import SignOutButton from '../components/SignOutButton'
 import TaskScreen from '../screens/TaskScreen'
 
 const Drawer = createDrawerNavigator()
 
-const MyDrawer: React.FC = () => {
+const MenuDrawer: React.FC = () => {
   return (
-    <Drawer.Navigator useLegacyImplementation drawerContent={() => <LogOutButton />}>
+    <Drawer.Navigator useLegacyImplementation drawerContent={() => <SignOutButton />}>
       <Drawer.Screen
         name='Task'
         component={TaskScreen}
@@ -17,4 +17,4 @@ const MyDrawer: React.FC = () => {
   )
 }
 
-export default MyDrawer
+export default MenuDrawer
