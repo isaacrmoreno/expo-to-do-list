@@ -1,16 +1,21 @@
-          
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'
 import { SignUpButtonProps } from '../types/index'
 
-const SignUpButton: React.FC <SignUpButtonProps> = ({name, authType, size, color, onPress}) => {
-	return (
-		<TouchableOpacity style={styles.button} onPress={onPress}>
-			<AntDesign style={styles.buttonIcon} name={name} size={size} color={color} />
-			<Text style={styles.buttonText}>Continue with {authType}</Text>
-		</TouchableOpacity>
-	)
+const SignUpButton: React.FC<SignUpButtonProps> = ({
+  name,
+  authType,
+  size,
+  color,
+  onPress,
+}) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <AntDesign style={styles.buttonIcon} name={name} size={size} color={color} />
+      <Text style={styles.buttonText}>Continue with {authType}</Text>
+    </TouchableOpacity>
+  )
 }
 
 export default SignUpButton
@@ -34,5 +39,5 @@ const styles = StyleSheet.create({
   buttonIcon: {
     position: 'absolute',
     left: 15,
-  }
+  },
 })
