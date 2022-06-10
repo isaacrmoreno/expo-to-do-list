@@ -31,7 +31,11 @@ const LogOutButton = () => {
   }
 
   return (
-    <View style={tw`flex-1 items-center px-5`}>
+    <View
+      style={[
+        tw`flex-1 items-center px-5`,
+        colorScheme === 'dark' && tw`bg-neutral-800`,
+      ]}>
       {auth?.currentUser === null ? null : (
         <View style={tw`absolute bottom-28`}>
           <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
@@ -43,7 +47,7 @@ const LogOutButton = () => {
         onPress={logOut}
         style={[
           tw`absolute bottom-16 justify-center items-center border rounded-full p-2 w-full`,
-          colorScheme === 'dark' ? tw`bg-zinc-700` : tw`bg-slate-100`,
+          colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-slate-100`,
         ]}>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           Sign Out

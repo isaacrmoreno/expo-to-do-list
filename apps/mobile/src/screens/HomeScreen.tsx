@@ -5,6 +5,7 @@ import { AntDesign } from '@expo/vector-icons'
 import Logo from '../components/Logo'
 import LoginSignUpScreen from './LoginSignUpScreen'
 import SignUpButton from '../components/SignUpButton'
+import { color } from 'react-native-reanimated'
 
 const HomeScreen = () => {
   const [selectLogin, setSelectLogin] = useState<boolean>(false)
@@ -42,11 +43,15 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={tw`flex-1 justify-end items-center mx-6 mb-8`}>
+    <View
+      style={[
+        tw`flex-1 justify-end items-center`,
+        colorScheme === 'dark' && tw`bg-neutral-800`,
+      ]}>
       {selectLogin || selectSignUp === true ? (
-        <>
+        <View style={tw`items-center mx-6 mb-8`}>
           <TouchableOpacity
-            style={tw`absolute top-15 -left-2`}
+            style={tw`absolute top-15 -left-10`}
             onPress={resetLoginSignUp}>
             {colorScheme === 'dark' ? (
               <AntDesign name='left' size={24} color='white' />
@@ -58,9 +63,9 @@ const HomeScreen = () => {
             selectLogin={selectLogin}
             toggleLoginSignUp={toggleLoginSignUp}
           />
-        </>
+        </View>
       ) : (
-        <>
+        <View style={tw`flex-1 justify-end items-center mx-6 mb-8`}>
           <Logo />
           <Text
             style={[
@@ -90,15 +95,13 @@ const HomeScreen = () => {
             color='black'
             onPress={handleSignUp}
           />
-          <View>
-            <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-              Already a member?{' '}
-              <Text onPress={handleLogin} style={tw`font-bold`}>
-                Log In
-              </Text>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+            Already a member?{' '}
+            <Text onPress={handleLogin} style={tw`font-bold`}>
+              Log In
             </Text>
-          </View>
-        </>
+          </Text>
+        </View>
       )}
     </View>
   )
