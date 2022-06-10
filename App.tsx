@@ -1,11 +1,9 @@
 import React from 'react';
 import HomeScreen from './src/screens/HomeScreen';
-import TaskScreen from './src/screens/TaskScreen';
-import LoginSignUpScreen from './src/screens/LoginSignUpScreen';
+// import TaskScreen from './src/screens/TaskScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import GoogleSignIn from './src/screens/GoogleSignIn';
 import TaskButtons from './src/screens/TaskScreen';
 import LogOutButton from './src/components/LogOutButton';
 
@@ -18,7 +16,6 @@ const MyDrawer: React.FC = () => {
     <Drawer.Navigator useLegacyImplementation>
       <Drawer.Screen name="Task" component={TaskButtons} />
 			<Drawer.Screen name="Log Out" component={LogOutButton} />
-
 			{/* <DrawerItem label="Help" onPress={() => alert('Link to help')} /> */}
     </Drawer.Navigator>
   );
@@ -42,12 +39,7 @@ export default function App() {
 					options={{ headerShown: false, title: 'Task' }}
 					name='Task'
 					component={TaskScreen}
-				/> // we dont need this task if we get the drawer to work */}
-				<Stack.Screen
-					options={{ headerShown: false, title: 'Task' }}
-					name='SignUpGoogle'
-					component={GoogleSignIn}
-				/>
+				/> */}
 			</Stack.Navigator>
 		</NavigationContainer>
   );

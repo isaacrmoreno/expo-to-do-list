@@ -1,13 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-
-interface addTaskButtonProps {
-	name: 'plus' | 'check'
-	size: number
-	color: string
-	onPress: () => void
-}
+import { addTaskButtonProps } from '../types/index'
 
 const AddTaskButton: React.FC <addTaskButtonProps> = ({name, size, color, onPress}) => {
 	return (

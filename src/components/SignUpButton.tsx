@@ -2,14 +2,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
-
-interface SignUpButtonProps {
-  name: 'google' | 'apple1' | 'mail'
-	authType: string
-	size: number
-	color: string
-	onPress: () => void
-}
+import { SignUpButtonProps } from '../types/index'
 
 const SignUpButton: React.FC <SignUpButtonProps> = ({name, authType, size, color, onPress}) => {
 	return (

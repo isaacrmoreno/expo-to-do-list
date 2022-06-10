@@ -1,7 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { AntDesign } from '@expo/vector-icons';
 import Logo from '../components/Logo';
 import LoginSignUpScreen from './LoginSignUpScreen';
@@ -10,14 +8,6 @@ import SignUpButton from '../components/SignUpButton'
 const HomeScreen = () => {
   const [selectLogin, setSelectLogin] = React.useState(false);
   const [selectSignUp, setSelectSignUp] = React.useState(false);
-
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
-  type RootStackParamList = {
-    LoginSignUp: undefined;
-    SignUpApple: undefined;
-    SignUpGoogle: undefined;
-  };
 
   const handleLogin = () => {
     setSelectLogin(true);
@@ -42,15 +32,11 @@ const HomeScreen = () => {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    navigation.navigate('SignUpGoogle');
-  };
-
-  const constructionAlert = () => {
-    Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
-      { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
-    ]);
-  };
+  // const constructionAlert = () => {
+  //   Alert.alert('🚧 Under Construction 🚧', 'Please Come Back Later', [
+  //     { text: 'OK', onPress: () => console.log('Alert Construction Pressed') },
+  //   ]);
+  // };
 
   return (
     <View style={styles.container}>
@@ -72,7 +58,6 @@ const HomeScreen = () => {
             <Text style={styles.innerText}>User Agreement </Text>
             and <Text style={styles.innerText}>Privacy Policy.</Text>
           </Text>
-					<SignUpButton name='google' authType='Google' size={24} color='black' onPress={handleGoogleSignIn}/>
 					<SignUpButton name='apple1' authType='Apple' size={24} color='black' onPress={constructionAlert}/> */}
 					<SignUpButton name='mail' authType='Email' size={24} color='black' onPress={handleSignUp}/>
           <View>
