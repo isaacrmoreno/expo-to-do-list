@@ -9,40 +9,33 @@ import {
   Alert,
   ScrollView,
   useColorScheme,
+  TouchableOpacity,
+  Text,
 } from 'react-native'
+import { Feather } from '@expo/vector-icons'
 
-import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
-  // const [taskList, setTaskList] = useState<Array<string | null>>([]) // original
   const [taskList, setTaskList] = useState<object[]>([{ description: '' }])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
-  const inputRef = useRef(null)
+  const inputRef = useRef('')
 
   const colorScheme = useColorScheme()
-
-  // const handleAddTask = () => {
-  //   Keyboard.dismiss()
-  //   setTaskList([...taskList, task])
-  //   setTask('')
-  // }
 
   const handleAddTask = async () => {
     try {
       Keyboard.dismiss()
       setTaskList([...taskList, { description: task }])
-      setTask('')
-      taskList.shift()
       taskList.push({ description: task })
+      setTask('')
       const jsonValue = JSON.stringify(taskList)
       await AsyncStorage.setItem('@taskList', jsonValue)
-      console.log('jsonValue:', jsonValue)
     } catch (e) {
       console.log(e)
     }
@@ -60,47 +53,25 @@ export default function TaskScreen() {
   const editTask = (index: number) => {
     inputRef?.current?.focus()
     setUpdateIcon(true)
-    const newTask = taskList[index]
+    const newTask = taskList[index]?.description
     setTask(newTask)
     setCurrentIndex(index)
   }
-
-  // const handleUpdateTask = () => {
-  //   setUpdateIcon(false)
-  //   Keyboard.dismiss()
-  //   let taskListCopy = [...taskList]
-  //   taskListCopy.splice(currentIndex, 1, task)
-  //   setTaskList(taskListCopy)
-  //   setTask('')
-  // }
 
   const handleUpdateTask = async () => {
     try {
       setUpdateIcon(false)
       Keyboard.dismiss()
       let updatedTaskList = [...taskList]
-      updatedTaskList.splice(currentIndex, 1, task)
+      updatedTaskList.splice(currentIndex, 1, { description: task })
       setTaskList(updatedTaskList)
       setTask('')
       const jsonValue = JSON.stringify(updatedTaskList)
-
-      // setTaskList([...taskList, { description: text }])
-      // taskList.shift()
-      // taskList.push({ description: text })
-
-      // const jsonValue = JSON.stringify(taskList)
       await AsyncStorage.setItem('@taskList', jsonValue)
     } catch (e) {
       console.log(e)
     }
   }
-
-  // const completeTask = (index: number) => {
-  //   let itemsCopy = [...taskList]
-  //   itemsCopy.splice(index, 1)
-  //   setTaskList(itemsCopy)
-  //   setUpdateIcon(false)
-  // }
 
   const completeTask = async (index: number) => {
     try {
@@ -138,12 +109,22 @@ export default function TaskScreen() {
         {taskList.map((taskList, index) => {
           return (
             <View key={index}>
-              <TaskItem
-                text={taskList}
-                index={index}
-                confirmDeleteAlert={confirmDeleteAlert}
-                editTask={editTask}
-              />
+              <TouchableOpacity
+                onPress={() => editTask(index)}
+                style={[
+                  tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
+                  colorScheme === 'dark' && tw`bg-neutral-700`,
+                ]}>
+                <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>
+                  {taskList?.description}
+                </Text>
+                <Feather
+                  name='trash-2'
+                  size={24}
+                  color={colorScheme === 'dark' ? 'white' : 'black'}
+                  onPress={() => confirmDeleteAlert(index)}
+                />
+              </TouchableOpacity>
             </View>
           )
         })}
@@ -156,7 +137,7 @@ export default function TaskScreen() {
               colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
             ]}
             ref={inputRef}
-            // value={task}
+            value={task}
             placeholder={'Write a task'}
             clearButtonMode='while-editing'
             onChangeText={(text) => setTask(text)}
