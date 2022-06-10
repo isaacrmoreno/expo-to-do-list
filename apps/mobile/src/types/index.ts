@@ -1,3 +1,7 @@
+export interface TaskList {
+  description: string
+}
+
 export interface addTaskButtonProps {
   name: 'plus' | 'check'
   size: number
@@ -27,7 +31,7 @@ export interface ContinueWithButtonProps {
 }
 
 export interface TaskItemProps {
-  text: string | null
+  taskList: TaskList
   index: number
   confirmDeleteAlert: (index: number) => void
   editTask: (index: number) => void
