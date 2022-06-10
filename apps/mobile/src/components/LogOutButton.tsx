@@ -37,7 +37,7 @@ const LogOutButton = () => {
       )}
       <TouchableOpacity
         onPress={logOut}
-        style={tw`absolute bottom-16 justify-center items-center bg-slate-100 border rounded-full h-6 w-full`}>
+        style={tw`absolute bottom-16 justify-center items-center bg-slate-100 border rounded-full p-2 w-full`}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
       <View style={tw`absolute flex-row bottom-5 items-center`}>
