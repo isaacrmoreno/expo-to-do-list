@@ -23,7 +23,7 @@ const LogOutButton = () => {
   return (
     <View>
       <TouchableOpacity onPress={logOut} style={styles.signOutButton}>
-        <Text>bye bitch</Text>
+        <Text>Sign Out</Text>
       </TouchableOpacity>
     </View>
   );
