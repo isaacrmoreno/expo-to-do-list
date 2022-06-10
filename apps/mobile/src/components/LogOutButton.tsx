@@ -31,7 +31,7 @@ const LogOutButton = () => {
   return (
     <View style={tw`flex-1 items-center px-5`}>
       {auth?.currentUser === null ? null : (
-        <View style={tw`absolute bottom-25`}>
+        <View style={tw`absolute bottom-28`}>
           <Text>Logged In: {auth.currentUser?.email}</Text>
         </View>
       )}
@@ -40,7 +40,7 @@ const LogOutButton = () => {
         style={tw`absolute bottom-16 justify-center items-center bg-slate-100 border rounded-full p-2 w-full`}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
-      <View style={tw`absolute flex-row bottom-5 items-center`}>
+      <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
           <AntDesign name='github' size={30} color='black' />
         </TouchableOpacity>

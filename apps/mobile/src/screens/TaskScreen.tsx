@@ -82,7 +82,7 @@ export default function TaskScreen() {
       <KeyboardAvoidingView
         behavior='position'
         // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={tw`mb-8 items-center absolute px-5 bottom-12 w-full flex-row, justify-around`}>
+        style={tw`mb-8 items-center absolute px-5 bottom-12 w-full flex-row justify-around`}>
         <TextInput
           style={tw`p-4 bg-white rounded-full border w-full`}
           placeholder={'Write a task'}
