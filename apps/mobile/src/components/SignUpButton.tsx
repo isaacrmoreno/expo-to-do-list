@@ -1,7 +1,6 @@
 import React from 'react'
 import tw from 'twrnc'
-import { useColorScheme } from 'react-native'
-import { TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Text, useColorScheme } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { SignUpButtonProps } from '../types/index'
 

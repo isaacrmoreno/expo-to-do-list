@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import tw from 'twrnc'
-import { useColorScheme } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import {
@@ -9,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  useColorScheme,
 } from 'react-native'
 import { auth } from '../../firebase'
 import {
@@ -124,7 +124,11 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
           </View>
         )}
         <View>
-          <Text style={tw`text-center`}>
+          <Text
+            style={[
+              tw`text-center`,
+              colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+            ]}>
             {selectLogin === true ? 'Dont have an account? ' : 'Already a member?'}
             <Text style={tw`font-bold`} onPress={toggleLoginSignUp}>
               {selectLogin === true ? 'Sign Up' : 'Log In'}
