@@ -5,12 +5,25 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "ENVIRONMENT": "dev"
+      },
+      "releaseChannel": "development"
     },
     "beta": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "ENVIRONMENT": "beta"
+      },
+      "releaseChannel": "beta"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "ENVIRONMENT": "prod"
+      },
+      "releaseChannel": "production"
+    }
   },
   "submit": {
     "production": {}
