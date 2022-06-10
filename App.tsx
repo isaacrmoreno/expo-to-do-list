@@ -4,6 +4,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
+import Toast from 'react-native-toast-message';
 import TaskButtons from './src/screens/TaskScreen';
 import LogOutButton from './src/components/LogOutButton';
 
@@ -13,13 +14,14 @@ const Drawer = createDrawerNavigator();
 
 const MyDrawer: React.FC = () => {
   return (
-    <Drawer.Navigator useLegacyImplementation>
-      <Drawer.Screen name="Task" component={TaskButtons} />
-			<Drawer.Screen name="Log Out" component={LogOutButton} />
-			{/* <DrawerItem label="Help" onPress={() => alert('Link to help')} /> */}
+    <Drawer.Navigator useLegacyImplementation
+		drawerContent={() => <LogOutButton /> }
+		>
+		<Drawer.Screen name="Task" component={TaskButtons} />
     </Drawer.Navigator>
   );
 }
+
 
 export default function App() {
   return (
@@ -41,6 +43,7 @@ export default function App() {
 					component={TaskScreen}
 				/> */}
 			</Stack.Navigator>
+			<Toast />
 		</NavigationContainer>
   );
 }
