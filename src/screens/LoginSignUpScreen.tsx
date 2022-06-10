@@ -35,7 +35,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
   const [user, setUser] = useState<{}>({});
 
   type RootStackParamList = {
-    Task: undefined;
+    Drawer: undefined;
   };
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -50,7 +50,7 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(user);
-    (currentUser) ? navigation.replace('Task') : null  // maybe display toast error message.
+    (currentUser) ? navigation.replace('Drawer') : null  // maybe display toast error message.
   });
 
   const login = async () => {
