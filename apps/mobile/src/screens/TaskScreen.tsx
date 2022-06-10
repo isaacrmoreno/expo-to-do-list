@@ -7,8 +7,8 @@ import {
   Keyboard,
   Alert,
   ScrollView,
+  useColorScheme,
 } from 'react-native'
-import { Text, Platform, TouchableWithoutFeedback, Button } from 'react-native'
 
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
@@ -18,6 +18,8 @@ export default function TaskScreen() {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskItems, setTaskItems] = useState<Array<string | null>>([])
   const [updateIcon, setUpdateIcon] = useState<Boolean>(false)
+
+  const colorScheme = useColorScheme()
 
   const handleAddTask = () => {
     Keyboard.dismiss()
@@ -57,7 +59,11 @@ export default function TaskScreen() {
     ])
 
   return (
-    <View style={tw`flex-1 bg-slate-100`}>
+    <View
+      style={[
+        tw`flex-1`,
+        colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`,
+      ]}>
       <ScrollView style={tw`px-5 mt-16`}>
         {taskItems.map((item, index) => {
           return (

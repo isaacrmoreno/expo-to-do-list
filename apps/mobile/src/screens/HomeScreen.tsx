@@ -1,6 +1,6 @@
 import React from 'react'
 import tw from 'twrnc'
-import { Text, TouchableOpacity, View, Alert } from 'react-native'
+import { Text, TouchableOpacity, View, Alert, useColorScheme } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import Logo from '../components/Logo'
 import LoginSignUpScreen from './LoginSignUpScreen'
@@ -9,6 +9,8 @@ import SignUpButton from '../components/SignUpButton'
 const HomeScreen = () => {
   const [selectLogin, setSelectLogin] = React.useState(false)
   const [selectSignUp, setSelectSignUp] = React.useState(false)
+
+  const colorScheme = useColorScheme()
 
   const handleLogin = () => {
     setSelectLogin(true)
@@ -56,7 +58,11 @@ const HomeScreen = () => {
       ) : (
         <>
           <Logo />
-          <Text style={tw`text-center mb-4`}>
+          <Text
+            style={[
+              tw`text-center mb-4`,
+              colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+            ]}>
             By continuing, you agree to our{' '}
             <Text style={tw`font-bold`} onPress={constructionAlert}>
               User Agreement{' '}
@@ -81,7 +87,7 @@ const HomeScreen = () => {
             onPress={handleSignUp}
           />
           <View>
-            <Text>
+            <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
               Already a member?{' '}
               <Text onPress={handleLogin} style={tw`font-bold`}>
                 Log In

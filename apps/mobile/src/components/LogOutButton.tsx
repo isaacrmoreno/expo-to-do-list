@@ -1,5 +1,6 @@
 import React from 'react'
 import tw from 'twrnc'
+import { useColorScheme } from 'react-native'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack/'
@@ -13,6 +14,8 @@ const LogOutButton = () => {
   type RootStackParamList = {
     Home: undefined
   }
+
+  const colorScheme = useColorScheme()
 
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
@@ -37,14 +40,21 @@ const LogOutButton = () => {
       )}
       <TouchableOpacity
         onPress={logOut}
-        style={tw`absolute bottom-16 justify-center items-center bg-slate-100 border rounded-full p-2 w-full`}>
-        <Text>Sign Out</Text>
+        style={[
+          tw`absolute bottom-16 justify-center items-center border rounded-full p-2 w-full`,
+          colorScheme === 'dark' ? tw`bg-zinc-700` : tw`bg-slate-100`,
+        ]}>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+          Sign Out
+        </Text>
       </TouchableOpacity>
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
           <AntDesign name='github' size={30} color='black' />
         </TouchableOpacity>
-        <Text> - Version - {Constants?.manifest?.version}</Text>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+          - Version - {Constants?.manifest?.version}
+        </Text>
       </View>
     </View>
   )
