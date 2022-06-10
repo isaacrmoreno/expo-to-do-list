@@ -115,7 +115,7 @@ export default function TaskScreen() {
                   tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
                   colorScheme === 'dark' && tw`bg-neutral-700`,
                 ]}>
-                <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>
+                <Text style={[tw`w-11/12`, colorScheme === 'dark' && tw`text-white`]}>
                   {taskList?.description}
                 </Text>
                 <Feather

@@ -16,7 +16,7 @@ const DrawerToggle = () => {
   }
 
   return (
-    <TouchableOpacity onPress={toggleDrawer} style={tw`mt-14 left-5`}>
+    <TouchableOpacity onPress={toggleDrawer} style={tw`mt-14 left-5 w-8`}>
       <Entypo name='menu' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
     </TouchableOpacity>
   )
