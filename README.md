@@ -1,4 +1,4 @@
-# ✏️ Quail 🐦
+<h1 align="center"> ✏️ Quail 🐦 </h1>
 
 Quail is a minimalist [React Native](https://reactnative.dev/), [Expo](https://docs.expo.dev/guides/) mobile to do list application. Built with a [monorepo](https://www.atlassian.com/git/tutorials/monorepos) architecture, and [yarn workspaces](https://yarnpkg.com/features/workspaces).
 
@@ -31,7 +31,9 @@ git clone https://github.com/isaacrmoreno/expo-to-do-list.git
 The app version is defined based on the following strategy:
 
 **Major:** Increased when we add breaking changes to the app
+
 **Minor:** Increased when we add new native changes (libraries that requires native changes; Changes on app.json, app.config.js, eas.json) or when we add new features to the app.
+
 **Patch:** Design improvements / bug fixes
 
 _Where, considering the version 4.5.6, 4 is the Major, 5 is the Minor, 6 is the patch._
