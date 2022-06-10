@@ -65,7 +65,7 @@ export default function TaskScreen() {
         tw`flex-1`,
         colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`,
       ]}>
-      {/* <DrawerToggle /> */}
+      <DrawerToggle />
       <ScrollView style={tw`px-5 mt-4`}>
         {taskItems.map((item, index) => {
           return (
