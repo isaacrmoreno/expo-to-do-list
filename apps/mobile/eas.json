@@ -7,7 +7,7 @@
       "developmentClient": true,
       "distribution": "internal"
     },
-    "preview": {
+    "beta": {
       "distribution": "internal"
     },
     "production": {}
