@@ -77,7 +77,8 @@ export default function TaskScreen() {
         </ScrollView>
       </View>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior='position'
+        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}>
         <TextInput
           style={styles.input}
