@@ -57,7 +57,14 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
       console.log('user', user)
       console.log('auth', auth)
     } catch (error: any) {
-      console.log(error.message)
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+        position: 'bottom',
+        bottomOffset: 50,
+        autoHide: true,
+        visibilityTime: 3000,
+      })
     }
   }
 
@@ -66,7 +73,14 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
       const user = await createUserWithEmailAndPassword(auth, email, password)
       console.log(user)
     } catch (error: any) {
-      console.log(error.message)
+      Toast.show({
+        type: 'error',
+        text1: error.message,
+        position: 'bottom',
+        bottomOffset: 50,
+        autoHide: true,
+        visibilityTime: 3000,
+      })
     }
   }
 
@@ -127,7 +141,19 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
         </View>
       </View>
 
-      {/* <ActivityIndicator size='large' animating={false} /> */}
+      {/* {user === true ? (
+        <ActivityIndicator
+          size='large'
+          animating={true}
+          style={styles.activityIndicator}
+        />
+      ) : (
+        <ActivityIndicator
+          size='large'
+          animating={false}
+          style={styles.activityIndicator}
+        />
+      )} */}
 
       <KeyboardAvoidingView style={styles.buttonContainer} behavior='position'>
         {selectLogin === true ? (
@@ -196,5 +222,9 @@ const styles = StyleSheet.create({
   },
   innerText: {
     fontWeight: 'bold',
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
   },
 })
