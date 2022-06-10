@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons'
 import { TaskItemProps } from '../types/index'
 
 const TaskItem: React.FC<TaskItemProps> = (props) => {
-  const { index, text, confirmDeleteAlert, editTask } = props
+  const { index, confirmDeleteAlert, editTask, taskList } = props
   const colorScheme = useColorScheme()
   return (
     <TouchableOpacity
@@ -16,7 +16,9 @@ const TaskItem: React.FC<TaskItemProps> = (props) => {
         colorScheme === 'dark' && tw`bg-neutral-700`,
       ]}>
       <View style={tw`flex-row items-center`}>
-        <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>{text}</Text>
+        <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>
+          {taskList?.description}
+        </Text>
       </View>
       <Feather
         name='trash-2'
