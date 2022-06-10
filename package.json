@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "cd apps/mobile && expo start",
-		"test": "jest",
-    "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && yarn"
+    "test": "jest",
+    "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && yarn",
+    "build:dev:ios": "cd apps/mobile && eas build --profile development --platform ios",
+    "build:dev:android": "cd apps/mobile && eas build --profile development --platform android",
+    "build:beta:ios": "cd apps/mobile && eas build --profile beta --platform ios",
+    "build:beta:android": "cd apps/mobile && eas build --profile beta --platform android"
   },
   "workspaces": [
     "apps/*",
