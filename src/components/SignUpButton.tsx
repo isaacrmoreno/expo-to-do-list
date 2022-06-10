@@ -6,12 +6,10 @@ import { SignUpButtonProps } from '../types/index'
 
 const SignUpButton: React.FC <SignUpButtonProps> = ({name, authType, size, color, onPress}) => {
 	return (
-	<>
 		<TouchableOpacity style={styles.button} onPress={onPress}>
 			<AntDesign style={styles.buttonIcon} name={name} size={size} color={color} />
 			<Text style={styles.buttonText}>Continue with {authType}</Text>
 		</TouchableOpacity>
-	</>
 	)
 }
 
@@ -37,5 +35,4 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 15,
   }
-});
-					
+})
