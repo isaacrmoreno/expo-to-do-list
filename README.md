@@ -18,8 +18,11 @@ git clone https://github.com/isaacrmoreno/expo-to-do-list.git
 
 3. Add An `.env` file to your root directory, and ask your teammates for the ENV secrets.
 
-4. Either run... - `yarn start` from the root directory or... - `expo start` from the apps/mobile directory...
-   and you should be off to the races and ready for development! 🏇
+4. Either run...
+
+   - `yarn start` from the root directory or...
+   - `expo start` from the apps/mobile directory...
+     and you should be off to the races and ready for development! 🏇
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
