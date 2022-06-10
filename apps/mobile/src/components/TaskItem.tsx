@@ -5,7 +5,8 @@ import { View, Text } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { TaskItemProps } from '../types/index'
 
-const TaskItem: React.FC<TaskItemProps> = ({ index, text, confirmDeleteAlert, editTask }) => {
+const TaskItem: React.FC<TaskItemProps> = (props) => {
+  const { index, text, confirmDeleteAlert, editTask } = props
   const colorScheme = useColorScheme()
   return (
     <TouchableOpacity

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twrnc'
 import {
   KeyboardAvoidingView,
@@ -18,7 +18,10 @@ export default function TaskScreen() {
   const [task, setTask] = useState<string | null>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskItems, setTaskItems] = useState<Array<string | null>>([])
-  const [updateIcon, setUpdateIcon] = useState<Boolean>(false)
+  const [updateIcon, setUpdateIcon] = useState<boolean>(false)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+  const inputRef = useRef(null)
 
   const colorScheme = useColorScheme()
 
@@ -29,6 +32,7 @@ export default function TaskScreen() {
   }
 
   const editTask = (index: number) => {
+    inputRef?.current?.focus()
     setUpdateIcon(true)
     const newTask = taskItems[index]
     setTask(newTask)
@@ -48,20 +52,12 @@ export default function TaskScreen() {
     let itemsCopy = [...taskItems]
     itemsCopy.splice(index, 1)
     setTaskItems(itemsCopy)
-  }
-
-  const isBlank = () => {
-    taskItems.includes('' || null) || task?.length === 0
+    setUpdateIcon(false)
   }
 
   useEffect(() => {
-    console.log('taskItems:', taskItems) // ""
-    if (taskItems.includes('' || null)) {
-      const blankTask = taskItems.findIndex(isBlank)
-      console.log('blankTask:', blankTask) // -1 always fails
-      completeTask(blankTask)
-    }
-  }, [handleAddTask])
+    task?.length !== 0 ? setIsDisabled(false) : setIsDisabled(true)
+  }, [task])
 
   const confirmDeleteAlert = (index: number) =>
     Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
@@ -96,14 +92,20 @@ export default function TaskScreen() {
               tw`p-4 mb-4 bg-white rounded-full border w-4/5`,
               colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
             ]}
+            ref={inputRef}
             placeholder={'Write a task'}
             value={task}
             onChangeText={(text) => setTask(text)}
           />
           {updateIcon ? (
-            <AddTaskButton name='check' size={24} onPress={handleUpdateTask} />
+            <AddTaskButton
+              name='check'
+              size={24}
+              onPress={handleUpdateTask}
+              isDisabled={isDisabled}
+            />
           ) : (
-            <AddTaskButton name='plus' size={24} onPress={handleAddTask} />
+            <AddTaskButton name='plus' size={24} onPress={handleAddTask} isDisabled={isDisabled} />
           )}
         </View>
       </KeyboardAvoidingView>
