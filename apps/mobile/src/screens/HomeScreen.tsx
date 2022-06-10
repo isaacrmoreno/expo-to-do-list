@@ -52,11 +52,11 @@ const HomeScreen = () => {
           <TouchableOpacity
             style={tw`absolute top-15 -left-10`}
             onPress={resetLoginSignUp}>
-            {colorScheme === 'dark' ? (
-              <AntDesign name='left' size={24} color='white' />
-            ) : (
-              <AntDesign name='left' size={24} color='black' />
-            )}
+            <AntDesign
+              name='left'
+              size={24}
+              color={colorScheme === 'dark' ? 'white' : 'black'}
+            />
           </TouchableOpacity>
           <LoginSignUpScreen
             selectLogin={selectLogin}

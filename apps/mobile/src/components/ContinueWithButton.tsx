@@ -18,11 +18,12 @@ const ContinueWithButton: React.FC<ContinueWithButtonProps> = ({
         colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-white`,
       ]}
       onPress={onPress}>
-      {colorScheme === 'dark' ? (
-        <AntDesign style={tw`absolute left-6`} name={name} size={size} color='white' />
-      ) : (
-        <AntDesign style={tw`absolute left-6`} name={name} size={size} color='black' />
-      )}
+      <AntDesign
+        style={tw`absolute left-6`}
+        name={name}
+        size={size}
+        color={colorScheme === 'dark' ? 'white' : 'black'}
+      />
       <Text
         style={[
           tw`flex-1 text-center`,

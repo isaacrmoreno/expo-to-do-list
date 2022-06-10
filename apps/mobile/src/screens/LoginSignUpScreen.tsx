@@ -117,11 +117,11 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
               secureTextEntry={false}
             />
             <TouchableOpacity style={tw`absolute top-2 right-5`} onPress={hidePassword}>
-              {colorScheme === 'dark' ? (
-                <Entypo name='eye-with-line' size={24} color='white' />
-              ) : (
-                <Entypo name='eye-with-line' size={24} color='black' />
-              )}
+              <Entypo
+                name='eye-with-line'
+                size={24}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+              />
             </TouchableOpacity>
           </View>
         ) : (
@@ -137,11 +137,11 @@ const LoginSignUpScreen: React.FC<loginSignUpScreenProps> = ({
               secureTextEntry={true}
             />
             <TouchableOpacity style={tw`absolute top-2 right-5`} onPress={viewPassword}>
-              {colorScheme === 'dark' ? (
-                <Entypo name='eye' size={24} color='white' />
-              ) : (
-                <Entypo name='eye' size={24} color='black' />
-              )}
+              <Entypo
+                name='eye'
+                size={24}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+              />
             </TouchableOpacity>
           </View>
         )}

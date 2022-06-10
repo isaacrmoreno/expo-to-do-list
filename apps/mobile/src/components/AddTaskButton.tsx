@@ -15,11 +15,11 @@ const AddTaskButton: React.FC<addTaskButtonProps> = ({ name, size, onPress }) =>
         tw`w-14 h-14 bg-white items-center justify-center border rounded-full`,
         colorScheme === 'dark' && tw`bg-neutral-700`,
       ]}>
-      {colorScheme === 'dark' ? (
-        <AntDesign name={name} size={size} color='white' />
-      ) : (
-        <AntDesign name={name} size={size} color='black' />
-      )}
+      <AntDesign
+        name={name}
+        size={size}
+        color={colorScheme === 'dark' ? 'white' : 'black'}
+      />
     </TouchableOpacity>
   )
 }

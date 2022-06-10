@@ -55,11 +55,11 @@ const SignOutButton = () => {
       </TouchableOpacity> */}
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
-          {colorScheme === 'dark' ? (
-            <AntDesign name='github' size={30} color='white' />
-          ) : (
-            <AntDesign name='github' size={30} color='black' />
-          )}
+          <AntDesign
+            name='github'
+            size={30}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           - Version - {Constants?.manifest?.version}
