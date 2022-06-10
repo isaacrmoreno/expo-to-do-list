@@ -22,7 +22,6 @@ const MyDrawer: React.FC = () => {
   );
 }
 
-
 export default function App() {
   return (
 		<NavigationContainer>
