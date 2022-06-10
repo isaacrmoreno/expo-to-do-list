@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Text } from 'react-native'
-import Toast from 'react-native-toast-message'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import tw from 'twrnc'
 import {
@@ -18,7 +17,7 @@ import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
 
 export default function TaskScreen() {
-  const [task, setTask] = useState<string | null>('')
+  const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskItems, setTaskItems] = useState<Array<string | null>>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
@@ -28,52 +27,10 @@ export default function TaskScreen() {
 
   const colorScheme = useColorScheme()
 
-  const TASK = '@task'
-
-  const storeTask = async (text: string) => {
-    try {
-      await AsyncStorage.setItem(TASK, text)
-      console.log(task)
-
-      alert('Task saved')
-    } catch (e) {
-      console.log('error:', e)
-      Toast.show({
-        type: 'error',
-        text1: error.message,
-        text2: 'Failed to save data to async storage',
-        position: 'top',
-        autoHide: true,
-        visibilityTime: 3000,
-      })
-    }
-  }
-
-  const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@task')
-      if (value !== null) {
-        setTask(value)
-      }
-    } catch (e) {
-      Toast.show({
-        type: 'error',
-        text1: error.message,
-        position: 'top',
-        autoHide: true,
-        visibilityTime: 3000,
-      })
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
-
   const handleAddTask = () => {
     Keyboard.dismiss()
     setTaskItems([...taskItems, task])
-    setTask(null)
+    setTask('')
   }
 
   const editTask = (index: number) => {
@@ -90,7 +47,7 @@ export default function TaskScreen() {
     let taskItemsCopy = [...taskItems]
     taskItemsCopy.splice(currentIndex, 1, task)
     setTaskItems(taskItemsCopy)
-    setTask(null)
+    setTask('')
   }
 
   const completeTask = (index: number) => {
@@ -116,7 +73,6 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-      <Text>{task}</Text>
       <ScrollView style={tw`px-5 mt-4`}>
         {taskItems.map((item, index) => {
           return (
@@ -139,7 +95,7 @@ export default function TaskScreen() {
               colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
             ]}
             ref={inputRef}
-            value={task}
+            // value={task}
             placeholder={'Write a task'}
             clearButtonMode='while-editing'
             onChangeText={(text) => setTask(text)}
@@ -152,7 +108,7 @@ export default function TaskScreen() {
               isDisabled={isDisabled}
             />
           ) : (
-            <AddTaskButton name='plus' size={24} onPress={storeTask} isDisabled={isDisabled} />
+            <AddTaskButton name='plus' size={24} onPress={handleAddTask} isDisabled={isDisabled} />
           )}
         </View>
       </KeyboardAvoidingView>
