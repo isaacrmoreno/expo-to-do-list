@@ -10,7 +10,10 @@
     "build:dev:ios": "cd apps/mobile && eas build --profile development --platform ios",
     "build:dev:android": "cd apps/mobile && eas build --profile development --platform android",
     "build:beta:ios": "cd apps/mobile && eas build --profile beta --platform ios",
-    "build:beta:android": "cd apps/mobile && eas build --profile beta --platform android"
+    "build:beta:android": "cd apps/mobile && eas build --profile beta --platform android",
+    "ota:dev": "cd apps/mobile && expo publish --release-channel development --target managed",
+    "ota:beta": "cd apps/mobile && expo publish --release-channel beta --target managed",
+    "ota:prod": "cd apps/mobile && expo publish --release-channel production --target managed"
   },
   "workspaces": [
     "apps/*",

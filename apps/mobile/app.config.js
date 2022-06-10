@@ -1,8 +1,8 @@
 let ENVIRONMENT = process.env.ENVIRONMENT
 
 const logo = () => {
-  let filePath = './assets/icon.png'
   if (ENVIRONMENT === 'prod') {
+    let filePath = './assets/icon.png'
     return filePath
   } else if (ENVIRONMENT === 'beta') {
     filePath = './assets/icon-beta.png'
