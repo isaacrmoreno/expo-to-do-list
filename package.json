@@ -28,10 +28,13 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-toast-message": "^2.1.5",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-test-renderer": "^18.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-native": "^9.1.0",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/react-native-dotenv": "^0.2.0",

@@ -15,7 +15,7 @@ import {
 import TaskItem from '../components/TaskItem';
 import AddTaskButton from '../components/AddTaskButton';
 
-export default function TaskButtons() {
+export default function TaskScreen() {
 const [task, setTask] = useState<string | null>('');
 const [currentIndex, setCurrentIndex] = useState<number>(0);
 const [taskItems, setTaskItems] = useState<Array<string | null>>([]);
@@ -104,12 +104,11 @@ const styles = StyleSheet.create({
   },
   writeTaskWrapper: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 50,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginBottom: 20,
   },
   input: {
     paddingVertical: 15,
