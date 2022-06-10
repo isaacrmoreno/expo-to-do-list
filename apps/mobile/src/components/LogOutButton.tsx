@@ -43,7 +43,7 @@ const LogOutButton = () => {
           </Text>
         </View>
       )}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={logOut}
         style={[
           tw`absolute bottom-16 justify-center items-center border rounded-full p-2 w-full`,
@@ -52,17 +52,17 @@ const LogOutButton = () => {
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
           Sign Out
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={tw`absolute flex-row bottom-6 items-center`}>
-        <TouchableOpacity onPress={visitGitHub}>
+        {/* <TouchableOpacity onPress={visitGitHub}>
           {colorScheme === 'dark' ? (
             <AntDesign name='github' size={30} color='white' />
           ) : (
             <AntDesign name='github' size={30} color='black' />
           )}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-          - Version - {Constants?.manifest?.version}
+          Version - {Constants?.manifest?.version}
         </Text>
       </View>
     </View>

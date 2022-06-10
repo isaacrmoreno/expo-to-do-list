@@ -6708,11 +6708,6 @@ expect@^28.1.0:
     jest-message-util "^28.1.0"
     jest-util "^28.1.0"
 
-expo-application@^4.0.1:
-  version "4.1.0"
-  resolved "https://registry.npmjs.org/expo-application/-/expo-application-4.1.0.tgz"
-  integrity sha512-Z2kctgVMpYZB1Iwaxd+XcMBq7h8EEY50GGrwxXsb1OHHQKN+WEVGBWxjvtPkAroqCdujLaB5HBay46gvUHRDQg==
-
 expo-application@~4.0.0:
   version "4.0.2"
   resolved "https://registry.npmjs.org/expo-application/-/expo-application-4.0.2.tgz"
