@@ -12,6 +12,7 @@ import {
 
 import TaskItem from '../components/TaskItem'
 import AddTaskButton from '../components/AddTaskButton'
+import DrawerToggle from '../components/DrawerToggle'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string | null>('')
@@ -64,7 +65,8 @@ export default function TaskScreen() {
         tw`flex-1`,
         colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`,
       ]}>
-      <ScrollView style={tw`px-5 mt-16`}>
+      <DrawerToggle />
+      <ScrollView style={tw`px-5 mt-4`}>
         {taskItems.map((item, index) => {
           return (
             <View key={index}>
@@ -90,25 +92,9 @@ export default function TaskScreen() {
             onChangeText={(text) => setTask(text)}
           />
           {updateIcon ? (
-            colorScheme === 'dark' ? (
-              <AddTaskButton
-                name='check'
-                size={24}
-                color='white'
-                onPress={handleUpdateTask}
-              />
-            ) : (
-              <AddTaskButton
-                name='check'
-                size={24}
-                color='black'
-                onPress={handleUpdateTask}
-              />
-            )
-          ) : colorScheme === 'dark' ? (
-            <AddTaskButton name='plus' size={24} color='white' onPress={handleAddTask} />
+            <AddTaskButton name='check' size={24} onPress={handleUpdateTask} />
           ) : (
-            <AddTaskButton name='plus' size={24} color='black' onPress={handleAddTask} />
+            <AddTaskButton name='plus' size={24} onPress={handleAddTask} />
           )}
         </View>
       </KeyboardAvoidingView>

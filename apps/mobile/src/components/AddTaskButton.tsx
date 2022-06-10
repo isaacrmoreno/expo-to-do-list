@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 import { addTaskButtonProps } from '../types/index'
 
-const AddTaskButton: React.FC<addTaskButtonProps> = ({ name, size, color, onPress }) => {
+const AddTaskButton: React.FC<addTaskButtonProps> = ({ name, size, onPress }) => {
   const colorScheme = useColorScheme()
 
   return (
@@ -15,7 +15,11 @@ const AddTaskButton: React.FC<addTaskButtonProps> = ({ name, size, color, onPres
         tw`w-14 h-14 bg-white items-center justify-center border rounded-full`,
         colorScheme === 'dark' && tw`bg-neutral-700`,
       ]}>
-      <AntDesign name={name} size={size} color={color} />
+      {colorScheme === 'dark' ? (
+        <AntDesign name={name} size={size} color='white' />
+      ) : (
+        <AntDesign name={name} size={size} color='black' />
+      )}
     </TouchableOpacity>
   )
 }
