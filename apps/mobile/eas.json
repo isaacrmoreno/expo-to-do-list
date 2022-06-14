@@ -4,11 +4,19 @@
   },
   "build": {
     "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "ENVIRONMENT": "dev"
+      },
+      "releaseChannel": "development"
+    },
+    "staging": {
       "distribution": "internal",
       "env": {
         "ENVIRONMENT": "staging"
       },
-      "releaseChannel": "development"
+      "releaseChannel": "staging"
     },
     "beta": {
       "distribution": "internal",
