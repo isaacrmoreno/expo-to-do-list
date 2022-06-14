@@ -32,7 +32,7 @@ const Menu = () => {
 
   return (
     <View style={[tw`flex-1 items-center px-5`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
-      {auth?.currentUser === null ? null : (
+      {/* {auth?.currentUser === null ? null : (
         <View style={tw`absolute bottom-28`}>
           <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
             Logged In: {auth.currentUser?.email}
@@ -46,7 +46,7 @@ const Menu = () => {
           colorScheme === 'dark' ? tw`bg-neutral-700` : tw`bg-slate-100`,
         ]}>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Sign Out</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={tw`absolute flex-row bottom-6 items-center`}>
         <TouchableOpacity onPress={visitGitHub}>
           <AntDesign name='github' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
