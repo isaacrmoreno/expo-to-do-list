@@ -7,7 +7,14 @@ const logo = () => {
   } else if (ENVIRONMENT === 'beta') {
     filePath = './assets/icon-beta.png'
     return filePath
+<<<<<<< HEAD
   } else ENVIRONMENT === 'dev'
+=======
+  } else if (ENVIRONMENT === 'staging') {
+    filePath = './assets/icon-staging.png'
+    return filePath
+  } else ENVIRONMENT === 'development'
+>>>>>>> development
   filePath = './assets/icon-development.png'
   return filePath
 }
