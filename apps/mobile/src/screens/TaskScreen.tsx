@@ -93,14 +93,14 @@ export default function TaskScreen() {
     getTaskList()
   }, [])
 
-  const confirmDeleteAlert = (index: number) =>
-    Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
-    ])
+  // const confirmDeleteAlert = (index: number) =>
+  //   Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
+  //     {
+  //       text: 'Cancel',
+  //       style: 'cancel',
+  //     },
+  //     { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
+  //   ])
 
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
@@ -122,7 +122,7 @@ export default function TaskScreen() {
                   name='trash-2'
                   size={24}
                   color={colorScheme === 'dark' ? 'white' : 'black'}
-                  onPress={() => confirmDeleteAlert(index)}
+                  onPress={() => completeTask(index)}
                 />
               </TouchableOpacity>
             </View>
