@@ -144,14 +144,9 @@ export default function TaskScreen() {
             onChangeText={(text) => setTask(text)}
           />
           {isDisabled ? null : updateIcon ? (
-            <AddTaskButton
-              name='check'
-              size={24}
-              onPress={handleUpdateTask}
-              isDisabled={isDisabled}
-            />
+            <AddTaskButton name='check' size={24} onPress={handleUpdateTask} />
           ) : (
-            <AddTaskButton name='plus' size={24} onPress={handleAddTask} isDisabled={isDisabled} />
+            <AddTaskButton name='plus' size={24} onPress={handleAddTask} />
           )}
         </View>
       </KeyboardAvoidingView>
