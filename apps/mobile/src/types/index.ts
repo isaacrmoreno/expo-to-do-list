@@ -1,10 +1,6 @@
 export interface addTaskButtonProps {
   name: 'plus' | 'check'
   size: number
-<<<<<<< HEAD
-  isDisabled: boolean
-=======
->>>>>>> development
   onPress: () => void
 }
 

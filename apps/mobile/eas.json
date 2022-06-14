@@ -11,8 +11,6 @@
       },
       "releaseChannel": "development"
     },
-<<<<<<< HEAD
-=======
     "staging": {
       "distribution": "internal",
       "env": {
@@ -20,7 +18,6 @@
       },
       "releaseChannel": "staging"
     },
->>>>>>> development
     "beta": {
       "distribution": "internal",
       "env": {

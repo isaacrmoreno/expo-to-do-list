@@ -115,11 +115,7 @@ export default function TaskScreen() {
                   tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
                   colorScheme === 'dark' && tw`bg-neutral-700`,
                 ]}>
-<<<<<<< HEAD
                 <Text style={[tw`w-11/12`, colorScheme === 'dark' && tw`text-white`]}>
-=======
-                <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>
->>>>>>> development
                   {taskList?.description}
                 </Text>
                 <Feather
@@ -137,12 +133,8 @@ export default function TaskScreen() {
         <View style={tw`flex-row justify-between px-5`}>
           <TextInput
             style={[
-<<<<<<< HEAD
-              tw`p-4 mb-4 bg-white rounded-full border w-4/5`,
-=======
               tw`p-4 mb-4 bg-white rounded-full border`,
               isDisabled ? tw`w-full` : tw`w-4/5`,
->>>>>>> development
               colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
             ]}
             ref={inputRef}
@@ -151,22 +143,10 @@ export default function TaskScreen() {
             clearButtonMode='while-editing'
             onChangeText={(text) => setTask(text)}
           />
-<<<<<<< HEAD
-          {updateIcon ? (
-            <AddTaskButton
-              name='check'
-              size={24}
-              onPress={handleUpdateTask}
-              isDisabled={isDisabled}
-            />
-          ) : (
-            <AddTaskButton name='plus' size={24} onPress={handleAddTask} isDisabled={isDisabled} />
-=======
           {isDisabled ? null : updateIcon ? (
             <AddTaskButton name='check' size={24} onPress={handleUpdateTask} />
           ) : (
             <AddTaskButton name='plus' size={24} onPress={handleAddTask} />
->>>>>>> development
           )}
         </View>
       </KeyboardAvoidingView>

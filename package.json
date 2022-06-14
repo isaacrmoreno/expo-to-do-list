@@ -9,20 +9,14 @@
     "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && yarn",
     "build:dev:ios": "cd apps/mobile && eas build --profile development --platform ios",
     "build:dev:android": "cd apps/mobile && eas build --profile development --platform android",
-<<<<<<< HEAD
-=======
     "build:staging:ios": "cd apps/mobile && eas build --profile staging --platform ios",
     "build:staging:android": "cd apps/mobile && eas build --profile staging --platform android",
->>>>>>> development
     "build:beta:ios": "cd apps/mobile && eas build --profile beta --platform ios",
     "build:beta:android": "cd apps/mobile && eas build --profile beta --platform android",
     "build:prod:ios": "cd apps/mobile && eas build --profile production --platform ios",
     "build:prod:android": "cd apps/mobile && eas build --profile production --platform android",
     "ota:dev": "cd apps/mobile && expo publish --release-channel development --target managed",
-<<<<<<< HEAD
-=======
     "ota:staging": "cd apps/mobile && expo publish --release-channel staging --target managed",
->>>>>>> development
     "ota:beta": "cd apps/mobile && expo publish --release-channel beta --target managed",
     "ota:prod": "cd apps/mobile && expo publish --release-channel production --target managed"
   },
