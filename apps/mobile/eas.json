@@ -11,6 +11,13 @@
       },
       "releaseChannel": "development"
     },
+    "staging": {
+      "distribution": "internal",
+      "env": {
+        "ENVIRONMENT": "staging"
+      },
+      "releaseChannel": "staging"
+    },
     "beta": {
       "distribution": "internal",
       "env": {
