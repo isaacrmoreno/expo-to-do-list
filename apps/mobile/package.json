@@ -30,7 +30,6 @@
     "expo-system-ui": "~1.0.0",
     "expo-updates": "~0.10.15",
     "expo-web-browser": "~10.0.3",
-    "firebase": "^9.6.1",
     "jest": "^28.1.0",
     "jest-expo": "~43.0.1",
     "react": "17.0.1",

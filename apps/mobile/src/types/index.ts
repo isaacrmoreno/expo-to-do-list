@@ -8,21 +8,9 @@ export interface ScreenTitleProps {
   title: string
 }
 
-export interface LoginSignUpButtonProps {
-  onPress: () => void
-  text: string
-}
-
 export interface loginSignUpScreenProps {
   selectLogin: boolean
   toggleLoginSignUp: () => void
-}
-
-export interface ContinueWithButtonProps {
-  name: 'google' | 'apple1' | 'mail'
-  authType: string
-  size: number
-  onPress: () => void
 }
 
 export interface TaskItemProps {
