@@ -135,7 +135,7 @@ export default function TaskScreen() {
             style={[
               tw`p-4 mb-4 bg-white rounded-full border`,
               isDisabled ? tw`w-full` : tw`w-4/5`,
-              colorScheme === 'dark' && tw`bg-neutral-700 text-white`,
+              colorScheme === 'dark' && tw`bg-neutral-700 text-white border-white`,
             ]}
             ref={inputRef}
             value={task}
