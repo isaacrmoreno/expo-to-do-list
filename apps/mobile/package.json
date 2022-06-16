@@ -8,8 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "test": "jest"
+    "eject": "expo eject"
   },
   "jest": {
     "preset": "jest-expo"
@@ -28,12 +27,11 @@
     "expo-system-ui": "~1.0.0",
     "expo-updates": "~0.10.15",
     "expo-web-browser": "~10.0.3",
-    "jest": "^28.1.0",
-    "jest-expo": "~43.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-screens": "~3.8.0",
+    "react-native-dotenv": "^3.3.1",
     "twrnc": "^3.3.1"
   },
   "devDependencies": {
