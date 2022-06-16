@@ -23,7 +23,7 @@ const Menu = () => {
       <View
         style={tw`absolute flex-col bottom-16 items-center border-b border-gray-500 w-full pb-2`}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
-          <Text style={[tw`font-bold`, colorScheme === 'dark' && tw`text-white`]}>
+          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             Privacy Policy
           </Text>
         </TouchableOpacity>

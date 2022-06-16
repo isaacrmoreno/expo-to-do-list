@@ -11,6 +11,7 @@ import {
   useColorScheme,
   TouchableOpacity,
   Text,
+  Platform,
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
@@ -120,7 +121,8 @@ export default function TaskScreen() {
                   tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
                   colorScheme === 'dark' && tw`bg-neutral-700`,
                 ]}>
-                <Text style={[tw`w-11/12`, colorScheme === 'dark' && tw`text-white`]}>
+                <Text
+                  style={[tw`w-11/12`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
                   {taskList?.description}
                 </Text>
                 <Feather
@@ -134,13 +136,17 @@ export default function TaskScreen() {
           )
         })}
       </ScrollView>
-      <KeyboardAvoidingView behavior='position' style={tw`bottom-4`}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'position' : 'height'}
+        style={tw`bottom-4`}>
         <View style={tw`flex-row justify-between px-5`}>
           <TextInput
             style={[
-              tw`p-4 mb-4 bg-white rounded-full border`,
+              tw`p-4 mb-4 rounded-full border`,
               isDisabled ? tw`w-full` : tw`w-4/5`,
-              colorScheme === 'dark' && tw`bg-neutral-700 text-white border-white`,
+              colorScheme === 'dark'
+                ? tw`bg-neutral-700 text-white border-white`
+                : tw`bg-white text-black`,
             ]}
             ref={inputRef}
             value={task}
