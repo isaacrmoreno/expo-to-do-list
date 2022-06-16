@@ -21,7 +21,7 @@ const Menu = () => {
   return (
     <View style={[tw`flex-1 items-center px-5`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
       <View
-        style={tw`absolute flex-column bottom-16 items-center border-b border-gray-500 w-full pb-2`}>
+        style={tw`absolute flex-col bottom-16 items-center border-b border-gray-500 w-full pb-2`}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' && tw`text-white`]}>
             Privacy Policy
