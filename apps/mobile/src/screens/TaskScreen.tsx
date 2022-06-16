@@ -20,7 +20,12 @@ import DrawerToggle from '../components/DrawerToggle'
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
-  const [taskList, setTaskList] = useState<object[]>([{ description: '' }])
+  const [taskList, setTaskList] = useState<object[]>([
+    {
+      description: 'Thanks so much for downloading Quail! Heres to keeping it simple. Cheers! 🐦 ',
+    },
+  ])
+
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
@@ -115,7 +120,7 @@ export default function TaskScreen() {
                   tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
                   colorScheme === 'dark' && tw`bg-neutral-700`,
                 ]}>
-                <Text style={[tw`max-w-58`, colorScheme === 'dark' && tw`text-white`]}>
+                <Text style={[tw`w-11/12`, colorScheme === 'dark' && tw`text-white`]}>
                   {taskList?.description}
                 </Text>
                 <Feather
