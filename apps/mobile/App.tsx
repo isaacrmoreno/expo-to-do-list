@@ -18,7 +18,6 @@ export default function App() {
           component={MenuDrawer}
         />
       </Stack.Navigator>
-      <Toast />
     </NavigationContainer>
   )
 }
