@@ -1,6 +1,6 @@
 import React from 'react'
 import tw from 'twrnc'
-import { Keyboard, useColorScheme, View } from 'react-native'
+import { Keyboard, useColorScheme } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'

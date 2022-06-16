@@ -2,7 +2,6 @@ import React from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Toast from 'react-native-toast-message'
 import MenuDrawer from './src/navigation/MenuDrawer'
 import 'expo-dev-client'
 
@@ -19,7 +18,6 @@ export default function App() {
           component={MenuDrawer}
         />
       </Stack.Navigator>
-      <Toast />
     </NavigationContainer>
   )
 }
