@@ -18,7 +18,7 @@ const logo = () => {
 export default {
   expo: {
     name: 'Quail',
-    slug: 'expo-to-do-list',
+    slug: 'quail',
     version: '1.0.0',
     orientation: 'portrait',
     icon: logo(),
