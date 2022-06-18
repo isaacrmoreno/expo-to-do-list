@@ -42,6 +42,7 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: `com.expotodolist.${ENVIRONMENT}`,
+      version: 1,
     },
     web: {
       favicon: './assets/favicon.png',
