@@ -33,6 +33,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "ipdxcreative@gmail.com",
+        "ascAppId": "1630267516",
+        "appleTeamId": "672Z6Y47KB"
+      }
+    }
   }
 }
