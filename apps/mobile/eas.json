@@ -38,6 +38,9 @@
         "appleId": "ipdxcreative@gmail.com",
         "ascAppId": "1630267516",
         "appleTeamId": "672Z6Y47KB"
+      },
+      "android": {
+        "serviceAccountKeyPath": "~/Users/isaacmoreno/Documents/Google Service Key/"
       }
     }
   }
