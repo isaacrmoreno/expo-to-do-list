@@ -20,7 +20,7 @@ export default {
     name: 'Quail',
     slug: 'quail',
     version: '1.0.0',
-    orientation: 'portrait',
+    orientation: 'default',
     icon: logo(),
     userInterfaceStyle: 'automatic',
     splash: {

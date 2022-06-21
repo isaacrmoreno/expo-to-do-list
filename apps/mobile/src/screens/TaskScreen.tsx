@@ -92,7 +92,7 @@ export default function TaskScreen() {
     }
   }
 
-  async function changeScreenOrientation() {
+  const changeScreenOrientation = async () => {
     await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
   }
 
