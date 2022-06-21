@@ -14,6 +14,7 @@ import {
   Platform,
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import * as ScreenOrientation from 'expo-screen-orientation'
 
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
@@ -91,12 +92,20 @@ export default function TaskScreen() {
     }
   }
 
+  async function changeScreenOrientation() {
+    await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+  }
+
   useEffect(() => {
     task?.length !== 0 ? setIsDisabled(false) : setIsDisabled(true)
   }, [task])
 
   useEffect(() => {
     getTaskList()
+  }, [])
+
+  useEffect(() => {
+    changeScreenOrientation()
   }, [])
 
   const confirmDeleteAlert = (index: number) =>

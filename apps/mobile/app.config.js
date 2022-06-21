@@ -35,6 +35,7 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: `com.expotodolist.${ENVIRONMENT}`,
+      requireFullScreen: true,
     },
     android: {
       adaptiveIcon: {
@@ -42,7 +43,6 @@ export default {
         backgroundColor: '#FFFFFF',
       },
       package: `com.expotodolist.${ENVIRONMENT}`,
-      version: 1,
     },
     web: {
       favicon: './assets/favicon.png',
