@@ -1,5 +1,11 @@
 <h1 align="center"> ✏️ Quail 🐦 </h1>
 
+## For Users
+
+Thank you so much for downloading the app! This is the Quail repository, where we store our code. Feel free to poke around and see if anything piques your interest! 💭
+
+## For Developers
+
 Quail is a minimalist [React Native](https://reactnative.dev/), [Expo](https://docs.expo.dev/guides/) mobile to do list application. Built with a [monorepo](https://www.atlassian.com/git/tutorials/monorepos) architecture, and [yarn workspaces](https://yarnpkg.com/features/workspaces).
 
 ### By [Isaac Moreno](https://www.linkedin.com/in/isaacrmoreno/) 👨‍💻
