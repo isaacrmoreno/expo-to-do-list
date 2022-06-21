@@ -15,7 +15,7 @@ const Menu = () => {
   }
 
   const visitGitHub = async () => {
-    WebBrowser.openBrowserAsync('https://github.com/isaacrmoreno')
+    WebBrowser.openBrowserAsync('https://github.com/isaacrmoreno/expo-to-do-list')
   }
 
   return (
