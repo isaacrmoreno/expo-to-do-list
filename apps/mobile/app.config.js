@@ -19,8 +19,13 @@ export default {
   expo: {
     name: 'Quail',
     slug: 'quail',
+<<<<<<< HEAD
     version: '1.1.0',
     orientation: 'portrait',
+=======
+    version: '1.0.0',
+    orientation: 'default',
+>>>>>>> feature/screen
     icon: logo(),
     userInterfaceStyle: 'automatic',
     splash: {
