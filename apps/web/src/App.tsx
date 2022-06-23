@@ -4,7 +4,7 @@ import googleBadge from './assets/google-play-badge.png'
 function App() {
   return (
     <div className='h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-col'>
-      <div className='text-center my-52'>
+      <div className='text-center my-36'>
         <h1 className='text-6xl font-bold text-white pb-4'>Download Quail today</h1>
         <h3 className='text-3xl font-bold text-white'>A minimalist's to do list</h3>
       </div>
