@@ -22,11 +22,7 @@ import DrawerToggle from '../components/DrawerToggle'
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
-  const [taskList, setTaskList] = useState<object[]>([
-    {
-      description: 'Thanks so much for downloading Quail! Heres to keeping it simple. Cheers! 🐦 ',
-    },
-  ])
+  const [taskList, setTaskList] = useState<object[]>([])
 
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
