@@ -1,6 +1,7 @@
 import React from 'react'
 import tw from 'twrnc'
 import { Text, TouchableOpacity, View, useColorScheme, Share, Platform } from 'react-native'
+import { DrawerActions, useNavigation } from '@react-navigation/native'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import { AntDesign } from '@expo/vector-icons'
@@ -8,6 +9,7 @@ import Constants from 'expo-constants'
 
 const Menu = () => {
   const colorScheme = useColorScheme()
+  const navigation = useNavigation<any>()
 
   const onShare = async () => {
     const result = await Share.share({
@@ -16,6 +18,7 @@ const Menu = () => {
     })
     if (result.action === Share.sharedAction) {
     } else if (result.action === Share.dismissedAction) {
+      navigation.dispatch(DrawerActions.closeDrawer())
     }
   }
 
