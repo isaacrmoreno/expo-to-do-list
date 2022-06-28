@@ -15,6 +15,7 @@ import {
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import * as ScreenOrientation from 'expo-screen-orientation'
+import DraggableFlatList from 'react-native-draggable-flatlist'
 
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
