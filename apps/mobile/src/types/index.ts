@@ -19,3 +19,8 @@ export interface TaskItemProps {
   confirmDeleteAlert: (index: number) => void
   editTask: (index: number) => void
 }
+
+export type Item = {
+  key: string
+  label: string
+}

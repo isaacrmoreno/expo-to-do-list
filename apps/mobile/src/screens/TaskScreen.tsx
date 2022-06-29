@@ -14,8 +14,13 @@ import {
   Platform,
 } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import * as ScreenOrientation from 'expo-screen-orientation'
-import DraggableFlatList from 'react-native-draggable-flatlist'
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from 'react-native-draggable-flatlist'
+import { Item } from '../types/index'
 
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
@@ -25,12 +30,28 @@ export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskList, setTaskList] = useState<object[]>([])
-
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
-  const inputRef = useRef('')
+  let listItem = [{ description: 'This' }, { description: 'Is' }, { description: 'A test' }]
 
+  console.log('taskList', taskList)
+
+  const testData: Item[] = [...Array(listItem?.length)].map((d, index) => {
+    return {
+      key: `item-${index}`,
+      label: listItem[index]?.description,
+    }
+  })
+
+  {
+    console.log('length:', taskList?.length)
+    console.log('taskList', taskList)
+  }
+
+  const [data, setData] = useState(testData)
+
+  const inputRef = useRef('')
   const colorScheme = useColorScheme()
 
   const handleAddTask = async () => {
@@ -115,10 +136,39 @@ export default function TaskScreen() {
       { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
     ])
 
+  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
+    return (
+      <ScaleDecorator>
+        <View style={tw`items-center`}>
+          <TouchableOpacity
+            onLongPress={drag}
+            disabled={isActive}
+            style={[
+              tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
+              { backgroundColor: isActive ? 'red' : 'white' },
+            ]}>
+            <View>
+              <MaterialIcons name='drag-indicator' size={24} color='black' />
+            </View>
+            <Text style={tw`text-black text-lg font-bold text-center`}>{item.label}</Text>
+          </TouchableOpacity>
+        </View>
+      </ScaleDecorator>
+    )
+  }
+
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-      <DraggableList />
+
+      <DraggableFlatList
+        data={data}
+        onDragEnd={({ data }) => setData(data)}
+        keyExtractor={(item) => item.key}
+        renderItem={renderItem}
+      />
+      {/* <DraggableList /> */}
+
       <ScrollView style={tw`px-5 mt-4`}>
         {taskList.map((taskList, index) => {
           return (
