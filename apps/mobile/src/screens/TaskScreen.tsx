@@ -19,6 +19,7 @@ import DraggableFlatList from 'react-native-draggable-flatlist'
 
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
+import DraggableList from '../components/DraggableList'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -117,6 +118,7 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
+      <DraggableList />
       <ScrollView style={tw`px-5 mt-4`}>
         {taskList.map((taskList, index) => {
           return (
