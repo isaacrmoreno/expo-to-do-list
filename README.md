@@ -1,12 +1,6 @@
 <h1 align="center"> ✏️ Quail 🐦 </h1>
 
-## For Users
-
-Thank you so much for downloading the app! This is the Quail repository, where we store our code. Feel free to poke around and see if anything piques your interest! 💭
-
-## For Developers
-
-Quail is a minimalist [React Native](https://reactnative.dev/), [Expo](https://docs.expo.dev/guides/) mobile to do list application. Built with a [monorepo](https://www.atlassian.com/git/tutorials/monorepos) architecture, and [yarn workspaces](https://yarnpkg.com/features/workspaces).
+[Quail](https://quailapp.vercel.app/) is a minimalist [React Native](https://reactnative.dev/), [Expo](https://docs.expo.dev/guides/) mobile to do list application. Built with a [monorepo](https://www.atlassian.com/git/tutorials/monorepos) architecture, and [yarn workspaces](https://yarnpkg.com/features/workspaces).
 
 ### By [Isaac Moreno](https://www.linkedin.com/in/isaacrmoreno/) 👨‍💻
 
@@ -30,20 +24,6 @@ git clone https://github.com/isaacrmoreno/expo-to-do-list.git
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-## Versioning
-
-The app version is defined based on the following strategy:
-
-**Major:** Increased when we add breaking changes to the app
-
-**Minor:** Increased when we add new native changes (libraries that requires native changes; Changes on app.json, app.config.js, eas.json) or when we add new features to the app.
-
-**Patch:** Design improvements / bug fixes
-
-_Where, considering the version 4.5.6, 4 is the Major, 5 is the Minor, 6 is the patch._
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
 ### Styling
 
 The application utilizes inline styling with [twrnc](https://github.com/jaredh159/tailwind-react-native-classnames).
@@ -53,11 +33,15 @@ import { View, Text } from 'react-native';
 import tw from 'twrnc';
 
 const MyComponent = () => (
-  <View style={tw`p-4 android:pt-2 bg-white dark:bg-black`}>
-    <Text style={tw`text-md text-black dark:text-white`}>Hello World</Text>
+  <View style={tw`p-4 bg-white`}>
+    <Text style={tw`text-md text-black`}>Hello World</Text>
   </View>
 );
 ```
+
+#### Dark Mode
+
+Although twrnc has a dark mode option [here](https://github.com/jaredh159/tailwind-react-native-classnames#enabling-device-context-prefixes). After some testing I found React Natives [useColorScheme](https://reactnative.dev/docs/usecolorscheme) hook renders faster. ⚡
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
