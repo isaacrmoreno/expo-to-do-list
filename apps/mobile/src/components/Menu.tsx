@@ -7,12 +7,11 @@ import {
   useColorScheme,
   Share,
   Platform,
-  Touchable,
   Switch,
-  Alert,
   TouchableWithoutFeedback,
 } from 'react-native'
 import { DrawerActions, useNavigation } from '@react-navigation/native'
+import { LinearGradient } from 'expo-linear-gradient'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import { AntDesign } from '@expo/vector-icons'
@@ -54,16 +53,27 @@ const Menu = () => {
     <View style={[tw`flex-1 items-center px-5`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
       {(showToggle as boolean) && (
         <View style={tw`absolute flex-row bottom-26 items-center self-end	px-6`}>
-          <Text style={tw`px-2 font-bold`}>STYLIZE</Text>
+          <Text
+            style={[tw`px-2 font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
+            STYLIZE
+          </Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }} // see whats good
-            thumbColor={stylize ? '#f5dd4b' : '#f4f3f4'} // first color is the yellow // second is when disabled
+            trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }} // center color of quail logo
             ios_backgroundColor='#3e3e3e'
             onValueChange={toggleStylize}
             value={stylize}
           />
         </View>
       )}
+
+      <LinearGradient
+        colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
+        style={tw`absolute bottom-40`}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}>
+        <Text style={tw`font-bold p-2 `}>This is to show the gradient</Text>
+      </LinearGradient>
+
       <View
         style={tw`absolute flex-row bottom-16 justify-center items-center border-b border-gray-500 w-full pb-2`}>
         <TouchableOpacity onPress={onShare}>
