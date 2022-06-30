@@ -22,7 +22,6 @@ const Menu = () => {
   const [stylize, setStylize] = useState<boolean>(false)
 
   const colorScheme = useColorScheme()
-  const navigation = useNavigation<any>()
 
   const onShare = async () => {
     const result = await Share.share({
@@ -31,7 +30,6 @@ const Menu = () => {
     })
     if (result.action === Share.sharedAction) {
     } else if (result.action === Share.dismissedAction) {
-      navigation.dispatch(DrawerActions.closeDrawer())
     }
   }
 
@@ -41,16 +39,20 @@ const Menu = () => {
     )
   }
 
-  const visitGitHub = async () => {
-    WebBrowser.openBrowserAsync('https://github.com/isaacrmoreno/expo-to-do-list')
-  }
-
   const toggleStylize = () => setStylize(!stylize)
 
   const showHideToggle = () => setShowToggle(!showToggle)
 
   return (
-    <View style={[tw`flex-1 items-center px-5`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
+    <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
+      <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4`}>
+        <EvilIcons
+          name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
+          size={30}
+          color={colorScheme === 'dark' ? 'white' : 'black'}
+        />
+      </TouchableOpacity>
+
       {(showToggle as boolean) && (
         <View style={tw`absolute flex-row bottom-26 items-center self-end	px-6`}>
           <Text
@@ -75,31 +77,18 @@ const Menu = () => {
       </LinearGradient>
 
       <View
-        style={tw`absolute flex-row bottom-16 justify-center items-center border-b border-gray-500 w-full pb-2`}>
-        <TouchableOpacity onPress={onShare}>
-          <EvilIcons
-            name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
-            size={24}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-          />
-        </TouchableOpacity>
-        <Text style={[tw`px-3`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>|</Text>
+        style={tw`absolute flex-row bottom-6 items-center	border-t border-gray-500 w-full pt-2 justify-evenly`}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             Privacy Policy
           </Text>
         </TouchableOpacity>
-      </View>
-
-      <View style={tw`absolute flex-row bottom-6 items-center`}>
-        <TouchableOpacity onPress={visitGitHub}>
-          <AntDesign name='github' size={24} color={colorScheme === 'dark' ? 'white' : 'black'} />
-        </TouchableOpacity>
-        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-          <TouchableWithoutFeedback onLongPress={showHideToggle}>
-            <Text> - Version - {Constants?.manifest?.version}</Text>
-          </TouchableWithoutFeedback>
-        </Text>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
+        <TouchableWithoutFeedback onLongPress={showHideToggle}>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+            V.{Constants?.manifest?.version}
+          </Text>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   )
