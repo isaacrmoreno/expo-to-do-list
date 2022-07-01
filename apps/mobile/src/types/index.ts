@@ -1,6 +1,5 @@
 export interface addTaskButtonProps {
   name: 'plus' | 'check'
-  size: number
   onPress: () => void
 }
 
