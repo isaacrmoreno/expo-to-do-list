@@ -15,15 +15,17 @@ import coffee from '../../assets/bmc-button.png'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import Constants from 'expo-constants'
+import useStore from '../store/index'
 
 const Menu = () => {
   const [showToggle, setShowToggle] = useState<boolean>(false)
-  const [stylize, setStylize] = useState<boolean>(false)
+
+  const stylized = useStore((state) => state?.stylized)
+  const setStylized = useStore((state) => state?.setStylized)
 
   const colorScheme = useColorScheme()
 
   const showHideToggle = () => setShowToggle(!showToggle)
-  const toggleStylize = () => setStylize(!stylize)
 
   const onShare = async () => {
     const result = await Share.share({
@@ -62,8 +64,8 @@ const Menu = () => {
           <Switch
             trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }}
             ios_backgroundColor='#3e3e3e'
-            onValueChange={toggleStylize}
-            value={stylize}
+            onValueChange={() => setStylized(!stylized)}
+            value={stylized}
           />
         </View>
       )}

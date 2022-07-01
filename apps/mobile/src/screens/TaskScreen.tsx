@@ -6,7 +6,6 @@ import {
   View,
   TextInput,
   Keyboard,
-  // Alert,
   ScrollView,
   useColorScheme,
   TouchableOpacity,
@@ -16,9 +15,9 @@ import {
 import { EvilIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as ScreenOrientation from 'expo-screen-orientation'
-
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
+import useStore from '../store/index'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -27,10 +26,11 @@ export default function TaskScreen() {
 
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
-  const [stylize, setIsStylized] = useState<boolean>(true)
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
+
+  const stylized = useStore((state) => state?.stylized)
 
   const NUM_ITEMS = 10
   function getColor(i: number) {
@@ -151,7 +151,7 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-      {(stylize as boolean) ? (
+      {(stylized as boolean) ? (
         <ScrollView style={tw`px-5 mt-4`}>
           {taskList.map((taskList, index) => {
             return (
