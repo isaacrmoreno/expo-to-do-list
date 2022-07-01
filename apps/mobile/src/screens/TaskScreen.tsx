@@ -6,7 +6,7 @@ import {
   View,
   TextInput,
   Keyboard,
-  Alert,
+  // Alert,
   ScrollView,
   useColorScheme,
   TouchableOpacity,
@@ -27,6 +27,7 @@ export default function TaskScreen() {
 
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+  const [stylize, setIsStylized] = useState<boolean>(true)
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
@@ -139,31 +140,60 @@ export default function TaskScreen() {
   //     { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
   //   ])
 
+  {
+    /* <LinearGradient
+		colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
+		start={{ x: 0, y: 0 }}
+		end={{ x: 1, y: 0 }}>
+	</LinearGradient> */
+  }
+
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-
-      {/* <LinearGradient
-        colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}>
-			</LinearGradient> */}
-
-      <ScrollView style={tw`px-5 mt-4`}>
-        {taskList.map((taskList, index) => {
-          return (
-            <View key={index}>
-              <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
-                <LinearGradient
-                  colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
-                  style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}>
+      {(stylize as boolean) ? (
+        <ScrollView style={tw`px-5 mt-4`}>
+          {taskList.map((taskList, index) => {
+            return (
+              <View key={index}>
+                <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
+                  <LinearGradient
+                    colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
+                    style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}>
+                    <Text
+                      style={[
+                        tw`w-11/12 text-base`,
+                        colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                      ]}>
+                      {taskList?.description}
+                    </Text>
+                    <EvilIcons
+                      name='check'
+                      size={35}
+                      color={colorScheme === 'dark' ? 'white' : 'black'}
+                      onPress={() => completeTask(index)}
+                    />
+                  </LinearGradient>
+                </TouchableOpacity>
+              </View>
+            )
+          })}
+        </ScrollView>
+      ) : (
+        <ScrollView style={tw`px-5 mt-4`}>
+          {taskList.map((taskList, index) => {
+            return (
+              <View key={index}>
+                <TouchableOpacity
+                  onPress={() => editTask(index)}
+                  style={[
+                    tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
+                    colorScheme === 'dark' && tw`bg-neutral-700`,
+                  ]}>
                   <Text
-                    style={[
-                      tw`w-11/12 text-base`,
-                      colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-                    ]}>
+                    style={[tw`w-11/12`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
                     {taskList?.description}
                   </Text>
                   <EvilIcons
@@ -172,12 +202,12 @@ export default function TaskScreen() {
                     color={colorScheme === 'dark' ? 'white' : 'black'}
                     onPress={() => completeTask(index)}
                   />
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-          )
-        })}
-      </ScrollView>
+                </TouchableOpacity>
+              </View>
+            )
+          })}
+        </ScrollView>
+      )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         style={tw`bottom-4`}>
