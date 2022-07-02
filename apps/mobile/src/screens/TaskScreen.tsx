@@ -23,40 +23,24 @@ export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskList, setTaskList] = useState<object[]>([])
-
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+  const stylized = useStore((state) => state?.stylized)
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
 
-  const stylized = useStore((state) => state?.stylized)
-
-  const NUM_ITEMS = 10
-  function getColor(i: number) {
-    const multiplier = 255 / (NUM_ITEMS - 1)
-    const colorVal = i * multiplier
-    return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
+  const colors = {
+    odd: ['#40c9ff', '#e81cff'],
+    even: ['#f093fb', '#f5576c'],
   }
 
-  type Item = {
-    key: string
-    label: string
-    height: number
-    width: number
-    backgroundColor: string
+  const getColor = (index: number) => {
+    let taskColor = null
+    index % 2 === 0 ? (taskColor = colors.odd) : (taskColor = colors.even)
+    return taskColor
   }
-
-  const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
-    const backgroundColor = getColor(index)
-    return {
-      key: `item-${index}`,
-      label: String(index) + '',
-      height: 100,
-      width: 60 + Math.random() * 40,
-      backgroundColor,
-    }
-  })
 
   const handleAddTask = async () => {
     try {
@@ -131,34 +115,17 @@ export default function TaskScreen() {
     changeScreenOrientation()
   }, [])
 
-  // const confirmDeleteAlert = (index: number) =>
-  //   Alert.alert('Delete Task?', 'Are you sure you want to delete this task?', [
-  //     {
-  //       text: 'Cancel',
-  //       style: 'cancel',
-  //     },
-  //     { text: 'Delete', onPress: () => completeTask(index), style: 'destructive' },
-  //   ])
-
-  {
-    /* <LinearGradient
-		colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
-		start={{ x: 0, y: 0 }}
-		end={{ x: 1, y: 0 }}>
-	</LinearGradient> */
-  }
-
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
       {(stylized as boolean) ? (
-        <ScrollView style={tw`px-5 mt-4`}>
+        <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
             return (
               <View key={index}>
                 <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
                   <LinearGradient
-                    colors={['#f6d365', '#fda085']} // #f093fb #f5576c //  #5ee7df #b490ca //  #c3cfe2 #c3cfe2
+                    colors={getColor(index)}
                     style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 0 }}>
@@ -171,7 +138,7 @@ export default function TaskScreen() {
                     </Text>
                     <EvilIcons
                       name='check'
-                      size={35}
+                      size={32}
                       color={colorScheme === 'dark' ? 'white' : 'black'}
                       onPress={() => completeTask(index)}
                     />
@@ -182,23 +149,26 @@ export default function TaskScreen() {
           })}
         </ScrollView>
       ) : (
-        <ScrollView style={tw`px-5 mt-4`}>
+        <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
             return (
               <View key={index}>
                 <TouchableOpacity
                   onPress={() => editTask(index)}
                   style={[
-                    tw`bg-white p-4 rounded-lg flex-row items-center justify-between mb-6`,
+                    tw`bg-white p-2 flex-row rounded-lg items-center mb-4`,
                     colorScheme === 'dark' && tw`bg-neutral-700`,
                   ]}>
                   <Text
-                    style={[tw`w-11/12`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
+                    style={[
+                      tw`w-11/12 text-base`,
+                      colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                    ]}>
                     {taskList?.description}
                   </Text>
                   <EvilIcons
                     name='check'
-                    size={35}
+                    size={32}
                     color={colorScheme === 'dark' ? 'white' : 'black'}
                     onPress={() => completeTask(index)}
                   />
