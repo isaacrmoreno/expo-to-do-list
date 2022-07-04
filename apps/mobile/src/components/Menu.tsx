@@ -30,49 +30,26 @@ const Menu = () => {
   // second is if setStylized.
 
   const multiSet = async () => {
-    const firstPair = ['@MyApp_user', 'value_1']
-    const secondPair = ['@MyApp_key', 'value_2']
+    const firstPair = ['@stylized', stylized]
+    const secondPair = ['@toggle', showToggle]
     try {
+      setStylized(!stylized)
+      setShowToggle(!showToggle)
       await AsyncStorage.multiSet([firstPair, secondPair])
     } catch (e) {
-      //save error
+      console.log(e)
     }
-
     console.log('Done.')
   }
 
   const getMultiple = async () => {
     let values
     try {
-      values = await AsyncStorage.multiGet(['@MyApp_user', '@MyApp_key'])
+      values = await AsyncStorage.multiGet(['@stylized', '@toggle'])
     } catch (e) {
       console.log(e)
     }
     console.log(values)
-    // example console.log output:
-    // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
-  }
-
-  const showHideToggle = async () => {
-    try {
-      const jsonValue = JSON.stringify(showToggle)
-      console.log('beforeSetItem', showToggle)
-      await AsyncStorage.setItem('@toggle', jsonValue)
-      console.log('afterSetItem', showToggle)
-      setShowToggle(!showToggle)
-      console.log('aftersetState', showToggle)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const getToggleState = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@toggle')
-      jsonValue !== null && setShowToggle(JSON.parse(jsonValue))
-    } catch (e) {
-      console.log(e)
-    }
   }
 
   // const stylize = async () => {
@@ -86,17 +63,6 @@ const Menu = () => {
   //     console.log(e)
   //   }
   // }
-
-  const getStyles = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@styledState')
-      // console.log('before', jsonValue) // null
-      jsonValue !== null && setStylized(jsonValue)
-      // console.log('after settingSetStyled:', jsonValue) // null
-    } catch (e) {
-      console.log(e)
-    }
-  }
 
   const onShare = async () => {
     const result = await Share.share({
@@ -118,12 +84,16 @@ const Menu = () => {
   //   getStyles()
   // }, [])
 
+  // useEffect(() => {
+  //   getToggleState()
+  // }, [])
+
   useEffect(() => {
-    getToggleState()
+    getMultiple()
   }, [])
 
   const removeValues = async () => {
-    const keys = ['@styledState', '@toggle']
+    const keys = ['@stylized', '@toggle']
     try {
       await AsyncStorage.multiRemove(keys)
     } catch (e) {
