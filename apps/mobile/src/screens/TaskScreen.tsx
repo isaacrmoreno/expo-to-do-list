@@ -44,7 +44,6 @@ export default function TaskScreen() {
 
   const handleAddTask = async () => {
     try {
-      Keyboard.dismiss()
       setTaskList([...taskList, { description: task }])
       taskList.push({ description: task })
       setTask('')
