@@ -26,43 +26,25 @@ const Menu = () => {
 
   const colorScheme = useColorScheme()
 
-  // const showHideToggle = () => setShowToggle(!showToggle) // first thing I want to save.
-  // second is if setStylized.
+  const showHideToggle = async () => {
+    try {
+      setShowToggle(!showToggle)
+      const jsonValue = JSON.stringify(!showToggle)
+      await AsyncStorage.setItem('@toggle', jsonValue)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-  const multiSet = async () => {
-    const firstPair = ['@stylized', stylized]
-    const secondPair = ['@toggle', showToggle]
+  const showHideStylized = async () => {
     try {
       setStylized(!stylized)
-      setShowToggle(!showToggle)
-      await AsyncStorage.multiSet([firstPair, secondPair])
+      const jsonValue = JSON.stringify(!stylized)
+      await AsyncStorage.setItem('@stylized', jsonValue)
     } catch (e) {
       console.log(e)
     }
-    console.log('Done.')
   }
-
-  const getMultiple = async () => {
-    let values
-    try {
-      values = await AsyncStorage.multiGet(['@stylized', '@toggle'])
-    } catch (e) {
-      console.log(e)
-    }
-    console.log(values)
-  }
-
-  // const stylize = async () => {
-  //   try {
-  //     // setStylized(!stylized)
-  //     console.log('before setItem', stylized)
-  //     const jsonValue = JSON.stringify(stylized)
-  //     await AsyncStorage.setItem('@styledState', jsonValue)
-  //     console.log('after setItem', stylized)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
 
   const onShare = async () => {
     const result = await Share.share({
@@ -80,43 +62,30 @@ const Menu = () => {
     )
   }
 
-  // useEffect(() => {
-  //   getStyles()
-  // }, [])
-
-  // useEffect(() => {
-  //   getToggleState()
-  // }, [])
+  const getMultiple = async () => {
+    let values
+    try {
+      values = await AsyncStorage.multiGet(['@stylized', '@toggle'])
+      values?.[0][1] !== null && setStylized(JSON.parse(values?.[0][1]))
+      values?.[1][1] !== null && setShowToggle(JSON.parse(values?.[1][1]))
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
     getMultiple()
   }, [])
 
-  const removeValues = async () => {
-    const keys = ['@stylized', '@toggle']
-    try {
-      await AsyncStorage.multiRemove(keys)
-    } catch (e) {
-      console.log(e)
-    }
-    console.log('Done.')
-  }
-
   return (
     <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
-      <View style={tw`absolute top-15 left-4`}>
-        <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4`}>
-          <EvilIcons
-            name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
-            size={30}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={removeValues}>
-          <Text>RESET</Text>
-        </TouchableOpacity>
-      </View>
-
+      <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4`}>
+        <EvilIcons
+          name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
+          size={30}
+          color={colorScheme === 'dark' ? 'white' : 'black'}
+        />
+      </TouchableOpacity>
       {(showToggle as boolean) && (
         <View
           style={[
@@ -129,8 +98,8 @@ const Menu = () => {
           <Switch
             trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }}
             ios_backgroundColor='#3e3e3e'
-            onValueChange={() => setStylized(!stylized)}
-            // onValueChange={stylize}
+            // onValueChange={() => setStylized(!stylized)}
+            onValueChange={showHideStylized}
             value={stylized}
           />
         </View>
