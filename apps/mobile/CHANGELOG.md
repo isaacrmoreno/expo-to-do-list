@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - A new share button to help your loved ones simplify their lives, and grow our community! 🚀
 - Updated UI placement for the privacy policy, and version number.
-- A new "Buy Me a Coffee" button for those who like to make it rain. 💸 - IOS ONLY - (Sorry Google wouldn't let me add this without a couple dates with the IRS)
+- Removes alert when completing a task.
 
 ## [1.0.0] - 2021-06-30
 

@@ -12,7 +12,6 @@ import {
   Image,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import coffee from '../../assets/bmc-button.png'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import Constants from 'expo-constants'
@@ -87,11 +86,7 @@ const Menu = () => {
         />
       </TouchableOpacity>
       {(showToggle as boolean) && (
-        <View
-          style={[
-            tw`absolute flex-row items-center w-full justify-between`,
-            Platform.OS === 'ios' ? tw`bottom-32` : tw`bottom-14`,
-          ]}>
+        <View style={tw`absolute flex-row items-center w-full justify-between bottom-14 pb-2`}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             STYLIZE
           </Text>
@@ -103,14 +98,8 @@ const Menu = () => {
           />
         </View>
       )}
-      {Platform.OS === 'ios' ? (
-        <TouchableOpacity
-          onPress={() => WebBrowser.openBrowserAsync('https://www.buymeacoffee.com/N3j19RC0nH')}
-          style={tw`absolute flex-row bottom-14`}>
-          <Image source={coffee} style={tw`rounded-lg w-62 h-16`} />
-        </TouchableOpacity>
-      ) : null}
-      <View style={tw`absolute flex-row bottom-6 items-center w-full pt-1 justify-between`}>
+      <View
+        style={tw`absolute flex-row bottom-6 items-center w-full pt-2 justify-between border-t`}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             Privacy Policy
