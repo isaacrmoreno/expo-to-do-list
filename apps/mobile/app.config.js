@@ -43,6 +43,7 @@ export default {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
       },
+      versionCode: 2,
       package: `com.expotodolist.${ENVIRONMENT}`,
     },
     web: {

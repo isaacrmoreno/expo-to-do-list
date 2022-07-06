@@ -17,7 +17,9 @@
     "ota:dev": "cd apps/mobile && expo publish --release-channel development --target managed",
     "ota:staging": "cd apps/mobile && expo publish --release-channel staging --target managed",
     "ota:beta": "cd apps/mobile && expo publish --release-channel beta --target managed",
-    "ota:prod": "cd apps/mobile && expo publish --release-channel production --target managed"
+    "ota:prod": "cd apps/mobile && expo publish --release-channel production --target managed",
+    "submit:android": "cd apps/mobile && eas submit -p android --latest",
+    "submit:ios": "cd apps/mobile && eas submit -p ios --latest"
   },
   "workspaces": [
     "apps/*",
