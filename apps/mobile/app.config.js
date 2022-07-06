@@ -19,7 +19,7 @@ export default {
   expo: {
     name: 'Quail',
     slug: 'quail',
-    version: '1.0.0',
+    version: '1.1.0',
     orientation: 'default',
     icon: logo(),
     userInterfaceStyle: 'automatic',
@@ -36,6 +36,7 @@ export default {
       supportsTablet: true,
       bundleIdentifier: `com.expotodolist.${ENVIRONMENT}`,
       requireFullScreen: true,
+      buildNumber: '2',
     },
     android: {
       adaptiveIcon: {

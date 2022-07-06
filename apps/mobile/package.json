@@ -1,7 +1,7 @@
 {
   "name": "@expo-to-do-list/mobile",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
     "start": "expo start",
