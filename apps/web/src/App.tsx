@@ -19,6 +19,11 @@ function App() {
           <img src={googleBadge} alt='Google Play Store Badge' width={250} height={250} />
         </a>
       </div>
+      <a
+        className='absolute text-2xl text-white dark:text-black font-bold right-10 top-10'
+        href='https://github.com/isaacrmoreno/expo-to-do-list'>
+        Github
+      </a>
     </div>
   )
 }
