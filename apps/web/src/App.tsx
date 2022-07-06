@@ -20,7 +20,7 @@ function App() {
         </a>
       </div>
       <a
-        className='absolute text-2xl text-white dark:text-black font-bold right-10 top-10'
+        className='absolute text-2xl text-white font-bold left-4 top-4'
         href='https://github.com/isaacrmoreno/expo-to-do-list'>
         Github
       </a>
