@@ -98,7 +98,6 @@ const Menu = () => {
           <Switch
             trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }}
             ios_backgroundColor='#3e3e3e'
-            // onValueChange={() => setStylized(!stylized)}
             onValueChange={showHideStylized}
             value={stylized}
           />
