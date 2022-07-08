@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Audio } from 'expo-av'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
@@ -25,6 +26,16 @@ export default function TaskScreen() {
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+
+  const [sound, setSound] = React.useState()
+
+  async function playSound() {
+    console.log('Loading Sound')
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/ting.mp3'))
+    setSound(sound)
+    console.log('Playing Sound')
+    await sound.playAsync()
+  }
 
   const stylized = useStore((state) => state?.stylized)
 
@@ -114,9 +125,18 @@ export default function TaskScreen() {
     changeScreenOrientation()
   }, [])
 
+  useEffect(() => {
+    return sound ? () => sound.unloadAsync() : undefined
+  }, [sound])
+
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
+      <View>
+        <TouchableOpacity onPress={playSound}>
+          <Text>Play Sound</Text>
+        </TouchableOpacity>
+      </View>
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {

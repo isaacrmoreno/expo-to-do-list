@@ -9,7 +9,6 @@ import {
   Platform,
   Switch,
   TouchableWithoutFeedback,
-  Image,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EvilIcons } from '@expo/vector-icons'
