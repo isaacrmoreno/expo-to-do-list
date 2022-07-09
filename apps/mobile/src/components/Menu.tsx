@@ -7,7 +7,6 @@ import {
   useColorScheme,
   Share,
   Platform,
-  Switch,
   TouchableWithoutFeedback,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -15,12 +14,15 @@ import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import Constants from 'expo-constants'
 import useStore from '../store/index'
+import MenuSwitch from './MenuSwitch'
 
 const Menu = () => {
   const [showToggle, setShowToggle] = useState<boolean>(false)
 
   const stylized = useStore((state) => state?.stylized)
   const setStylized = useStore((state) => state?.setStylized)
+  const isMuted = useStore((state) => state?.isMuted)
+  const setIsMuted = useStore((state) => state?.setIsMuted)
 
   const colorScheme = useColorScheme()
 
@@ -39,6 +41,16 @@ const Menu = () => {
       setStylized(!stylized)
       const jsonValue = JSON.stringify(!stylized)
       await AsyncStorage.setItem('@stylized', jsonValue)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const playMuteSounds = async () => {
+    try {
+      setIsMuted(!isMuted)
+      const jsonValue = JSON.stringify(!isMuted)
+      await AsyncStorage.setItem('@isMuted', jsonValue)
     } catch (e) {
       console.log(e)
     }
@@ -63,9 +75,10 @@ const Menu = () => {
   const getMultiple = async () => {
     let values
     try {
-      values = await AsyncStorage.multiGet(['@stylized', '@toggle'])
+      values = await AsyncStorage.multiGet(['@stylized', '@toggle', '@isMuted'])
       values?.[0][1] !== null && setStylized(JSON.parse(values?.[0][1]))
       values?.[1][1] !== null && setShowToggle(JSON.parse(values?.[1][1]))
+      values?.[2][1] !== null && setIsMuted(JSON.parse(values?.[2][1]))
     } catch (e) {
       console.log(e)
     }
@@ -85,20 +98,15 @@ const Menu = () => {
         />
       </TouchableOpacity>
       {(showToggle as boolean) && (
-        <View style={tw`absolute flex-row items-center w-full justify-between bottom-14 pb-2`}>
-          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
-            STYLIZE
-          </Text>
-          <Switch
-            trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }}
-            ios_backgroundColor='#3e3e3e'
-            onValueChange={showHideStylized}
-            value={stylized}
-          />
+        <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
+          <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
         </View>
       )}
+      <View style={tw`absolute flex-row items-center w-full justify-between bottom-14 pb-2`}>
+        <MenuSwitch text='MUTE' onValueChange={playMuteSounds} value={isMuted} />
+      </View>
       <View
-        style={tw`absolute flex-row bottom-6 items-center w-full pt-2 justify-between border-t`}>
+        style={tw`absolute flex-row items-center w-full justify-between bottom-6 border-t pt-2`}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             Privacy Policy

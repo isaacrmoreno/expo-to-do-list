@@ -26,18 +26,10 @@ export default function TaskScreen() {
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
-
-  const [sound, setSound] = React.useState()
-
-  async function playSound() {
-    console.log('Loading Sound')
-    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/ting.mp3'))
-    setSound(sound)
-    console.log('Playing Sound')
-    await sound.playAsync()
-  }
+  const [sound, setSound] = useState<object>()
 
   const stylized = useStore((state) => state?.stylized)
+  const isMuted = useStore((state) => state?.isMuted)
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
@@ -55,6 +47,12 @@ export default function TaskScreen() {
 
   const handleAddTask = async () => {
     try {
+      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
+        volume: 0.2,
+        isMuted: isMuted,
+      })
+      setSound(sound)
+      await sound.playAsync()
       setTaskList([...taskList, { description: task }])
       taskList.push({ description: task })
       setTask('')
@@ -84,6 +82,12 @@ export default function TaskScreen() {
 
   const handleUpdateTask = async () => {
     try {
+      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
+        volume: 0.2,
+        isMuted: isMuted,
+      })
+      setSound(sound)
+      await sound.playAsync()
       setUpdateIcon(false)
       Keyboard.dismiss()
       let updatedTaskList = [...taskList]
@@ -99,6 +103,12 @@ export default function TaskScreen() {
 
   const completeTask = async (index: number) => {
     try {
+      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/bloop.mp3'), {
+        volume: 0.2,
+        isMuted: isMuted,
+      })
+      setSound(sound)
+      await sound.playAsync()
       let UpdatedTaskList = [...taskList]
       UpdatedTaskList.splice(index, 1)
       setTaskList(UpdatedTaskList)
@@ -132,11 +142,6 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-      <View>
-        <TouchableOpacity onPress={playSound}>
-          <Text>Play Sound</Text>
-        </TouchableOpacity>
-      </View>
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {

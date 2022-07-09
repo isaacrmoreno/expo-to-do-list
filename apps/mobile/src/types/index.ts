@@ -18,3 +18,9 @@ export interface TaskItemProps {
   confirmDeleteAlert: (index: number) => void
   editTask: (index: number) => void
 }
+
+export interface MenuSwitchProps {
+  text: string
+  onValueChange: (value: boolean) => void | Promise<void>
+  value: boolean
+}
