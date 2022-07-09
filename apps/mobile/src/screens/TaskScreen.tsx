@@ -19,6 +19,7 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
 import useStore from '../store/index'
+import { quotes } from '../store/quotes'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -26,6 +27,7 @@ export default function TaskScreen() {
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
+  const [isEmptyList, setIsEmptyList] = useState<boolean>(true)
   const [sound, setSound] = useState<object>()
 
   const stylized = useStore((state) => state?.stylized)
@@ -43,6 +45,10 @@ export default function TaskScreen() {
     let taskColor = null
     index % 2 === 0 ? (taskColor = colors.odd) : (taskColor = colors.even)
     return taskColor
+  }
+
+  const spiritLifter = (max: number) => {
+    Math.floor(Math.random(max))
   }
 
   const handleAddTask = async () => {
@@ -142,6 +148,11 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
+      <View style={tw`flex-1 justify-center items-center top-35`}>
+        <Text style={[tw`opacity-50`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
+          test
+        </Text>
+      </View>
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {

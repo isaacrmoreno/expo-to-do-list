@@ -3,10 +3,6 @@ export interface addTaskButtonProps {
   onPress: () => void
 }
 
-export interface ScreenTitleProps {
-  title: string
-}
-
 export interface loginSignUpScreenProps {
   selectLogin: boolean
   toggleLoginSignUp: () => void
@@ -23,4 +19,8 @@ export interface MenuSwitchProps {
   text: string
   onValueChange: (value: boolean) => void | Promise<void>
   value: boolean
+}
+
+export interface SpiritLifterProps {
+  text: string
 }
