@@ -36,7 +36,7 @@ export default function TaskScreen() {
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
-  const [isEmptyList, setIsEmptyList] = useState<boolean>(true)
+  // const [isEmptyList, setIsEmptyList] = useState<boolean>(true)
   const [sound, setSound] = useState<object>()
 
   const stylized = useStore((state) => state?.stylized)
@@ -46,13 +46,13 @@ export default function TaskScreen() {
   const colorScheme = useColorScheme()
 
   const colors = {
-    odd: ['#40c9ff', '#e81cff'],
-    even: ['#f093fb', '#f5576c'],
+    even: ['#40c9ff', '#e81cff'], // blue
+    odd: ['#f093fb', '#f5576c'], // pink
   }
 
   const getColor = (index: number) => {
     let taskColor = null
-    index % 2 === 0 ? (taskColor = colors.odd) : (taskColor = colors.even)
+    index % 2 === 0 ? (taskColor = colors.even) : (taskColor = colors.odd)
     return taskColor
   }
 
@@ -60,23 +60,18 @@ export default function TaskScreen() {
   //   Math.floor(Math.random(max))
   // }
 
-  let listItem = [{ description: 'This' }, { description: 'Is' }, { description: 'A test' }]
-
-  console.log('taskList', taskList)
-
-  const testData: Item[] = [...Array(listItem?.length)].map((d, index) => {
+  const draggableTaskList: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
       key: `item-${index}`,
-      label: listItem[index]?.description,
+      description: taskList[index]?.description,
     }
   })
 
-  {
-    console.log('length:', taskList?.length)
-    console.log('taskList', taskList)
-  }
+  const [data, setData] = useState<object>(draggableTaskList)
 
-  const [data, setData] = useState(testData)
+  {
+    console.log('draggableTaskList:', draggableTaskList)
+  }
 
   const handleAddTask = async () => {
     try {
@@ -87,6 +82,7 @@ export default function TaskScreen() {
       setSound(sound)
       await sound.playAsync()
       setTaskList([...taskList, { description: task }])
+      setData([...taskList, { description: task }]) // ------ This is new
       taskList.push({ description: task })
       setTask('')
       const jsonValue = JSON.stringify(taskList)
@@ -190,8 +186,14 @@ export default function TaskScreen() {
                 color={colorScheme === 'dark' ? 'white' : 'black'}
               />
             </View>
-            <Text style={tw`text-black text-lg font-bold text-center`}>{item.label}</Text>
+            <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
           </TouchableOpacity>
+          {/* <EvilIcons
+            name='check'
+            size={32}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+            onPress={() => completeTask(index)}
+          /> */}
         </View>
       </ScaleDecorator>
     )
