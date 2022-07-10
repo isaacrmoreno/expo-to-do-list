@@ -18,8 +18,17 @@ import { Audio } from 'expo-av'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
+import { MaterialIcons } from '@expo/vector-icons'
+
 import useStore from '../store/index'
-import { quotes } from '../store/quotes'
+import { Item } from '../types/index'
+
+import DraggableFlatList, {
+  ScaleDecorator,
+  RenderItemParams,
+} from 'react-native-draggable-flatlist'
+
+// import { quotes } from '../store/quotes'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -47,9 +56,27 @@ export default function TaskScreen() {
     return taskColor
   }
 
-  const spiritLifter = (max: number) => {
-    Math.floor(Math.random(max))
+  // const spiritLifter = (max: number) => {
+  //   Math.floor(Math.random(max))
+  // }
+
+  let listItem = [{ description: 'This' }, { description: 'Is' }, { description: 'A test' }]
+
+  console.log('taskList', taskList)
+
+  const testData: Item[] = [...Array(listItem?.length)].map((d, index) => {
+    return {
+      key: `item-${index}`,
+      label: listItem[index]?.description,
+    }
+  })
+
+  {
+    console.log('length:', taskList?.length)
+    console.log('taskList', taskList)
   }
+
+  const [data, setData] = useState(testData)
 
   const handleAddTask = async () => {
     try {
@@ -145,14 +172,46 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
+  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
+    return (
+      <ScaleDecorator>
+        <View style={tw`items-center`}>
+          <TouchableOpacity
+            onLongPress={drag}
+            disabled={isActive}
+            style={[
+              tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
+              { backgroundColor: isActive ? 'red' : 'white' },
+            ]}>
+            <View>
+              <MaterialIcons
+                name='drag-indicator'
+                size={24}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+              />
+            </View>
+            <Text style={tw`text-black text-lg font-bold text-center`}>{item.label}</Text>
+          </TouchableOpacity>
+        </View>
+      </ScaleDecorator>
+    )
+  }
+
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-      <View style={tw`flex-1 justify-center items-center top-35`}>
+
+      <DraggableFlatList
+        data={data}
+        onDragEnd={({ data }) => setData(data)}
+        keyExtractor={(item) => item.key}
+        renderItem={renderItem}
+      />
+      {/* <View style={tw`flex-1 justify-center items-center top-35`}>
         <Text style={[tw`opacity-50`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
           test
         </Text>
-      </View>
+      </View> */}
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
