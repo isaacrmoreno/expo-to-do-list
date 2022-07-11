@@ -19,7 +19,6 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
 import { MaterialIcons } from '@expo/vector-icons'
-
 import useStore from '../store/index'
 import { Item } from '../types/index'
 
@@ -28,15 +27,12 @@ import DraggableFlatList, {
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
 
-// import { quotes } from '../store/quotes'
-
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
-  // const [isEmptyList, setIsEmptyList] = useState<boolean>(true)
   const [sound, setSound] = useState<object>()
 
   const stylized = useStore((state) => state?.stylized)
@@ -55,10 +51,6 @@ export default function TaskScreen() {
     index % 2 === 0 ? (taskColor = colors.even) : (taskColor = colors.odd)
     return taskColor
   }
-
-  // const spiritLifter = (max: number) => {
-  //   Math.floor(Math.random(max))
-  // }
 
   const draggableTaskList: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
@@ -88,6 +80,7 @@ export default function TaskScreen() {
       const jsonValue = JSON.stringify(taskList)
       await AsyncStorage.setItem('@taskList', jsonValue)
     } catch (e) {
+      ;``
       console.log(e)
     }
   }
@@ -171,30 +164,47 @@ export default function TaskScreen() {
   const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
-        <View style={tw`items-center`}>
-          <TouchableOpacity
-            onLongPress={drag}
-            disabled={isActive}
-            style={[
-              tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
-              { backgroundColor: isActive ? 'red' : 'white' },
-            ]}>
-            <View>
-              <MaterialIcons
-                name='drag-indicator'
-                size={24}
-                color={colorScheme === 'dark' ? 'white' : 'black'}
-              />
-            </View>
-            <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
-          </TouchableOpacity>
-          {/* <EvilIcons
-            name='check'
-            size={32}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-            onPress={() => completeTask(index)}
-          /> */}
-        </View>
+        <ScrollView style={tw`px-6 mt-4`}>
+          {taskList.map((taskList) => {
+            return (
+              // <View key={index}>
+              <LinearGradient
+                colors={getColor(index)}
+                style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}>
+                {/* <TouchableOpacity onLongPress={drag} disabled={isActive}> */}
+                <MaterialIcons
+                  name='drag-indicator'
+                  size={24}
+                  color={colorScheme === 'dark' ? 'white' : 'black'}
+                  onLongPress={drag}
+                  disabled={isActive}
+                />
+                {/* </TouchableOpacity> */}
+                <View style={tw`flex-1 flex-row items-center justify-between`}>
+                  <TouchableOpacity onPress={() => editTask(index)}>
+                    <Text
+                      style={[
+                        tw` bg-green-300 text-base flex-row`,
+                        colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                      ]}>
+                      {/* {taskList?.description} */}
+                      {item?.description}
+                    </Text>
+                  </TouchableOpacity>
+                  <EvilIcons
+                    name='check'
+                    size={32}
+                    color={colorScheme === 'dark' ? 'white' : 'black'}
+                    onPress={() => completeTask(index)}
+                  />
+                </View>
+              </LinearGradient>
+              // </View>
+            )
+          })}
+        </ScrollView>
       </ScaleDecorator>
     )
   }
@@ -203,48 +213,54 @@ export default function TaskScreen() {
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
 
-      <DraggableFlatList
+      {/* <DraggableFlatList
         data={data}
         onDragEnd={({ data }) => setData(data)}
         keyExtractor={(item) => item.key}
         renderItem={renderItem}
-      />
+      /> */}
       {/* <View style={tw`flex-1 justify-center items-center top-35`}>
         <Text style={[tw`opacity-50`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
           test
         </Text>
       </View> */}
       {(stylized as boolean) ? (
-        <ScrollView style={tw`px-6 mt-4`}>
-          {taskList.map((taskList, index) => {
-            return (
-              <View key={index}>
-                <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
-                  <LinearGradient
-                    colors={getColor(index)}
-                    style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}>
-                    <Text
-                      style={[
-                        tw`w-11/12 text-base`,
-                        colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-                      ]}>
-                      {taskList?.description}
-                    </Text>
-                    <EvilIcons
-                      name='check'
-                      size={32}
-                      color={colorScheme === 'dark' ? 'white' : 'black'}
-                      onPress={() => completeTask(index)}
-                    />
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
-            )
-          })}
-        </ScrollView>
+        <DraggableFlatList
+          data={data}
+          onDragEnd={({ data }) => setData(data)}
+          keyExtractor={(item) => item.key}
+          renderItem={renderItem}
+        />
       ) : (
+        // <ScrollView style={tw`px-6 mt-4`}>
+        //   {taskList.map((taskList, index) => {
+        //     return (
+        //       <View key={index}>
+        //         <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
+        //           <LinearGradient
+        //             colors={getColor(index)}
+        //             style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+        //             start={{ x: 0, y: 0 }}
+        //             end={{ x: 1, y: 0 }}>
+        //             <Text
+        //               style={[
+        //                 tw`w-11/12 text-base`,
+        //                 colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+        //               ]}>
+        //               {taskList?.description}
+        //             </Text>
+        //             <EvilIcons
+        //               name='check'
+        //               size={32}
+        //               color={colorScheme === 'dark' ? 'white' : 'black'}
+        //               onPress={() => completeTask(index)}
+        //             />
+        //           </LinearGradient>
+        //         </TouchableOpacity>
+        //       </View>
+        //     )
+        //   })}
+        // </ScrollView>
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
             return (
