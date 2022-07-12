@@ -38,6 +38,8 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "twrnc": "^3.3.1",
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.13",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {

@@ -28,6 +28,7 @@ import DraggableFlatList, {
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
 import { FlatList, renderItem } from 'react-native-gesture-handler'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -78,12 +79,14 @@ export default function TaskScreen() {
 
   const NUM_ITEMS = 4
 
-  const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
-    // const initialData: Item[] = [...Array(taskList?.length)].map((d, index) => {
+  // const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
+  const initialData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     console.log('taskList?.length', taskList?.length)
+    // console.log(uuidv4())
+
     return {
       // key: `item-${index}`,
-      key: `item-${taskList[index]}`,
+      key: uuidv4(),
       // description: String(index) + '',
       // description: String(taskList[index]?.description) + '',
       // description: taskList[index]?.description,
@@ -102,7 +105,7 @@ export default function TaskScreen() {
       setSound(sound)
       await sound.playAsync()
       setTaskList([...taskList, { description: task }])
-      setData([...taskList, { description: task, key: data?.key }])
+      setData([...taskList, { description: task, key: uuidv4() }])
       taskList.push({ description: task })
       setTask('')
       const jsonValue = JSON.stringify(taskList)
