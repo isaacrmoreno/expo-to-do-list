@@ -55,46 +55,25 @@ export default function TaskScreen() {
     return taskColor
   }
 
-  // const NUM_ITEMS = 10
-  // function getColor(i: number) {
-  //   const multiplier = 255 / (NUM_ITEMS - 1)
-  //   const colorVal = i * multiplier
-  //   return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
-  // }
+  const taskId = uuidv4()
 
-  // type Item = {
-  //   key: string
-  //   label: string
-  //   height: number
-  //   width: number
-  //   backgroundColor: string
-  // }
-
-  // const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
-  //   return {
-  //     key: `item-${index}`,
-  //     description: taskList[index]?.description,
-  //   }
-  // })
-
-  const NUM_ITEMS = 4
-
-  // const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
-  const initialData: Item[] = [...Array(taskList?.length)].map((d, index) => {
-    console.log('taskList?.length', taskList?.length)
-    // console.log(uuidv4())
-
+  const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
-      // key: `item-${index}`,
-      key: uuidv4(),
-      // description: String(index) + '',
-      // description: String(taskList[index]?.description) + '',
-      // description: taskList[index]?.description,
+      key: taskId,
       description: taskList[index]?.description,
     }
   })
 
-  const [data, setData] = useState(initialData)
+  // To do
+  // Double check to see if I can get away using this taskData without UUID to save on bundle size. (if not no worries, its small anyway)
+  // See how much of this I can build with just taskData, so i'm not duplicating a bunch of code.
+  // get this to save with async storage as it
+  // save with async storage, when reorganized.
+  // save with async storage, when updating copy.
+
+  // task list, is then fed into
+
+  const [data, setData] = useState(taskData)
 
   const handleAddTask = async () => {
     try {
@@ -104,12 +83,17 @@ export default function TaskScreen() {
       })
       setSound(sound)
       await sound.playAsync()
-      setTaskList([...taskList, { description: task }])
-      setData([...taskList, { description: task, key: uuidv4() }])
+      setTaskList([...taskList, { description: task }]) // will remove later?
+      setData([...data, { description: task, key: taskId }])
       taskList.push({ description: task })
+      data.push({ description: task, key: taskId })
       setTask('')
-      const jsonValue = JSON.stringify(taskList)
+      // const jsonValue = JSON.stringify(taskList) < ------ old
+      const jsonValue = JSON.stringify(data)
       await AsyncStorage.setItem('@taskList', jsonValue)
+      // const firstPair = ['@taskList', JSON.stringify(taskList)]
+      // const secondPair = ['@taskData', JSON.stringify(taskData)]
+      // await AsyncStorage.multiSet([firstPair, secondPair])
     } catch (e) {
       console.log(e)
     }
@@ -118,11 +102,24 @@ export default function TaskScreen() {
   const getTaskList = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@taskList')
-      jsonValue !== null && setTaskList(JSON.parse(jsonValue))
+      // jsonValue !== null && setTaskList(JSON.parse(jsonValue))
+      jsonValue !== null && setData(JSON.parse(jsonValue))
     } catch (e) {
       console.log(e)
     }
   }
+
+  // const getTaskList = async () => {
+  //   let values
+  //   try {
+  //     values = await AsyncStorage.multiGet(['@taskList', '@taskData'])
+  //     console.log('values', values)
+  //     values?.[0][1] !== null && setTaskList(JSON.parse(values?.[0][1]))
+  //     values?.[1][1] !== null && setData(JSON.parse(values?.[1][1]))
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   const editTask = (index: number) => {
     inputRef?.current?.focus()
@@ -217,8 +214,6 @@ export default function TaskScreen() {
   // }
 
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
-    console.log('item', item)
-    console.log('data', data)
     return (
       <ScaleDecorator>
         <TouchableOpacity
@@ -226,7 +221,7 @@ export default function TaskScreen() {
           disabled={isActive}
           style={[
             tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
-            { backgroundColor: isActive ? 'red' : 'white' },
+            { backgroundColor: isActive ? '#FF4AD8' : 'white' },
           ]}>
           <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
         </TouchableOpacity>
