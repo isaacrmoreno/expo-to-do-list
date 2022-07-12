@@ -21,10 +21,6 @@ export interface MenuSwitchProps {
   value: boolean
 }
 
-export interface SpiritLifterProps {
-  text: string
-}
-
 export interface Item {
   key: string
   description: string

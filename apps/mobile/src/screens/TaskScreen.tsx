@@ -27,8 +27,7 @@ import DraggableFlatList, {
   ScaleDecorator,
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
-
-// import { quotes } from '../store/quotes'
+import { FlatList, renderItem } from 'react-native-gesture-handler'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -36,7 +35,6 @@ export default function TaskScreen() {
   const [taskList, setTaskList] = useState<object[]>([])
   const [updateIcon, setUpdateIcon] = useState<boolean>(false)
   const [isDisabled, setIsDisabled] = useState<boolean>(true)
-  // const [isEmptyList, setIsEmptyList] = useState<boolean>(true)
   const [sound, setSound] = useState<object>()
 
   const stylized = useStore((state) => state?.stylized)
@@ -46,32 +44,54 @@ export default function TaskScreen() {
   const colorScheme = useColorScheme()
 
   const colors = {
-    even: ['#40c9ff', '#e81cff'], // blue
-    odd: ['#f093fb', '#f5576c'], // pink
+    odd: ['#40c9ff', '#e81cff'],
+    even: ['#f093fb', '#f5576c'],
   }
 
   const getColor = (index: number) => {
     let taskColor = null
-    index % 2 === 0 ? (taskColor = colors.even) : (taskColor = colors.odd)
+    index % 2 === 0 ? (taskColor = colors.odd) : (taskColor = colors.even)
     return taskColor
   }
 
-  // const spiritLifter = (max: number) => {
-  //   Math.floor(Math.random(max))
+  // const NUM_ITEMS = 10
+  // function getColor(i: number) {
+  //   const multiplier = 255 / (NUM_ITEMS - 1)
+  //   const colorVal = i * multiplier
+  //   return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
   // }
 
-  const draggableTaskList: Item[] = [...Array(taskList?.length)].map((d, index) => {
+  // type Item = {
+  //   key: string
+  //   label: string
+  //   height: number
+  //   width: number
+  //   backgroundColor: string
+  // }
+
+  // const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
+  //   return {
+  //     key: `item-${index}`,
+  //     description: taskList[index]?.description,
+  //   }
+  // })
+
+  const NUM_ITEMS = 4
+
+  const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
+    // const initialData: Item[] = [...Array(taskList?.length)].map((d, index) => {
+    console.log('taskList?.length', taskList?.length)
     return {
-      key: `item-${index}`,
+      // key: `item-${index}`,
+      key: `item-${taskList[index]}`,
+      // description: String(index) + '',
+      // description: String(taskList[index]?.description) + '',
+      // description: taskList[index]?.description,
       description: taskList[index]?.description,
     }
   })
 
-  const [data, setData] = useState<object>(draggableTaskList)
-
-  {
-    console.log('draggableTaskList:', draggableTaskList)
-  }
+  const [data, setData] = useState(initialData)
 
   const handleAddTask = async () => {
     try {
@@ -82,7 +102,7 @@ export default function TaskScreen() {
       setSound(sound)
       await sound.playAsync()
       setTaskList([...taskList, { description: task }])
-      setData([...taskList, { description: task }]) // ------ This is new
+      setData([...taskList, { description: task, key: data?.key }])
       taskList.push({ description: task })
       setTask('')
       const jsonValue = JSON.stringify(taskList)
@@ -168,33 +188,45 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
-  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
+  // const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
+  //   return (
+  //     <ScaleDecorator>
+  //       <View style={tw`items-center`}>
+  //         <TouchableOpacity
+  //           onLongPress={drag}
+  //           disabled={isActive}
+  //           style={[
+  //             tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
+  //             { backgroundColor: isActive ? 'red' : 'white' },
+  //           ]}>
+  //           <View>
+  //             <MaterialIcons
+  //               name='drag-indicator'
+  //               size={24}
+  //               color={colorScheme === 'dark' ? 'white' : 'black'}
+  //             />
+  //           </View>
+  //           <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </ScaleDecorator>
+  //   )
+  // }
+
+  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
+    console.log('item', item)
+    console.log('data', data)
     return (
       <ScaleDecorator>
-        <View style={tw`items-center`}>
-          <TouchableOpacity
-            onLongPress={drag}
-            disabled={isActive}
-            style={[
-              tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
-              { backgroundColor: isActive ? 'red' : 'white' },
-            ]}>
-            <View>
-              <MaterialIcons
-                name='drag-indicator'
-                size={24}
-                color={colorScheme === 'dark' ? 'white' : 'black'}
-              />
-            </View>
-            <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
-          </TouchableOpacity>
-          {/* <EvilIcons
-            name='check'
-            size={32}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-            onPress={() => completeTask(index)}
-          /> */}
-        </View>
+        <TouchableOpacity
+          onLongPress={drag}
+          disabled={isActive}
+          style={[
+            tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
+            { backgroundColor: isActive ? 'red' : 'white' },
+          ]}>
+          <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
+        </TouchableOpacity>
       </ScaleDecorator>
     )
   }
@@ -202,6 +234,8 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
+
+      {/* <FlatList data={data} renderItem={renderItem} /> */}
 
       <DraggableFlatList
         data={data}
