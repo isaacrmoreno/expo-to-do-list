@@ -18,8 +18,6 @@ import { Audio } from 'expo-av'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
-import { MaterialIcons } from '@expo/vector-icons'
-
 import useStore from '../store/index'
 import { Item } from '../types/index'
 
@@ -27,7 +25,7 @@ import DraggableFlatList, {
   ScaleDecorator,
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
-import { FlatList, renderItem } from 'react-native-gesture-handler'
+// import { FlatList, renderItem } from '../components/Flatlist'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function TaskScreen() {
@@ -59,7 +57,9 @@ export default function TaskScreen() {
 
   const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
-      key: taskId,
+      // key: taskId,
+      // key: taskList[index],
+      key: index,
       description: taskList[index]?.description,
     }
   })
@@ -75,7 +75,7 @@ export default function TaskScreen() {
 
   const [data, setData] = useState(taskData)
 
-  const handleAddTask = async () => {
+  const handleAddTask = async (index: number) => {
     try {
       const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
         volume: 0.2,
@@ -84,16 +84,15 @@ export default function TaskScreen() {
       setSound(sound)
       await sound.playAsync()
       setTaskList([...taskList, { description: task }]) // will remove later?
-      setData([...data, { description: task, key: taskId }])
+      // setData([...data, { description: task, key: taskId }])
+      setData(data)
       taskList.push({ description: task })
       data.push({ description: task, key: taskId })
       setTask('')
       // const jsonValue = JSON.stringify(taskList) < ------ old
       const jsonValue = JSON.stringify(data)
+      console.log('jsonValue', jsonValue)
       await AsyncStorage.setItem('@taskList', jsonValue)
-      // const firstPair = ['@taskList', JSON.stringify(taskList)]
-      // const secondPair = ['@taskData', JSON.stringify(taskData)]
-      // await AsyncStorage.multiSet([firstPair, secondPair])
     } catch (e) {
       console.log(e)
     }
@@ -108,18 +107,6 @@ export default function TaskScreen() {
       console.log(e)
     }
   }
-
-  // const getTaskList = async () => {
-  //   let values
-  //   try {
-  //     values = await AsyncStorage.multiGet(['@taskList', '@taskData'])
-  //     console.log('values', values)
-  //     values?.[0][1] !== null && setTaskList(JSON.parse(values?.[0][1]))
-  //     values?.[1][1] !== null && setData(JSON.parse(values?.[1][1]))
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
 
   const editTask = (index: number) => {
     inputRef?.current?.focus()
@@ -140,6 +127,7 @@ export default function TaskScreen() {
       setUpdateIcon(false)
       Keyboard.dismiss()
       let updatedTaskList = [...taskList]
+      // let updatedTaskList = [...data[index]?.description]
       updatedTaskList.splice(currentIndex, 1, { description: task })
       setTaskList(updatedTaskList)
       setTask('')
@@ -151,6 +139,7 @@ export default function TaskScreen() {
   }
 
   const completeTask = async (index: number) => {
+    // const completeTask = async (key: string) => {
     try {
       const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/bloop.mp3'), {
         volume: 0.2,
@@ -158,9 +147,13 @@ export default function TaskScreen() {
       })
       setSound(sound)
       await sound.playAsync()
-      let UpdatedTaskList = [...taskList]
-      UpdatedTaskList.splice(index, 1)
-      setTaskList(UpdatedTaskList)
+      // let UpdatedTaskList = [...taskList]
+      let UpdatedTaskList = [...data]
+      // UpdatedTaskList.splice(index, 1)
+      console.log('UpdatedTaskList', UpdatedTaskList)
+      UpdatedTaskList.splice(data[index]?.key, 1) // undefined
+      // setTaskList(UpdatedTaskList)
+      setData(UpdatedTaskList)
       setUpdateIcon(false)
       await AsyncStorage.setItem('@taskList', JSON.stringify(UpdatedTaskList))
     } catch (e) {
@@ -188,43 +181,36 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
-  // const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
-  //   return (
-  //     <ScaleDecorator>
-  //       <View style={tw`items-center`}>
-  //         <TouchableOpacity
-  //           onLongPress={drag}
-  //           disabled={isActive}
-  //           style={[
-  //             tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
-  //             { backgroundColor: isActive ? 'red' : 'white' },
-  //           ]}>
-  //           <View>
-  //             <MaterialIcons
-  //               name='drag-indicator'
-  //               size={24}
-  //               color={colorScheme === 'dark' ? 'white' : 'black'}
-  //             />
-  //           </View>
-  //           <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </ScaleDecorator>
-  //   )
-  // }
-
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
-        <TouchableOpacity
-          onLongPress={drag}
-          disabled={isActive}
-          style={[
-            tw`flex-row w-4/5 rounded-lg mb-6 items-center`,
-            { backgroundColor: isActive ? '#FF4AD8' : 'white' },
-          ]}>
-          <Text style={tw`text-black text-lg font-bold text-center`}>{item.description}</Text>
-        </TouchableOpacity>
+        <View style={tw`px-6 mt-4`}>
+          <TouchableOpacity
+            onPress={() => editTask(parseInt(item?.key))}
+            style={tw`justify-between`}
+            onLongPress={drag}
+            disabled={isActive}>
+            <LinearGradient
+              colors={getColor(parseInt(item?.key))}
+              style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}>
+              <Text
+                style={[
+                  tw`w-11/12 text-base`,
+                  colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                ]}>
+                {item?.description}
+              </Text>
+              <EvilIcons
+                name='check'
+                size={32}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+                onPress={() => completeTask(parseInt(item?.key))}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </ScaleDecorator>
     )
   }
@@ -233,49 +219,16 @@ export default function TaskScreen() {
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
 
-      {/* <FlatList data={data} renderItem={renderItem} /> */}
-
-      <DraggableFlatList
-        data={data}
-        onDragEnd={({ data }) => setData(data)}
-        keyExtractor={(item) => item.key}
-        renderItem={renderItem}
-      />
-      {/* <View style={tw`flex-1 justify-center items-center top-35`}>
-        <Text style={[tw`opacity-50`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
-          test
-        </Text>
-      </View> */}
       {(stylized as boolean) ? (
-        <ScrollView style={tw`px-6 mt-4`}>
-          {taskList.map((taskList, index) => {
-            return (
-              <View key={index}>
-                <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>
-                  <LinearGradient
-                    colors={getColor(index)}
-                    style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}>
-                    <Text
-                      style={[
-                        tw`w-11/12 text-base`,
-                        colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-                      ]}>
-                      {taskList?.description}
-                    </Text>
-                    <EvilIcons
-                      name='check'
-                      size={32}
-                      color={colorScheme === 'dark' ? 'white' : 'black'}
-                      onPress={() => completeTask(index)}
-                    />
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
-            )
-          })}
-        </ScrollView>
+        <DraggableFlatList
+          data={data}
+          onDragEnd={({ data }) => {
+            setData(data)
+            AsyncStorage.setItem('@taskList', JSON.stringify(data))
+          }}
+          keyExtractor={(item) => item.key}
+          renderItem={renderItem}
+        />
       ) : (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
@@ -308,7 +261,7 @@ export default function TaskScreen() {
       )}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
-        style={tw`bottom-4`}>
+        style={tw`absolute bottom-4`}>
         <View style={tw`flex-row justify-between px-5`}>
           <TextInput
             style={[
