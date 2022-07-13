@@ -146,25 +146,18 @@ export default function TaskScreen() {
   type Item = {
     key: string
     description: string
-    backgroundColor: string
   }
 
-  // const NUM_ITEMS = taskList?.length //doesnt return squares @.@
+  // const NUM_ITEMS = taskList?.length //doesnt return squares @.@ // maybe it doesnt return it because its not finding the index?
   const NUM_ITEMS = 4
-  function getColor2(i: number) {
-    const multiplier = 255 / (NUM_ITEMS - 1)
-    const colorVal = i * multiplier
-    return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
-  }
 
   console.log('NUM_ITEMS', NUM_ITEMS)
   const taskData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
-    const backgroundColor = getColor2(index)
     return {
       key: String(index), // was a string, is now a number
       description: String(index),
       // description: taskList[index]?.description,
-      backgroundColor,
+      // taskListDescription, // always just takes index.
     }
   })
 
@@ -172,7 +165,7 @@ export default function TaskScreen() {
 
   const [data, setData] = useState(taskData)
 
-  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
+  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
         <TouchableOpacity
@@ -180,7 +173,7 @@ export default function TaskScreen() {
           disabled={isActive}
           style={[
             tw`h-6 w-full`,
-            { backgroundColor: isActive ? 'red' : item.backgroundColor },
+            { backgroundColor: isActive ? 'red' : 'white' },
           ]}></TouchableOpacity>
       </ScaleDecorator>
     )
