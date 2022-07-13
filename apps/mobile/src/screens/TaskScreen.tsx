@@ -84,30 +84,6 @@ export default function TaskScreen() {
     }
   }
 
-  // const handleAddTask = async () => {
-  //   try {
-  //     const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
-  //       volume: 0.2,
-  //       isMuted: isMuted,
-  //     })
-  //     setSound(sound)
-  //     await sound.playAsync()
-
-  //     setTaskList([...taskList, { description: task }])
-  //     // setData([...data, { description: task, key: taskId }])
-  //     setData(data)
-  //     taskList.push({ description: task })
-  //     data.push({ description: task, key: taskId })
-  //     setTask('')
-  //     // const jsonValue = JSON.stringify(taskList) < ------ old
-  //     const jsonValue = JSON.stringify(data)
-  //     console.log('jsonValue', jsonValue)
-  //     await AsyncStorage.setItem('@taskList', jsonValue)
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
-
   const getTaskList = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@taskList')
