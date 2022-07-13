@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Text,
   Platform,
+  StyleSheet,
 } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -19,6 +20,10 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import AddTaskButton from '../components/AddTaskButton'
 import DrawerToggle from '../components/DrawerToggle'
 import useStore from '../store/index'
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from 'react-native-draggable-flatlist'
 
 export default function TaskScreen() {
   const [task, setTask] = useState<string>('')
@@ -139,9 +144,52 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
+  const NUM_ITEMS = 4
+  function getColor2(i: number) {
+    const multiplier = 255 / (NUM_ITEMS - 1)
+    const colorVal = i * multiplier
+    return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
+  }
+
+  type Item = {
+    key: string
+    label: string
+    backgroundColor: string
+  }
+
+  const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
+    const backgroundColor = getColor2(index)
+    return {
+      key: `item-${index}`,
+      label: String(index) + '',
+      backgroundColor,
+    }
+  })
+
+  const [data, setData] = useState(initialData)
+
+  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
+    return (
+      <ScaleDecorator>
+        <TouchableOpacity
+          onLongPress={drag}
+          disabled={isActive}
+          style={[styles.rowItem, { backgroundColor: isActive ? 'red' : item.backgroundColor }]}>
+          <Text style={styles.text}>{item.label}</Text>
+        </TouchableOpacity>
+      </ScaleDecorator>
+    )
+  }
+
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
+      <DraggableFlatList
+        data={data}
+        onDragEnd={({ data }) => setData(data)}
+        keyExtractor={(item) => item.key}
+        renderItem={renderItem}
+      />
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList, index) => {
@@ -230,3 +278,18 @@ export default function TaskScreen() {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  rowItem: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+})
