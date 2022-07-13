@@ -25,7 +25,6 @@ import DraggableFlatList, {
   ScaleDecorator,
   RenderItemParams,
 } from 'react-native-draggable-flatlist'
-// import { FlatList, renderItem } from '../components/Flatlist'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function TaskScreen() {
@@ -57,25 +56,14 @@ export default function TaskScreen() {
 
   const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
-      // key: taskId,
-      // key: taskList[index],
       key: index,
-      description: taskList[index]?.description,
+      // description: taskList[index]?.description,
     }
   })
 
-  // To do
-  // Double check to see if I can get away using this taskData without UUID to save on bundle size. (if not no worries, its small anyway)
-  // See how much of this I can build with just taskData, so i'm not duplicating a bunch of code.
-  // get this to save with async storage as it
-  // save with async storage, when reorganized.
-  // save with async storage, when updating copy.
+  const [data, setData] = useState<object[]>(taskData)
 
-  // task list, is then fed into
-
-  const [data, setData] = useState(taskData)
-
-  const handleAddTask = async (index: number) => {
+  const handleAddTask = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
         volume: 0.2,
@@ -83,20 +71,42 @@ export default function TaskScreen() {
       })
       setSound(sound)
       await sound.playAsync()
-      setTaskList([...taskList, { description: task }]) // will remove later?
-      // setData([...data, { description: task, key: taskId }])
+      // setTaskList([...taskList, { description: task }]) < --- old
+      // taskList.push({ description: task }) < ---- old
       setData(data)
-      taskList.push({ description: task })
       data.push({ description: task, key: taskId })
       setTask('')
-      // const jsonValue = JSON.stringify(taskList) < ------ old
-      const jsonValue = JSON.stringify(data)
-      console.log('jsonValue', jsonValue)
+      const jsonValue = JSON.stringify(data) // taskList
+      console.log(jsonValue)
       await AsyncStorage.setItem('@taskList', jsonValue)
     } catch (e) {
       console.log(e)
     }
   }
+
+  // const handleAddTask = async () => {
+  //   try {
+  //     const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
+  //       volume: 0.2,
+  //       isMuted: isMuted,
+  //     })
+  //     setSound(sound)
+  //     await sound.playAsync()
+
+  //     setTaskList([...taskList, { description: task }])
+  //     // setData([...data, { description: task, key: taskId }])
+  //     setData(data)
+  //     taskList.push({ description: task })
+  //     data.push({ description: task, key: taskId })
+  //     setTask('')
+  //     // const jsonValue = JSON.stringify(taskList) < ------ old
+  //     const jsonValue = JSON.stringify(data)
+  //     console.log('jsonValue', jsonValue)
+  //     await AsyncStorage.setItem('@taskList', jsonValue)
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   const getTaskList = async () => {
     try {
