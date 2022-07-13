@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   Text,
   Platform,
-  StyleSheet,
 } from 'react-native'
 import { EvilIcons } from '@expo/vector-icons'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -144,6 +143,13 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
+  type Item = {
+    key: string
+    description: string
+    backgroundColor: string
+  }
+
+  // const NUM_ITEMS = taskList?.length //doesnt return squares @.@
   const NUM_ITEMS = 4
   function getColor2(i: number) {
     const multiplier = 255 / (NUM_ITEMS - 1)
@@ -151,32 +157,31 @@ export default function TaskScreen() {
     return `rgb(${colorVal}, ${Math.abs(128 - colorVal)}, ${255 - colorVal})`
   }
 
-  type Item = {
-    key: string
-    label: string
-    backgroundColor: string
-  }
-
-  const initialData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
+  console.log('NUM_ITEMS', NUM_ITEMS)
+  const taskData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
     const backgroundColor = getColor2(index)
     return {
-      key: `item-${index}`,
-      label: String(index) + '',
+      key: String(index), // was a string, is now a number
+      description: String(index),
+      // description: taskList[index]?.description,
       backgroundColor,
     }
   })
 
-  const [data, setData] = useState(initialData)
+  console.log(taskData)
 
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
+  const [data, setData] = useState(taskData)
+
+  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
         <TouchableOpacity
           onLongPress={drag}
           disabled={isActive}
-          style={[styles.rowItem, { backgroundColor: isActive ? 'red' : item.backgroundColor }]}>
-          <Text style={styles.text}>{item.label}</Text>
-        </TouchableOpacity>
+          style={[
+            tw`h-6 w-full`,
+            { backgroundColor: isActive ? 'red' : item.backgroundColor },
+          ]}></TouchableOpacity>
       </ScaleDecorator>
     )
   }
@@ -278,18 +283,3 @@ export default function TaskScreen() {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  rowItem: {
-    height: 100,
-    width: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-})
