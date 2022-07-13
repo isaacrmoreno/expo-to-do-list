@@ -184,33 +184,65 @@ export default function TaskScreen() {
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
-        <View style={tw`px-6 mt-4`}>
-          <TouchableOpacity
-            onPress={() => editTask(parseInt(item?.key))}
-            style={tw`justify-between`}
-            onLongPress={drag}
-            disabled={isActive}>
-            <LinearGradient
-              colors={getColor(parseInt(item?.key))}
-              style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}>
-              <Text
-                style={[
-                  tw`w-11/12 text-base`,
-                  colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-                ]}>
-                {item?.description}
-              </Text>
-              <EvilIcons
-                name='check'
-                size={32}
-                color={colorScheme === 'dark' ? 'white' : 'black'}
-                onPress={() => completeTask(parseInt(item?.key))}
-              />
-            </LinearGradient>
-          </TouchableOpacity>
-        </View>
+        {(stylized as boolean) ? (
+          <View style={tw`px-6 mt-4`}>
+            <TouchableOpacity
+              onPress={() => editTask(parseInt(item?.key))}
+              style={tw`justify-between`}
+              onLongPress={drag}
+              disabled={isActive}>
+              <LinearGradient
+                colors={getColor(parseInt(item?.key))}
+                style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}>
+                <Text
+                  style={[
+                    tw`w-11/12 text-base`,
+                    colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                  ]}>
+                  {item?.description}
+                  {/* {taskList?.description} */}
+                </Text>
+                <EvilIcons
+                  name='check'
+                  size={32}
+                  color={colorScheme === 'dark' ? 'white' : 'black'}
+                  onPress={() => completeTask(parseInt(item?.key))}
+                />
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <ScrollView style={tw`px-6 mt-4`}>
+            {taskList.map((taskList, index) => {
+              return (
+                <View key={index}>
+                  <TouchableOpacity
+                    onPress={() => editTask(index)}
+                    style={[
+                      tw`bg-white p-2 flex-row rounded-lg items-center mb-4`,
+                      colorScheme === 'dark' && tw`bg-neutral-700`,
+                    ]}>
+                    <Text
+                      style={[
+                        tw`w-11/12 text-base`,
+                        colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                      ]}>
+                      {taskList?.description}
+                    </Text>
+                    <EvilIcons
+                      name='check'
+                      size={32}
+                      color={colorScheme === 'dark' ? 'white' : 'black'}
+                      onPress={() => completeTask(index)}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )
+            })}
+          </ScrollView>
+        )}
       </ScaleDecorator>
     )
   }
@@ -218,47 +250,15 @@ export default function TaskScreen() {
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
       <DrawerToggle />
-
-      {(stylized as boolean) ? (
-        <DraggableFlatList
-          data={data}
-          onDragEnd={({ data }) => {
-            setData(data)
-            AsyncStorage.setItem('@taskList', JSON.stringify(data))
-          }}
-          keyExtractor={(item) => item.key}
-          renderItem={renderItem}
-        />
-      ) : (
-        <ScrollView style={tw`px-6 mt-4`}>
-          {taskList.map((taskList, index) => {
-            return (
-              <View key={index}>
-                <TouchableOpacity
-                  onPress={() => editTask(index)}
-                  style={[
-                    tw`bg-white p-2 flex-row rounded-lg items-center mb-4`,
-                    colorScheme === 'dark' && tw`bg-neutral-700`,
-                  ]}>
-                  <Text
-                    style={[
-                      tw`w-11/12 text-base`,
-                      colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
-                    ]}>
-                    {taskList?.description}
-                  </Text>
-                  <EvilIcons
-                    name='check'
-                    size={32}
-                    color={colorScheme === 'dark' ? 'white' : 'black'}
-                    onPress={() => completeTask(index)}
-                  />
-                </TouchableOpacity>
-              </View>
-            )
-          })}
-        </ScrollView>
-      )}
+      <DraggableFlatList
+        data={data}
+        onDragEnd={({ data }) => {
+          setData(data)
+          AsyncStorage.setItem('@taskList', JSON.stringify(data))
+        }}
+        keyExtractor={(item) => item.key}
+        renderItem={renderItem}
+      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         style={tw`absolute bottom-4`}>
