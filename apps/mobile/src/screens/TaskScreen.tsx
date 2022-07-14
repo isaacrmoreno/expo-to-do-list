@@ -57,7 +57,7 @@ export default function TaskScreen() {
   const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
       key: index,
-      // description: taskList[index]?.description,
+      description: taskList[index]?.description,
     }
   })
 
@@ -77,7 +77,7 @@ export default function TaskScreen() {
       data.push({ description: task, key: taskId })
       setTask('')
       const jsonValue = JSON.stringify(data) // taskList
-      console.log(jsonValue)
+      console.log('jsonValue', jsonValue)
       await AsyncStorage.setItem('@taskList', jsonValue)
     } catch (e) {
       console.log(e)
@@ -94,6 +94,16 @@ export default function TaskScreen() {
     }
   }
 
+  // const editTask = (index: number) => {
+  //   inputRef?.current?.focus()
+  //   setUpdateIcon(true)
+  //   const newTask = taskList[index]?.description
+  //   console.log('newTask', newTask)
+
+  //   setTask(newTask)
+  //   setCurrentIndex(index)
+  // }
+
   const editTask = (index: number) => {
     inputRef?.current?.focus()
     setUpdateIcon(true)
@@ -101,6 +111,18 @@ export default function TaskScreen() {
     setTask(newTask)
     setCurrentIndex(index)
   }
+
+  // const editTask = (index: number) => {
+  //   inputRef?.current?.focus()
+  //   setUpdateIcon(true)
+  //   console.log('data', data[0])
+  //   // const newTask = data[index]
+  //   const newTask = Object.values(String(data))
+  //   // console.log('newTask', newTask)
+
+  //   // setTask(newTask)
+  //   // setCurrentIndex(index)
+  // }
 
   const handleUpdateTask = async () => {
     try {
@@ -112,10 +134,13 @@ export default function TaskScreen() {
       await sound.playAsync()
       setUpdateIcon(false)
       Keyboard.dismiss()
-      let updatedTaskList = [...taskList]
+      // let updatedTaskList = [...taskList]
+      let updatedTaskList = [...data]
       // let updatedTaskList = [...data[index]?.description]
-      updatedTaskList.splice(currentIndex, 1, { description: task })
-      setTaskList(updatedTaskList)
+      updatedTaskList.splice(taskId, 1, { description: task, key: taskId })
+      // updatedTaskList.splice(currentIndex, 1, { description: task })
+      // setTaskList(updatedTaskList)
+      setData(updatedTaskList)
       setTask('')
       const jsonValue = JSON.stringify(updatedTaskList)
       await AsyncStorage.setItem('@taskList', jsonValue)
@@ -136,9 +161,12 @@ export default function TaskScreen() {
       // let UpdatedTaskList = [...taskList]
       let UpdatedTaskList = [...data]
       // UpdatedTaskList.splice(index, 1)
+      // console.log('completeTask', UpdatedTaskList)
       console.log('UpdatedTaskList', UpdatedTaskList)
+
       UpdatedTaskList.splice(data[index]?.key, 1) // undefined
       // setTaskList(UpdatedTaskList)
+      console.log('UpdatedTaskList', UpdatedTaskList)
       setData(UpdatedTaskList)
       setUpdateIcon(false)
       await AsyncStorage.setItem('@taskList', JSON.stringify(UpdatedTaskList))
@@ -167,18 +195,22 @@ export default function TaskScreen() {
     return sound ? () => sound.unloadAsync() : undefined
   }, [sound])
 
+  useEffect(() => {
+    console.log('data', data)
+  }, [data])
+
   const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
         {(stylized as boolean) ? (
           <View style={tw`px-6 mt-4`}>
             <TouchableOpacity
-              onPress={() => editTask(parseInt(item?.key))}
+              onPress={() => editTask(item?.key)}
               style={tw`justify-between`}
               onLongPress={drag}
               disabled={isActive}>
               <LinearGradient
-                colors={getColor(parseInt(item?.key))}
+                colors={getColor(item?.key)}
                 style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}>
@@ -194,7 +226,7 @@ export default function TaskScreen() {
                   name='check'
                   size={32}
                   color={colorScheme === 'dark' ? 'white' : 'black'}
-                  onPress={() => completeTask(parseInt(item?.key))}
+                  onPress={() => completeTask(item?.key)}
                 />
               </LinearGradient>
             </TouchableOpacity>

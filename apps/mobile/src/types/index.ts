@@ -22,6 +22,6 @@ export interface MenuSwitchProps {
 }
 
 export interface Item {
-  key: string
+  key: number
   description: string
 }
