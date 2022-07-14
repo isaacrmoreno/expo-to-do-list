@@ -148,15 +148,11 @@ export default function TaskScreen() {
     description: string
   }
 
-  // const NUM_ITEMS = taskList?.length //doesnt return squares @.@ // maybe it doesnt return it because its not finding the index?
-  const NUM_ITEMS = 4
-
-  console.log('NUM_ITEMS', NUM_ITEMS)
-  const taskData: Item[] = [...Array(NUM_ITEMS)].map((d, index) => {
+  const taskData: Item[] = [...Array(taskList?.length)].map((d, index) => {
     return {
-      key: String(index), // was a string, is now a number
-      description: String(index),
-      // description: taskList[index]?.description,
+      key: index, // was a string, is now a number
+      // description: String(index),
+      description: taskList[index]?.description,
       // taskListDescription, // always just takes index.
     }
   })
@@ -165,16 +161,38 @@ export default function TaskScreen() {
 
   const [data, setData] = useState(taskData)
 
-  const renderItem = ({ item, drag, isActive }: RenderItemParams<Item>) => {
+  const renderItem = ({ item, drag, isActive, index }: RenderItemParams<Item>) => {
     return (
       <ScaleDecorator>
         <TouchableOpacity
           onLongPress={drag}
           disabled={isActive}
-          style={[
-            tw`h-6 w-full`,
-            { backgroundColor: isActive ? 'red' : 'white' },
-          ]}></TouchableOpacity>
+          style={[tw`h-6 w-full`, { backgroundColor: isActive ? 'red' : 'white' }]}>
+          <Text>Test</Text>
+        </TouchableOpacity>
+        <View key={index}>
+          <TouchableOpacity onPress={() => editTask(item?.key)} style={tw`justify-between`}>
+            <LinearGradient
+              colors={getColor(item?.key)}
+              style={tw`p-2 flex-row rounded-lg mb-4 items-center`}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}>
+              <Text
+                style={[
+                  tw`w-11/12 text-base`,
+                  colorScheme === 'dark' ? tw`text-white` : tw`text-black`,
+                ]}>
+                {taskList?.description}
+              </Text>
+              <EvilIcons
+                name='check'
+                size={32}
+                color={colorScheme === 'dark' ? 'white' : 'black'}
+                onPress={() => completeTask(item?.key)}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
       </ScaleDecorator>
     )
   }
@@ -186,6 +204,7 @@ export default function TaskScreen() {
         data={data}
         onDragEnd={({ data }) => setData(data)}
         keyExtractor={(item) => item.key}
+        // keyExtractor={(index) => index}
         renderItem={renderItem}
       />
       {(stylized as boolean) ? (
