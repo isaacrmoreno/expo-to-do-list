@@ -5,6 +5,8 @@ const useStore = create((set) => ({
   setStylized: (input: boolean) => set((state) => ({ stylized: input })),
   isMuted: false,
   setIsMuted: (input: boolean) => set((state) => ({ isMuted: input })),
+  dialog: false,
+  setDialog: (input: boolean) => set((state) => ({ dialog: input })),
 }))
 
 export default useStore

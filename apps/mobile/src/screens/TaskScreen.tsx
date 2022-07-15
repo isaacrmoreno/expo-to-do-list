@@ -30,6 +30,7 @@ export default function TaskScreen() {
 
   const stylized = useStore((state) => state?.stylized)
   const isMuted = useStore((state) => state?.isMuted)
+  const dialog = useStore((state) => state?.dialog)
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
@@ -206,21 +207,23 @@ export default function TaskScreen() {
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}
         style={tw`bottom-4`}>
         <View style={tw`flex-row justify-between px-5`}>
-          <TextInput
-            style={[
-              tw`p-4 mb-4 rounded-full border`,
-              isDisabled ? tw`w-full` : tw`w-4/5`,
-              colorScheme === 'dark'
-                ? tw`bg-neutral-700 text-white border-white`
-                : tw`bg-white text-black`,
-            ]}
-            ref={inputRef}
-            value={task}
-            placeholder={'Write a task'}
-            clearButtonMode='while-editing'
-            onChangeText={(text) => setTask(text)}
-          />
-          {isDisabled ? null : updateIcon ? (
+          {(!dialog as boolean) ? (
+            <TextInput
+              style={[
+                tw`p-4 mb-4 rounded-full border`,
+                isDisabled ? tw`w-full` : tw`w-4/5`,
+                colorScheme === 'dark'
+                  ? tw`bg-neutral-700 text-white border-white`
+                  : tw`bg-white text-black`,
+              ]}
+              ref={inputRef}
+              value={task}
+              placeholder={'Write a task'}
+              clearButtonMode='while-editing'
+              onChangeText={(text) => setTask(text)}
+            />
+          ) : null}
+          {isDisabled || dialog ? null : updateIcon ? (
             <AddTaskButton name='check' onPress={handleUpdateTask} />
           ) : (
             <AddTaskButton name='plus' onPress={handleAddTask} />
