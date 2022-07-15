@@ -3,10 +3,6 @@ export interface addTaskButtonProps {
   onPress: () => void
 }
 
-export interface ScreenTitleProps {
-  title: string
-}
-
 export interface loginSignUpScreenProps {
   selectLogin: boolean
   toggleLoginSignUp: () => void

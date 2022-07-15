@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import tw from 'twrnc'
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-  Share,
-  Platform,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { Text, TouchableOpacity, View, useColorScheme, Share, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
@@ -17,24 +9,12 @@ import useStore from '../store/index'
 import MenuSwitch from './MenuSwitch'
 
 const Menu = () => {
-  const [showToggle, setShowToggle] = useState<boolean>(false)
-
   const stylized = useStore((state) => state?.stylized)
   const setStylized = useStore((state) => state?.setStylized)
   const isMuted = useStore((state) => state?.isMuted)
   const setIsMuted = useStore((state) => state?.setIsMuted)
 
   const colorScheme = useColorScheme()
-
-  const showHideToggle = async () => {
-    try {
-      setShowToggle(!showToggle)
-      const jsonValue = JSON.stringify(!showToggle)
-      await AsyncStorage.setItem('@toggle', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
-  }
 
   const showHideStylized = async () => {
     try {
@@ -75,10 +55,9 @@ const Menu = () => {
   const getMultiple = async () => {
     let values
     try {
-      values = await AsyncStorage.multiGet(['@stylized', '@toggle', '@isMuted'])
+      values = await AsyncStorage.multiGet(['@stylized', '@isMuted'])
       values?.[0][1] !== null && setStylized(JSON.parse(values?.[0][1]))
-      values?.[1][1] !== null && setShowToggle(JSON.parse(values?.[1][1]))
-      values?.[2][1] !== null && setIsMuted(JSON.parse(values?.[2][1]))
+      values?.[1][1] !== null && setIsMuted(JSON.parse(values?.[1][1]))
     } catch (e) {
       console.log(e)
     }
@@ -97,27 +76,26 @@ const Menu = () => {
           color={colorScheme === 'dark' ? 'white' : 'black'}
         />
       </TouchableOpacity>
-      {(showToggle as boolean) && (
-        <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
-          <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
-        </View>
-      )}
+      <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
+        <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
+      </View>
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-14 pb-2`}>
         <MenuSwitch text='MUTE' onValueChange={playMuteSounds} value={isMuted} />
       </View>
       <View
-        style={tw`absolute flex-row items-center w-full justify-between bottom-6 border-t pt-2`}>
+        style={[
+          tw`absolute flex-row items-center w-full justify-between bottom-6 border-t pt-2`,
+          colorScheme === 'dark' ? tw`border-white` : tw`border-black`,
+        ]}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
             Privacy Policy
           </Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-        <TouchableWithoutFeedback onLongPress={showHideToggle}>
-          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-            V{Constants?.manifest?.version}
-          </Text>
-        </TouchableWithoutFeedback>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+          V{Constants?.manifest?.version}
+        </Text>
       </View>
     </View>
   )
