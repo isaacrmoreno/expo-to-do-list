@@ -7,6 +7,7 @@ import * as WebBrowser from 'expo-web-browser'
 import Constants from 'expo-constants'
 import useStore from '../store/index'
 import MenuSwitch from './MenuSwitch'
+import List from './List'
 
 const Menu = () => {
   const stylized = useStore((state) => state?.stylized)
@@ -68,7 +69,11 @@ const Menu = () => {
   }, [])
 
   return (
-    <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
+    <View
+      style={[
+        tw`flex-1 items-center px-4 bg-slate-100`,
+        colorScheme === 'dark' && tw`bg-neutral-800`,
+      ]}>
       <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4`}>
         <EvilIcons
           name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
@@ -76,6 +81,7 @@ const Menu = () => {
           color={colorScheme === 'dark' ? 'white' : 'black'}
         />
       </TouchableOpacity>
+      <List />
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
         <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
       </View>

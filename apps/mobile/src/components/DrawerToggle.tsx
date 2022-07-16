@@ -12,7 +12,6 @@ const DrawerToggle = () => {
   const setDialog = useStore((state) => state?.setDialog)
 
   const [listName, setListName] = useState<string>('')
-  const [allList, setAllList] = useState<[]>([])
 
   const colorScheme = useColorScheme()
 
@@ -23,10 +22,12 @@ const DrawerToggle = () => {
     Keyboard.dismiss()
   }
 
+  const addListName = useStore((state) => state.addListName)
+
   const addNewList = () => {
-    const newList = allList.push(listName)
-    console.log(newList)
-    setAllList(newList)
+    addListName(listName)
+    setDialog(!dialog)
+    setListName('')
   }
 
   return (
@@ -42,14 +43,18 @@ const DrawerToggle = () => {
         />
       </TouchableOpacity>
       <Dialog.Container visible={dialog} onBackdropPress={() => setDialog(!dialog)}>
-        <Dialog.Title>Create New List</Dialog.Title>
-        <Dialog.Description>Name New List 📝</Dialog.Description>
+        <Dialog.Title>Group Current List</Dialog.Title>
+        <Dialog.Description>Name New Group 📝</Dialog.Description>
         <Dialog.Input value={listName} onChangeText={(text) => setListName(text)}></Dialog.Input>
-        <Dialog.Button label='Cancel' onPress={() => setDialog(!dialog)} />
+        <Dialog.Button
+          label='Cancel'
+          onPress={() => {
+            setDialog(!dialog)
+            setListName('')
+          }}
+        />
         <Dialog.Button label='Create' onPress={addNewList} />
       </Dialog.Container>
-      {/* {console.log('listName', listName)}
-      <Text>listName: {allList}</Text> */}
     </View>
   )
 }
