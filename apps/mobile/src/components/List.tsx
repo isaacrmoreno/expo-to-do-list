@@ -3,10 +3,10 @@ import tw from 'twrnc'
 import { TouchableOpacity, Text, useColorScheme, ScrollView, View } from 'react-native'
 import useStore from '../store/index'
 
-const List: React.FC = () => {
-  const colorScheme = useColorScheme()
-
+const List = () => {
   const allList = useStore((state) => state.allList)
+
+  const colorScheme = useColorScheme()
 
   return (
     <ScrollView style={tw`mt-26`}>
