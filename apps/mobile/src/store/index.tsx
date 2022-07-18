@@ -7,13 +7,13 @@ const useStore = create((set) => ({
   setIsMuted: (input: boolean) => set((state) => ({ isMuted: input })),
   dialog: false,
   setDialog: (input: boolean) => set((state) => ({ dialog: input })),
-  newList: (input: string) => set((state) => ({ newList: input })),
   allList: [],
   addListName: (listName: string) => {
     set((state) => ({
       allList: [...state.allList, listName],
     }))
   },
+  setListName: (allList: []) => set((state) => ({ allList: allList })),
 }))
 
 export default useStore

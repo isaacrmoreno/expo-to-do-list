@@ -29,37 +29,19 @@ const DrawerToggle = () => {
       allList.push(listName)
       setListName('')
       const jsonValue = JSON.stringify(allList.flat())
-      console.log('jsonValue', jsonValue)
       await AsyncStorage.setItem('@allList', jsonValue)
     } catch (e) {
       console.log(e)
     }
   }
 
-  // const arr1 = [['hey','you'],'there']
-  // console.log(arr1.flat())
-  // > Array ["hey", "you", "there"]
-
-  // so when I refresh, the value async storage is getting, is an array that holds my first two values, then add the third new value, jsonValue [["One","Two"],"Three"]
-  // I just need one array with all the values.
-  // I blame addListName. This can become a recursive mess, so dont always create a new array when pushing.
-
   const getAllListNames = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@allList')
-      // jsonValue !== null && addListName(JSON.parse(jsonValue))
-      if (jsonValue !== null) {
-        const parsedList = JSON.parse(jsonValue)
-        const recursiveList = parsedList.flat()
-        addListName(recursiveList)
-      }
+      jsonValue !== null && addListName(JSON.parse(jsonValue))
     } catch (e) {
       console.log(e)
     }
-  }
-
-  const removeValue = async () => {
-    await AsyncStorage.removeItem('@allList')
   }
 
   useEffect(() => {
@@ -78,7 +60,12 @@ const DrawerToggle = () => {
           color={colorScheme === 'dark' ? 'white' : 'black'}
         />
       </TouchableOpacity>
-      <Dialog.Container visible={dialog} onBackdropPress={() => setDialog(!dialog)}>
+      <Dialog.Container
+        visible={dialog}
+        onBackdropPress={() => {
+          setDialog(!dialog)
+          setListName('')
+        }}>
         <Dialog.Title>Group Current List</Dialog.Title>
         <Dialog.Description>Name New Group 📝</Dialog.Description>
         <Dialog.Input value={listName} onChangeText={(text) => setListName(text)}></Dialog.Input>
@@ -91,9 +78,6 @@ const DrawerToggle = () => {
         />
         <Dialog.Button label='Create' onPress={addNewList} />
       </Dialog.Container>
-      <TouchableOpacity onPress={removeValue}>
-        <Text>RESET</Text>
-      </TouchableOpacity>
     </View>
   )
 }
