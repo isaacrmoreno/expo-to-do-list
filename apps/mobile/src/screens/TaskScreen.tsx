@@ -145,7 +145,7 @@ export default function TaskScreen() {
       <DrawerToggle />
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
-          {taskList.map((taskList, index) => {
+          {taskList.map((taskList: object, index: number) => {
             return (
               <View key={index}>
                 <TouchableOpacity onPress={() => editTask(index)} style={tw`justify-between`}>

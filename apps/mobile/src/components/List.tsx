@@ -4,14 +4,14 @@ import { TouchableOpacity, Text, useColorScheme, ScrollView, View } from 'react-
 import useStore from '../store/index'
 
 const List = () => {
-  const allList = useStore((state) => state.allList)
+  const allList = useStore((state) => state?.allList)
 
   const colorScheme = useColorScheme()
 
   return (
     <ScrollView style={tw`mt-26`}>
-      <View key={null}>
-        {allList.map((listName: string) => (
+      {allList.map((listName: string, index: number) => (
+        <View key={index}>
           <TouchableOpacity
             key={listName}
             style={[
@@ -22,8 +22,8 @@ const List = () => {
               {listName}
             </Text>
           </TouchableOpacity>
-        ))}
-      </View>
+        </View>
+      ))}
     </ScrollView>
   )
 }

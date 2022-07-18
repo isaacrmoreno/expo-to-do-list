@@ -27,9 +27,8 @@ const DrawerToggle = () => {
       setDialog(!dialog)
       addListName(listName)
       allList.push(listName)
-      // allList.flat()
       setListName('')
-      const jsonValue = JSON.stringify(allList)
+      const jsonValue = JSON.stringify(allList.flat())
       console.log('jsonValue', jsonValue)
       await AsyncStorage.setItem('@allList', jsonValue)
     } catch (e) {
@@ -48,12 +47,12 @@ const DrawerToggle = () => {
   const getAllListNames = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@allList')
-      jsonValue !== null && addListName(JSON.parse(jsonValue))
-      // if (jsonValue !== null) {
-      //   const parsedList = JSON.parse(jsonValue)
-      //   const recursiveList = parsedList.flat()
-      //   addListName(recursiveList)
-      // }
+      // jsonValue !== null && addListName(JSON.parse(jsonValue))
+      if (jsonValue !== null) {
+        const parsedList = JSON.parse(jsonValue)
+        const recursiveList = parsedList.flat()
+        addListName(recursiveList)
+      }
     } catch (e) {
       console.log(e)
     }
