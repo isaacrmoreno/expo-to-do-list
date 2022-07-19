@@ -13,7 +13,7 @@ const DrawerToggle: React.FC<DrawerToggleProps> = (props) => {
   const [listName, setListName] = useState<string>('')
   const dialog = useStore((state) => state?.dialog)
   const setDialog = useStore((state) => state?.setDialog)
-  const setAllList = useStore((state) => state.setAllList)
+  const setAllList = useStore((state) => state?.setAllList)
   const allList = useStore((state) => state?.allList)
 
   const colorScheme = useColorScheme()
@@ -25,28 +25,17 @@ const DrawerToggle: React.FC<DrawerToggleProps> = (props) => {
   }
 
   const addNewList = async () => {
-    try {
-      setDialog(!dialog)
-      allList.push(listName)
-      setAllList(allList)
-      setListName('')
-      // setTaskList([...taskList, { listName: listName }])
-      // taskList.push({ listName: listName })
-      // console.log('taskList', taskList)
-      const jsonValue = JSON.stringify(allList)
-      await AsyncStorage.setItem('@allList', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
+    setDialog(!dialog)
+    allList.push(listName)
+    setAllList(allList)
+    setListName('')
+    const jsonValue = JSON.stringify(allList)
+    await AsyncStorage.setItem('@allList', jsonValue)
   }
 
   const getAllListNames = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@allList')
-      jsonValue !== null && setAllList(JSON.parse(jsonValue))
-    } catch (e) {
-      console.log(e)
-    }
+    const jsonValue = await AsyncStorage.getItem('@allList')
+    jsonValue !== null && setAllList(JSON.parse(jsonValue))
   }
 
   useEffect(() => {

@@ -18,23 +18,15 @@ const Menu = () => {
   const colorScheme = useColorScheme()
 
   const showHideStylized = async () => {
-    try {
-      setStylized(!stylized)
-      const jsonValue = JSON.stringify(!stylized)
-      await AsyncStorage.setItem('@stylized', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
+    setStylized(!stylized)
+    const jsonValue = JSON.stringify(!stylized)
+    await AsyncStorage.setItem('@stylized', jsonValue)
   }
 
   const playMuteSounds = async () => {
-    try {
-      setIsMuted(!isMuted)
-      const jsonValue = JSON.stringify(!isMuted)
-      await AsyncStorage.setItem('@isMuted', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
+    setIsMuted(!isMuted)
+    const jsonValue = JSON.stringify(!isMuted)
+    await AsyncStorage.setItem('@isMuted', jsonValue)
   }
 
   const onShare = async () => {
@@ -55,13 +47,9 @@ const Menu = () => {
 
   const getMultiple = async () => {
     let values
-    try {
-      values = await AsyncStorage.multiGet(['@stylized', '@isMuted'])
-      values?.[0][1] !== null && setStylized(JSON.parse(values?.[0][1]))
-      values?.[1][1] !== null && setIsMuted(JSON.parse(values?.[1][1]))
-    } catch (e) {
-      console.log(e)
-    }
+    values = await AsyncStorage.multiGet(['@stylized', '@isMuted'])
+    values?.[0][1] !== null && setStylized(JSON.parse(values?.[0][1]))
+    values?.[1][1] !== null && setIsMuted(JSON.parse(values?.[1][1]))
   }
 
   useEffect(() => {

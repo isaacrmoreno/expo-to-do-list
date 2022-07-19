@@ -47,36 +47,22 @@ export default function TaskScreen() {
   }
 
   const handleAddTask = async () => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
-        volume: 0.2,
-        isMuted: isMuted,
-      })
-      setSound(sound)
-      await sound.playAsync()
-      setTaskList([
-        ...taskList,
-        {
-          description: task,
-          // , listName: null
-        },
-      ])
-      taskList.push({ description: task })
-      setTask('')
-      const jsonValue = JSON.stringify(taskList)
-      await AsyncStorage.setItem('@taskList', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
+      volume: 0.2,
+      isMuted: isMuted,
+    })
+    setSound(sound)
+    await sound.playAsync()
+    taskList.push({ description: task })
+    setTaskList(taskList)
+    setTask('')
+    const jsonValue = JSON.stringify(taskList)
+    await AsyncStorage.setItem('@taskList', jsonValue)
   }
 
   const getTaskList = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@taskList')
-      jsonValue !== null && setTaskList(JSON.parse(jsonValue))
-    } catch (e) {
-      console.log(e)
-    }
+    const jsonValue = await AsyncStorage.getItem('@taskList')
+    jsonValue !== null && setTaskList(JSON.parse(jsonValue))
   }
 
   const editTask = (index: number) => {
@@ -88,42 +74,34 @@ export default function TaskScreen() {
   }
 
   const handleUpdateTask = async () => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
-        volume: 0.2,
-        isMuted: isMuted,
-      })
-      setSound(sound)
-      await sound.playAsync()
-      setUpdateIcon(false)
-      Keyboard.dismiss()
-      let updatedTaskList = [...taskList]
-      updatedTaskList.splice(currentIndex, 1, { description: task })
-      setTaskList(updatedTaskList)
-      setTask('')
-      const jsonValue = JSON.stringify(updatedTaskList)
-      await AsyncStorage.setItem('@taskList', jsonValue)
-    } catch (e) {
-      console.log(e)
-    }
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/chime.mp3'), {
+      volume: 0.2,
+      isMuted: isMuted,
+    })
+    setSound(sound)
+    await sound.playAsync()
+    setUpdateIcon(false)
+    Keyboard.dismiss()
+    let updatedTaskList = [...taskList]
+    updatedTaskList.splice(currentIndex, 1, { description: task })
+    setTaskList(updatedTaskList)
+    setTask('')
+    const jsonValue = JSON.stringify(updatedTaskList)
+    await AsyncStorage.setItem('@taskList', jsonValue)
   }
 
   const completeTask = async (index: number) => {
-    try {
-      const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/bloop.mp3'), {
-        volume: 0.2,
-        isMuted: isMuted,
-      })
-      setSound(sound)
-      await sound.playAsync()
-      let UpdatedTaskList = [...taskList]
-      UpdatedTaskList.splice(index, 1)
-      setTaskList(UpdatedTaskList)
-      setUpdateIcon(false)
-      await AsyncStorage.setItem('@taskList', JSON.stringify(UpdatedTaskList))
-    } catch (e) {
-      console.log(e)
-    }
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/bloop.mp3'), {
+      volume: 0.2,
+      isMuted: isMuted,
+    })
+    setSound(sound)
+    await sound.playAsync()
+    let UpdatedTaskList = [...taskList]
+    UpdatedTaskList.splice(index, 1)
+    setTaskList(UpdatedTaskList)
+    setUpdateIcon(false)
+    await AsyncStorage.setItem('@taskList', JSON.stringify(UpdatedTaskList))
   }
 
   const changeScreenOrientation = async () => {

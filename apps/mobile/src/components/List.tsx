@@ -13,22 +13,14 @@ const List = () => {
   const colorScheme = useColorScheme()
 
   const removeList = async (index: number) => {
-    try {
-      let UpdatedList = [...allList]
-      UpdatedList.splice(index, 1)
-      setAllList(UpdatedList)
-      await AsyncStorage.setItem('@allList', JSON.stringify(UpdatedList))
-    } catch (e) {
-      console.log(e)
-    }
+    allList.splice(index, 1)
+    setAllList(allList)
+    await AsyncStorage.setItem('@allList', JSON.stringify(allList))
   }
 
   const confirmDeleteAlert = (index: number) =>
     Alert.alert('Delete List?', 'Are you sure you want to delete this list?', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
+      { text: 'Cancel', style: 'cancel' },
       { text: 'Delete', onPress: () => removeList(index), style: 'destructive' },
     ])
 
