@@ -34,7 +34,7 @@ const List = () => {
 
   return (
     <ScrollView style={tw`mt-26`}>
-      {allList.flat().map((listName: string, index: number) => (
+      {allList.map((listName: string, index: number) => (
         <View key={index}>
           <TouchableOpacity
             style={[

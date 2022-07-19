@@ -29,7 +29,7 @@ const DrawerToggle = () => {
       allList.push(listName)
       setAllList(updatedList)
       setListName('')
-      const jsonValue = JSON.stringify(allList.flat())
+      const jsonValue = JSON.stringify(allList)
       await AsyncStorage.setItem('@allList', jsonValue)
     } catch (e) {
       console.log(e)
@@ -50,10 +50,11 @@ const DrawerToggle = () => {
   }, [])
 
   return (
-    <View style={tw`flex-row mt-14 mx-6 justify-between`}>
+    <View style={tw`flex-row mt-14 mx-6 justify-between items-center`}>
       <TouchableOpacity onPress={toggleDrawer}>
         <Entypo name='menu' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
       </TouchableOpacity>
+      {/* <Text style={tw`font-bold`}>{allList}</Text> */}
       <TouchableOpacity onPress={() => setDialog(!dialog)}>
         <Entypo
           name='circle-with-plus'
