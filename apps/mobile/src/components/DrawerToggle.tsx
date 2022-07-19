@@ -11,7 +11,7 @@ const DrawerToggle = () => {
   const [listName, setListName] = useState<string>('')
   const dialog = useStore((state) => state?.dialog)
   const setDialog = useStore((state) => state?.setDialog)
-  const addListName = useStore((state) => state.addListName)
+  const setAllList = useStore((state) => state.setAllList)
   const allList = useStore((state) => state?.allList)
 
   const colorScheme = useColorScheme()
@@ -25,8 +25,9 @@ const DrawerToggle = () => {
   const addNewList = async () => {
     try {
       setDialog(!dialog)
-      addListName(listName)
+      let updatedList = [...allList, listName]
       allList.push(listName)
+      setAllList(updatedList)
       setListName('')
       const jsonValue = JSON.stringify(allList.flat())
       await AsyncStorage.setItem('@allList', jsonValue)
@@ -38,7 +39,7 @@ const DrawerToggle = () => {
   const getAllListNames = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('@allList')
-      jsonValue !== null && addListName(JSON.parse(jsonValue))
+      jsonValue !== null && setAllList(JSON.parse(jsonValue))
     } catch (e) {
       console.log(e)
     }

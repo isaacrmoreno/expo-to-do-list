@@ -8,12 +8,7 @@ const useStore = create((set) => ({
   dialog: false,
   setDialog: (input: boolean) => set((state) => ({ dialog: input })),
   allList: [],
-  addListName: (listName: string) => {
-    set((state) => ({
-      allList: [...state.allList, listName],
-    }))
-  },
-  setListName: (allList: []) => set((state) => ({ allList: allList })),
+  setAllList: (allList: []) => set((state) => ({ allList: allList })),
 }))
 
 export default useStore
