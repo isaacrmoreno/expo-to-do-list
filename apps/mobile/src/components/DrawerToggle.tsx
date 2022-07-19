@@ -6,8 +6,10 @@ import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Dialog from 'react-native-dialog'
 import useStore from '../store/index'
+import { DrawerToggleProps } from '../types/index'
 
-const DrawerToggle = () => {
+const DrawerToggle: React.FC<DrawerToggleProps> = (props) => {
+  const { setTaskList, taskList } = props
   const [listName, setListName] = useState<string>('')
   const dialog = useStore((state) => state?.dialog)
   const setDialog = useStore((state) => state?.setDialog)
@@ -25,10 +27,12 @@ const DrawerToggle = () => {
   const addNewList = async () => {
     try {
       setDialog(!dialog)
-      let updatedList = [...allList, listName]
       allList.push(listName)
-      setAllList(updatedList)
+      setAllList(allList)
       setListName('')
+      // setTaskList([...taskList, { listName: listName }])
+      // taskList.push({ listName: listName })
+      // console.log('taskList', taskList)
       const jsonValue = JSON.stringify(allList)
       await AsyncStorage.setItem('@allList', jsonValue)
     } catch (e) {
@@ -54,7 +58,6 @@ const DrawerToggle = () => {
       <TouchableOpacity onPress={toggleDrawer}>
         <Entypo name='menu' size={30} color={colorScheme === 'dark' ? 'white' : 'black'} />
       </TouchableOpacity>
-      {/* <Text style={tw`font-bold`}>{allList}</Text> */}
       <TouchableOpacity onPress={() => setDialog(!dialog)}>
         <Entypo
           name='circle-with-plus'

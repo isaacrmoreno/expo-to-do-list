@@ -3,6 +3,11 @@ export interface addTaskButtonProps {
   onPress: () => void
 }
 
+export interface DrawerToggleProps {
+  taskList: object[]
+  setTaskList: () => void
+}
+
 export interface loginSignUpScreenProps {
   selectLogin: boolean
   toggleLoginSignUp: () => void

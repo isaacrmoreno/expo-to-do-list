@@ -54,7 +54,13 @@ export default function TaskScreen() {
       })
       setSound(sound)
       await sound.playAsync()
-      setTaskList([...taskList, { description: task }])
+      setTaskList([
+        ...taskList,
+        {
+          description: task,
+          // , listName: null
+        },
+      ])
       taskList.push({ description: task })
       setTask('')
       const jsonValue = JSON.stringify(taskList)
@@ -142,7 +148,7 @@ export default function TaskScreen() {
 
   return (
     <View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
-      <DrawerToggle />
+      <DrawerToggle taskList={taskList} setTaskList={setTaskList} />
       {(stylized as boolean) ? (
         <ScrollView style={tw`px-6 mt-4`}>
           {taskList.map((taskList: object, index: number) => {
