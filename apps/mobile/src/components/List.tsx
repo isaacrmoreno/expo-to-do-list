@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import tw from 'twrnc'
 import { TouchableOpacity, Text, useColorScheme, ScrollView, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -13,9 +13,10 @@ const List = () => {
   const colorScheme = useColorScheme()
 
   const removeList = async (index: number) => {
-    allList.splice(index, 1)
-    setAllList(allList)
-    await AsyncStorage.setItem('@allList', JSON.stringify(allList))
+    let UpdatedList = [...allList]
+    UpdatedList.splice(index, 1)
+    setAllList(UpdatedList)
+    await AsyncStorage.setItem('@allList', JSON.stringify(UpdatedList))
   }
 
   const confirmDeleteAlert = (index: number) =>

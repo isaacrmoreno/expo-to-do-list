@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 export interface addTaskButtonProps {
   name: 'plus' | 'check'
   onPress: () => void
@@ -5,7 +7,7 @@ export interface addTaskButtonProps {
 
 export interface DrawerToggleProps {
   taskList: object[]
-  setTaskList: () => void
+  setTaskList: Dispatch<SetStateAction<object[]>>
 }
 
 export interface loginSignUpScreenProps {
