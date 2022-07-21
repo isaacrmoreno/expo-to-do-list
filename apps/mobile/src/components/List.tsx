@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import tw from 'twrnc'
 import { TouchableOpacity, Text, useColorScheme, ScrollView, View, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'

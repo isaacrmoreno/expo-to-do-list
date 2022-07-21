@@ -9,7 +9,7 @@ import useStore from '../store/index'
 import { DrawerToggleProps } from '../types/index'
 
 const DrawerToggle: React.FC<DrawerToggleProps> = (props) => {
-  const { setTaskList, taskList } = props
+  const { taskList } = props
   const [listName, setListName] = useState<string>('')
   const [disableListIcon, setDisableListIcon] = useState<boolean>(false)
   const dialog = useStore((state) => state?.dialog)
@@ -28,11 +28,6 @@ const DrawerToggle: React.FC<DrawerToggleProps> = (props) => {
   const addNewList = async () => {
     setDialog(!dialog)
     allList.push(listName)
-
-    // let updateName = taskList.filter((taskList) => taskList?.name === null) // returns stuff.
-
-    // all list [[{description: task, name: null},{description: task, name: list1}], [{description: task, name: null},{description: task, name: list2}]]
-
     setAllList(allList)
     setListName('')
     const jsonValue = JSON.stringify(allList)
