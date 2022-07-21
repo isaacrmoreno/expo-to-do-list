@@ -53,8 +53,8 @@ export default function TaskScreen() {
     })
     setSound(sound)
     await sound.playAsync()
-    setTaskList([...taskList, { description: task, name: null }])
-    taskList.push({ description: task, name: null })
+    setTaskList([...taskList, { description: task, name: 'To Do' }])
+    taskList.push({ description: task, name: 'To Do' })
     setTaskList(taskList)
     setTask('')
     const jsonValue = JSON.stringify(taskList)
@@ -102,6 +102,7 @@ export default function TaskScreen() {
     UpdatedTaskList.splice(index, 1)
     setTaskList(UpdatedTaskList)
     setUpdateIcon(false)
+    setTask('')
     await AsyncStorage.setItem('@taskList', JSON.stringify(UpdatedTaskList))
   }
 
