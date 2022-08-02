@@ -41,7 +41,7 @@ const MyComponent = () => (
 
 #### Dark Mode
 
-Although twrnc has a dark mode option [here](https://github.com/jaredh159/tailwind-react-native-classnames#enabling-device-context-prefixes). After some testing I found React Natives [useColorScheme](https://reactnative.dev/docs/usecolorscheme) hook renders faster. ⚡
+We use React Natives [useColorScheme](https://reactnative.dev/docs/usecolorscheme) hook for dark mode.
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
@@ -53,6 +53,16 @@ Although twrnc has a dark mode option [here](https://github.com/jaredh159/tailwi
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
+## Support ☕
+
+Like Quail? Let us know!
+
+<a href="https://www.buymeacoffee.com/N3j19RC0nH">
+  <img src="./apps/mobile/assets/bmc-button.png" alt="Buy Me a Coffee Logo" height="50"/>
+</a>
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
 ## Technologies Used 💾
 
 <div>
@@ -60,7 +70,7 @@ Although twrnc has a dark mode option [here](https://github.com/jaredh159/tailwi
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="TypeScipt" height="45" style="vertical-align:top; margin:4px">
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" alt="React" height="45" style="vertical-align:top; margin:4px">
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS" height="45" style="vertical-align:top; margin:4px">
-<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-plain.svg" alt="Firebase" height="45" style="vertical-align:top; margin:4px">
+
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/yarn/yarn-original.svg" alt="Yarn" height="45" style="vertical-align:top; margin:4px">
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png" alt="Terminal" height="45" style="vertical-align:top; margin:4px">
 <img src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" alt="VS Code" height="45" style="vertical-align:top; margin:4px">
