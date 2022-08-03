@@ -80,4 +80,4 @@ Like Quail? Let us know!
 
 <h2>Copyright and License ⚖️</h2>
 
-[MIT License](license) &copy; 2022 Isaac Moreno
+[MIT License](https://github.com/isaacrmoreno/expo-to-do-list/blob/main/License) &copy; 2022 Isaac Moreno
