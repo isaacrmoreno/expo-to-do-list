@@ -2,6 +2,9 @@
   "cli": {
     "version": ">= 0.52.0"
   },
+  "cache": {
+    "disabled": true
+  },
   "build": {
     "development": {
       "developmentClient": true,
