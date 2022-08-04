@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.2.1] - 2022-08-04
+
+- Update for Expo SDK 46 compatibility.
+
 ## [1.2.0] - 2022-07-14
 
 - Added sound effects for adding, editing, and completing a task. 🔊
