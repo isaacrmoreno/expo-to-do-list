@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start",
+    "start:clear": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -16,7 +17,6 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
-    "eas-cli": "0.54.1",
     "expo": "^46.0.0",
     "expo-application": "~4.2.2",
     "expo-av": "~12.0.3",
