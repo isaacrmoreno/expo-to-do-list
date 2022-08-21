@@ -16,6 +16,8 @@ const Menu = () => {
   const setIsMuted = useStore((state) => state?.setIsMuted)
 
   const colorScheme = useColorScheme()
+  const itunesItemId = 1630267516
+  const androidPackageName = 'com.expotodolist.prod'
 
   const showHideStylized = async () => {
     try {
@@ -47,16 +49,17 @@ const Menu = () => {
     }
   }
 
-  const visitPrivacyPolicy = () => {
-    WebBrowser.openBrowserAsync('https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2')
+  const leaveAppReview = () => {
+    Platform.OS === 'ios'
+      ? Linking.openURL(
+          `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
+        )
+      : Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
+    StoreReview.requestReview()
   }
 
-  const leaveAReview = () => {
-    let reviewLink =
-      Platform.OS === 'ios'
-        ? 'https://apps.apple.com/us/app/quail-to-do-list/id1630267516'
-        : 'https://play.google.com/store/apps/details?id=com.expotodolist.prod'
-    WebBrowser.openBrowserAsync(reviewLink)
+  const visitPrivacyPolicy = () => {
+    WebBrowser.openBrowserAsync('https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2')
   }
 
   const getMultiple = async () => {
@@ -74,12 +77,6 @@ const Menu = () => {
     getMultiple()
   }, [])
 
-  const itunesItemId = 982107779
-  // Open the iOS App Store in the browser -> redirects to App Store on iOS
-  Linking.openURL(`https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`)
-  // Open the iOS App Store directly
-  Linking.openURL(`itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`)
-
   return (
     <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
       <View style={tw`absolute top-15 left-4 flex-row`}>
@@ -90,8 +87,8 @@ const Menu = () => {
             color={colorScheme === 'dark' ? 'white' : 'black'}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={leaveAReview}>
-          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Leave A Review</Text>
+        <TouchableOpacity onPress={leaveAppReview}>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Leave A Review</Text>
         </TouchableOpacity>
       </View>
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
