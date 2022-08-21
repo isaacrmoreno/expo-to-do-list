@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import tw from 'twrnc'
-import { Text, TouchableOpacity, View, useColorScheme, Share, Platform } from 'react-native'
+import { Text, TouchableOpacity, View, useColorScheme, Share, Platform, Linking } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as StoreReview from 'expo-store-review'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import Constants from 'expo-constants'
@@ -47,9 +48,15 @@ const Menu = () => {
   }
 
   const visitPrivacyPolicy = () => {
-    WebBrowser.openBrowserAsync(
-      'https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2'
-    )
+    WebBrowser.openBrowserAsync('https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2')
+  }
+
+  const leaveAReview = () => {
+    let reviewLink =
+      Platform.OS === 'ios'
+        ? 'https://apps.apple.com/us/app/quail-to-do-list/id1630267516'
+        : 'https://play.google.com/store/apps/details?id=com.expotodolist.prod'
+    WebBrowser.openBrowserAsync(reviewLink)
   }
 
   const getMultiple = async () => {
@@ -67,15 +74,26 @@ const Menu = () => {
     getMultiple()
   }, [])
 
+  const itunesItemId = 982107779
+  // Open the iOS App Store in the browser -> redirects to App Store on iOS
+  Linking.openURL(`https://apps.apple.com/app/apple-store/id${itunesItemId}?action=write-review`)
+  // Open the iOS App Store directly
+  Linking.openURL(`itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`)
+
   return (
     <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
-      <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4`}>
-        <EvilIcons
-          name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
-          size={30}
-          color={colorScheme === 'dark' ? 'white' : 'black'}
-        />
-      </TouchableOpacity>
+      <View style={tw`absolute top-15 left-4 flex-row`}>
+        <TouchableOpacity onPress={onShare} style={tw`pr-20`}>
+          <EvilIcons
+            name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
+            size={30}
+            color={colorScheme === 'dark' ? 'white' : 'black'}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={leaveAReview}>
+          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Leave A Review</Text>
+        </TouchableOpacity>
+      </View>
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
         <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
       </View>
@@ -88,14 +106,10 @@ const Menu = () => {
           colorScheme === 'dark' ? tw`border-white` : tw`border-black`,
         ]}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
-          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
-            Privacy Policy
-          </Text>
+          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Privacy Policy</Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-          V{Constants?.manifest?.version}
-        </Text>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V{Constants?.manifest?.version}</Text>
       </View>
     </View>
   )
