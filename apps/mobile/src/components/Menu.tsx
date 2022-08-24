@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import tw from 'twrnc'
 import { Text, TouchableOpacity, View, useColorScheme, Share, Platform, Linking } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import * as StoreReview from 'expo-store-review'
 import { EvilIcons } from '@expo/vector-icons'
+import * as StoreReview from 'expo-store-review'
 import * as WebBrowser from 'expo-web-browser'
-import Constants from 'expo-constants'
+import * as Application from 'expo-application'
 import useStore from '../store/index'
 import MenuSwitch from './MenuSwitch'
 
@@ -49,22 +49,17 @@ const Menu = () => {
     }
   }
 
-  const leaveAppReview = () => {
-    Platform.OS === 'ios'
-      ? Linking.openURL(
-          `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
-        )
-      : // : Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
-        Linking.openURL(`https://play.google.com/store/apps/details?id=${androidPackageName}&showAllReviews=true`)
-
-    StoreReview.requestReview()
+  const leaveAppReview = async () => {
+    if (await StoreReview.hasAction()) {
+      StoreReview.isAvailableAsync()
+    } else {
+      Platform.OS === 'ios'
+        ? Linking.openURL(
+            `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
+          )
+        : Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
+    }
   }
-
-  // const androidPackageName = 'host.exp.exponent'
-  // // Open the Android Play Store in the browser -> redirects to Play Store on Android
-  // Linking.openURL(`https://play.google.com/store/apps/details?id=${androidPackageName}&showAllReviews=true`)
-  // // Open the Android Play Store directly
-  // Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
 
   const visitPrivacyPolicy = () => {
     WebBrowser.openBrowserAsync('https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2')
@@ -114,7 +109,10 @@ const Menu = () => {
           <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Privacy Policy</Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V{Constants?.manifest?.version}</Text>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
+          {/* V{Application.nativeApplicationVersion} */}
+          {/* {console.log('Application', Application)} */}
+        </Text>
       </View>
     </View>
   )

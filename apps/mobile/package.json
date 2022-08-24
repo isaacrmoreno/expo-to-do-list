@@ -20,7 +20,6 @@
     "expo": "^46.0.0",
     "expo-application": "~4.2.2",
     "expo-av": "~12.0.4",
-    "expo-constants": "~13.2.3",
     "expo-dev-client": "~1.2.1",
     "expo-linear-gradient": "~11.4.0",
     "expo-linking": "~3.2.2",

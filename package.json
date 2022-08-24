@@ -28,11 +28,12 @@
     "type": "git",
     "url": "git+https://github.com/isaacrmoreno/expo-to-do-list.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/isaacrmoreno/expo-to-do-list/issues"
   },
-  "homepage": "https://github.com/isaacrmoreno/expo-to-do-list#readme"
+  "resolutions": {
+    "@types/react": "17.0.14",
+    "@types/react-dom": "17.0.14"
+  }
 }
