@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EvilIcons } from '@expo/vector-icons'
 import * as StoreReview from 'expo-store-review'
 import * as WebBrowser from 'expo-web-browser'
-import * as Application from 'expo-application'
 import useStore from '../store/index'
 import MenuSwitch from './MenuSwitch'
 
@@ -51,7 +50,7 @@ const Menu = () => {
 
   const leaveAppReview = async () => {
     if (await StoreReview.hasAction()) {
-      StoreReview.isAvailableAsync()
+      StoreReview.requestReview()
     } else {
       Platform.OS === 'ios'
         ? Linking.openURL(
@@ -82,18 +81,13 @@ const Menu = () => {
 
   return (
     <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
-      <View style={tw`absolute top-15 left-4 flex-row`}>
-        <TouchableOpacity onPress={leaveAppReview} style={tw`pr-20`}>
-          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Leave A Review</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onShare}>
-          <EvilIcons
-            name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
-            size={30}
-            color={colorScheme === 'dark' ? 'white' : 'black'}
-          />
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={onShare} style={tw`absolute top-15 left-4 flex-row`}>
+        <EvilIcons
+          name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
+          size={30}
+          color={colorScheme === 'dark' ? 'white' : 'black'}
+        />
+      </TouchableOpacity>
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
         <MenuSwitch text='STYLIZE' onValueChange={showHideStylized} value={stylized} />
       </View>
@@ -106,13 +100,12 @@ const Menu = () => {
           colorScheme === 'dark' ? tw`border-white` : tw`border-black`,
         ]}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
-          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Privacy Policy</Text>
+          <Text style={[tw`text-xs`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Privacy policy</Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>
-          {/* V{Application.nativeApplicationVersion} */}
-          {/* {console.log('Application', Application)} */}
-        </Text>
+        <TouchableOpacity onPress={leaveAppReview}>
+          <Text style={[tw`text-xs`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Leave a review</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )

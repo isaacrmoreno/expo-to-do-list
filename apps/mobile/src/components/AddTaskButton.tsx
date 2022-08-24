@@ -5,7 +5,8 @@ import { TouchableOpacity } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { addTaskButtonProps } from '../types/index'
 
-const AddTaskButton: React.FC<addTaskButtonProps> = ({ name, onPress }) => {
+const AddTaskButton: React.FC = (props: addTaskButtonProps) => {
+  const { name, onPress } = props
   const colorScheme = useColorScheme()
 
   return (
