@@ -7,9 +7,7 @@ const MenuSwitch: React.FC<MenuSwitchProps> = ({ text, onValueChange, value }) =
   const colorScheme = useColorScheme()
   return (
     <>
-      <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>
-        {text}
-      </Text>
+      <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>{text}</Text>
       <Switch
         trackColor={{ false: '#3e3e3e', true: '#FF4AD8' }}
         ios_backgroundColor='#3e3e3e'

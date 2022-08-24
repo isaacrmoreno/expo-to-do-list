@@ -54,9 +54,17 @@ const Menu = () => {
       ? Linking.openURL(
           `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
         )
-      : Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
+      : // : Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
+        Linking.openURL(`https://play.google.com/store/apps/details?id=${androidPackageName}&showAllReviews=true`)
+
     StoreReview.requestReview()
   }
+
+  // const androidPackageName = 'host.exp.exponent'
+  // // Open the Android Play Store in the browser -> redirects to Play Store on Android
+  // Linking.openURL(`https://play.google.com/store/apps/details?id=${androidPackageName}&showAllReviews=true`)
+  // // Open the Android Play Store directly
+  // Linking.openURL(`market://details?id=${androidPackageName}&showAllReviews=true`)
 
   const visitPrivacyPolicy = () => {
     WebBrowser.openBrowserAsync('https://www.privacypolicies.com/live/c567c43b-e1f5-4abe-86a9-35b61c67c4c2')
@@ -80,15 +88,15 @@ const Menu = () => {
   return (
     <View style={[tw`flex-1 items-center px-4`, colorScheme === 'dark' && tw`bg-neutral-800`]}>
       <View style={tw`absolute top-15 left-4 flex-row`}>
-        <TouchableOpacity onPress={onShare} style={tw`pr-20`}>
+        <TouchableOpacity onPress={leaveAppReview} style={tw`pr-20`}>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Leave A Review</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onShare}>
           <EvilIcons
             name={Platform.OS === 'ios' ? 'share-apple' : 'share-google'}
             size={30}
             color={colorScheme === 'dark' ? 'white' : 'black'}
           />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={leaveAppReview}>
-          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Leave A Review</Text>
         </TouchableOpacity>
       </View>
       <View style={tw`absolute flex-row items-center w-full justify-between bottom-24 pb-2`}>
@@ -103,7 +111,7 @@ const Menu = () => {
           colorScheme === 'dark' ? tw`border-white` : tw`border-black`,
         ]}>
         <TouchableOpacity onPress={visitPrivacyPolicy}>
-          <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Privacy Policy</Text>
+          <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>Privacy Policy</Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V{Constants?.manifest?.version}</Text>
