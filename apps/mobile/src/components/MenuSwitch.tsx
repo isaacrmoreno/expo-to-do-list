@@ -3,7 +3,7 @@ import tw from 'twrnc'
 import { Switch, useColorScheme, Text } from 'react-native'
 import { MenuSwitchProps } from '../types/index'
 
-const MenuSwitch: React.FC = (props: MenuSwitchProps) => {
+const MenuSwitch = (props: MenuSwitchProps) => {
   const { text, onValueChange, value } = props
   const colorScheme = useColorScheme()
   return (
