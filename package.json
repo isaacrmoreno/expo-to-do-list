@@ -7,16 +7,16 @@
     "test": "jest",
     "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && yarn",
     "build": "cd apps/mobile && eas build",
-    "build:staging:ios": "yarn build -- --profile staging -p ios",
-    "build:staging:android": "yarn build -- --profile staging -p android",
-    "build:beta:ios": "yarn build -- --profile beta -p ios",
-    "build:beta:android": "yarn build -- --profile beta -p android",
-    "build:prod:ios": "yarn build -- --profile production -p ios",
-    "build:prod:android": "yarn build -- --profile production -p android",
+    "build:staging:ios": "yarn build --profile staging -p ios",
+    "build:staging:android": "yarn build --profile staging -p android",
+    "build:beta:ios": "yarn build --profile beta -p ios",
+    "build:beta:android": "yarn build --profile beta -p android",
+    "build:prod:ios": "yarn build --profile production -p ios",
+    "build:prod:android": "yarn build --profile production -p android",
     "ota": "cd apps/mobile && eas update",
     "ota:staging": "cd apps/mobile && eas update --release-channel staging --target managed",
-    "ota:beta": "yarn ota -- --release-channel beta --target managed",
-    "ota:prod": "yarn ota -- --release-channel production --target managed",
+    "ota:beta": "yarn ota --release-channel beta --target managed",
+    "ota:prod": "yarn ota --release-channel production --target managed",
     "submit:android": "cd apps/mobile && eas submit -p android --latest",
     "submit:ios": "cd apps/mobile && eas submit -p ios --latest"
   },
@@ -31,9 +31,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/isaacrmoreno/expo-to-do-list/issues"
-  },
-  "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
   }
 }
