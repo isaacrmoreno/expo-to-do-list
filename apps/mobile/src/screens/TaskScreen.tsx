@@ -141,7 +141,7 @@ export default function TaskScreen() {
 
 	return (
 		<View style={[tw`flex-1`, colorScheme === 'dark' ? tw`bg-neutral-800` : tw`bg-slate-100`]}>
-			<DrawerToggle />
+			<DrawerToggle testID='hamburger-menu' />
 			{(stylized as boolean) ? (
 				<ScrollView style={tw`px-6 mt-4`}>
 					{taskList.map((taskList, index) => {
@@ -157,6 +157,7 @@ export default function TaskScreen() {
 											{taskList?.description}
 										</Text>
 										<EvilIcons
+											testID='delete-task-button-stylized'
 											name='check'
 											size={32}
 											color={colorScheme === 'dark' ? 'white' : 'black'}
@@ -183,6 +184,7 @@ export default function TaskScreen() {
 										{taskList?.description}
 									</Text>
 									<EvilIcons
+										testID='delete-task-button'
 										name='check'
 										size={32}
 										color={colorScheme === 'dark' ? 'white' : 'black'}
@@ -210,9 +212,9 @@ export default function TaskScreen() {
 						onChangeText={(text) => setTask(text)}
 					/>
 					{isDisabled ? null : updateIcon ? (
-						<AddTaskButton name='check' onPress={handleUpdateTask} />
+						<AddTaskButton name='check' onPress={handleUpdateTask} testID='edit-task-button' />
 					) : (
-						<AddTaskButton name='plus' onPress={handleAddTask} />
+						<AddTaskButton name='plus' onPress={handleAddTask} testID='add-task-button' />
 					)}
 				</View>
 			</KeyboardAvoidingView>
