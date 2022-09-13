@@ -24,4 +24,5 @@ export interface MenuSwitchProps {
 	text: string
 	onValueChange: (value: boolean) => void | Promise<void>
 	value: boolean
+	testID: string
 }

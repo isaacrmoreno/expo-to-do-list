@@ -36,4 +36,44 @@ describe('Task screen', () => {
 		await expect(element(by.text('Add task test'))).toBeNotVisible()
 		await expect(element(by.text('Edit task test edited'))).toBeNotVisible()
 	})
+
+	it('should open and close share dialog', async () => {
+		await element(by.id('hamburger-menu')).tap()
+		await element(by.id('share-button')).tap()
+		await expect(element(by.text("Download Quail | A minimalist's to do list"))).toBeVisible()
+		await element(by.id('share-button')).tap()
+		await expect(element(by.text("Download Quail | A minimalist's to do list"))).toBeNotVisible()
+	})
+
+	it('should enable stylize and muted switch', async () => {
+		await element(by.id('hamburger-menu')).tap()
+		await element(by.id('stylize-switch')).tap()
+		await element(by.id('mute-switch')).tap()
+		await expect(element(by.id('stylize-switch'))).toHaveValue('1')
+		await expect(element(by.id('mute-switch'))).toHaveValue('1')
+	})
+
+	it('should add stylized and muted task', async () => {
+		await element(by.id('main-text-input')).typeText('Add stylized & muted test')
+		await element(by.id('add-task-button')).tap()
+		await expect(element(by.text('Add stylized & muted test'))).toBeVisible()
+	})
+
+	it('should delete stylized and muted task', async () => {
+		await element(by.id('delete-task-button-stylized')).atIndex(0).tap()
+		await expect(element(by.text('Add stylized & muted test'))).toBeNotVisible()
+	})
+
+	it('should disable stylize and muted switch', async () => {
+		await element(by.id('hamburger-menu')).tap()
+		await element(by.id('stylize-switch')).tap()
+		await element(by.id('mute-switch')).tap()
+		await expect(element(by.id('stylize-switch'))).toHaveValue('0')
+		await expect(element(by.id('mute-switch'))).toHaveValue('0')
+	})
+
+	it('should open privacy policy', async () => {
+		await element(by.id('hamburger-menu')).tap()
+		await element(by.id('privacy-policy-button')).tap()
+	})
 })
