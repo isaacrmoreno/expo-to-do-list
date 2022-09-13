@@ -8,16 +8,12 @@ import 'expo-dev-client'
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  return (
-    <NavigationContainer>
-      <StatusBar style='auto' />
-      <Stack.Navigator initialRouteName='Drawer'>
-        <Stack.Screen
-          options={{ headerShown: false, title: 'Drawer' }}
-          name='Drawer'
-          component={MenuDrawer}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
+	return (
+		<NavigationContainer>
+			<StatusBar style='auto' />
+			<Stack.Navigator initialRouteName='Drawer'>
+				<Stack.Screen options={{ headerShown: false, title: 'Drawer' }} name='Drawer' component={MenuDrawer} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	)
 }
