@@ -4,7 +4,6 @@ import { Text, TouchableOpacity, View, useColorScheme, Share, Platform } from 'r
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { EvilIcons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
-import Constants from 'expo-constants'
 import useStore from '../store/index'
 import MenuSwitch from './MenuSwitch'
 
@@ -89,7 +88,7 @@ const Menu = () => {
 					<Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Privacy Policy</Text>
 				</TouchableOpacity>
 				<Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-				<Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V{Constants?.manifest?.version}</Text>
+				<Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V2.1.0</Text>
 			</View>
 		</View>
 	)
