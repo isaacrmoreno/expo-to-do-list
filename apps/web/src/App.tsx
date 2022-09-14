@@ -1,5 +1,6 @@
 import appleBadge from './assets/apple-badge-dark.png'
 import googleBadge from './assets/google-play-badge.png'
+// import Review from './components/Review'
 
 function App() {
   return (
@@ -10,11 +11,13 @@ function App() {
       </div>
 
       <div className='flex flex-row'>
-        <a className='mx-4' href='https://apps.apple.com/us/app/quail-to-do-list/id1630267516'>
+        <a
+          className='mx-4 hover:scale-105 ease-in-out duration-300'
+          href='https://apps.apple.com/us/app/quail-to-do-list/id1630267516'>
           <img src={appleBadge} alt='Apple App Store Badge' width={250} height={200} />
         </a>
         <a
-          className='mx-4'
+          className='mx-4 hover:scale-105 ease-in-out duration-300'
           href='https://play.google.com/store/apps/details?id=com.expotodolist.prod'>
           <img src={googleBadge} alt='Google Play Store Badge' width={250} height={250} />
         </a>
@@ -24,6 +27,7 @@ function App() {
         href='https://github.com/isaacrmoreno/expo-to-do-list'>
         Github
       </a>
+      {/* <Review /> */}
     </div>
   )
 }
