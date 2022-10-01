@@ -21,7 +21,7 @@ const Review = () => {
   ]
 
   return (
-    <div className='flex flex-col lg:flex-row py-2 items-center border'>
+    <div className='flex flex-col lg:flex-row py-2 items-center banner'>
       {reviews.map((review, index) => {
         return (
           <div key={index} className='rounded-xl px-8 py-4 mx-8 my-4 w-10/12 border'>
