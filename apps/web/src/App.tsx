@@ -2,7 +2,7 @@ import appleBadge from './assets/apple-badge-dark.png'
 import googleBadge from './assets/google-play-badge.png'
 import starRating from './assets/star-rating.png'
 import quailPreview from './assets/quail-preview.png'
-import SwiperLoop from './components/SwiperLoop'
+import Review from './components/Review'
 
 function App() {
   return (
@@ -41,11 +41,10 @@ function App() {
           />
         </div>
       </div>
-      <div className='h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-col'>
+      <div className='h-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-col py-28'>
         <p className='text-6xl text-white font-bold'>REVIEWS</p>
         <img src={starRating} alt='4.5 Star Rating' width={300} height={300} className='pt-6 pb-10' />
-        <SwiperLoop />
-        <p className='text-4xl text-white font-bold'>...</p>
+        <Review />
       </div>
     </>
   )
