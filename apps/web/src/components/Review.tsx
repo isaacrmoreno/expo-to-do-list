@@ -1,3 +1,5 @@
+import SwiperLoop from './SwiperLoop'
+
 const Review = () => {
   let reviews = [
     {
@@ -21,19 +23,24 @@ const Review = () => {
   ]
 
   return (
-    <div className='flex flex-col lg:flex-row py-2 items-center banner'>
-      {reviews.map((review, index) => {
-        return (
-          <div key={index} className='rounded-xl px-8 py-4 mx-8 my-4 w-10/12 border'>
-            <div className='flex flex-row w-full'>
-              <p className='flex-1 font-bold text-white'>{review?.headline}</p>
-              <p className='text-right text-white'>{review?.username}</p>
+    <>
+      <div className='flex items-center justify-center align-middle h-96 w-10/12 md:w-4/12 border'>
+        <SwiperLoop />
+      </div>
+      {/* <div className='flex flex-col lg:flex-row py-2 items-center banner'>
+        {reviews.map((review, index) => {
+          return (
+            <div key={index} className='rounded-xl px-8 py-4 mx-8 my-4 w-10/12 border'>
+              <div className='flex flex-row w-full'>
+                <p className='flex-1 font-bold text-white'>{review?.headline}</p>
+                <p className='text-right text-white'>{review?.username}</p>
+              </div>
+              <p className='flex flex-wrap py-2 text-white'>{review?.review}</p>
             </div>
-            <p className='flex flex-wrap py-2 text-white'>{review?.review}</p>
-          </div>
-        )
-      })}
-    </div>
+          )
+        })}
+      </div> */}
+    </>
   )
 }
 
