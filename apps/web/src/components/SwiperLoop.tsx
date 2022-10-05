@@ -1,4 +1,5 @@
 import Swiper from 'react-id-swiper'
+import Review from './Review'
 
 const SwiperLoop = () => {
   const params = {
@@ -10,10 +11,6 @@ const SwiperLoop = () => {
       clickable: true,
       dynamicBullets: true,
     },
-    // navigation: {
-    //   nextEl: '.swiper-button-next',
-    //   prevEl: '.swiper-button-prev',
-    // },
   }
 
   let reviews = [
@@ -38,31 +35,19 @@ const SwiperLoop = () => {
   ]
 
   return (
-    <Swiper {...params}>
-      <div className='flex flex-col border'>
-        <div className='flex flex-row'>
-          <p className='flex-1 font-bold text-white'>{reviews[0]?.headline}</p>
-          <p className='text-right text-white'>{reviews[0]?.username}</p>
+    <div className='flex items-center w-10/12 lg:w-6/12'>
+      <Swiper {...params}>
+        <div>
+          <Review headline={reviews[0]?.headline} username={reviews[0]?.username} review={reviews[0]?.review} />
         </div>
-        <p className='flex flex-col py-2 text-white mt-4'>{reviews[0]?.review}</p>
-      </div>
-
-      <div className='flex flex-col border'>
-        <div className='flex flex-row'>
-          <p className='flex-1 font-bold text-white'>{reviews[1]?.headline}</p>
-          <p className='text-right text-white'>{reviews[1]?.username}</p>
+        <div>
+          <Review headline={reviews[1]?.headline} username={reviews[1]?.username} review={reviews[1]?.review} />
         </div>
-        <p className='flex flex-col py-2 text-white mt-4'>{reviews[1]?.review}</p>
-      </div>
-
-      <div className='flex flex-col border'>
-        <div className='flex flex-row'>
-          <p className='flex-1 font-bold text-white'>{reviews[2]?.headline}</p>
-          <p className='text-right text-white'>{reviews[2]?.username}</p>
+        <div>
+          <Review headline={reviews[2]?.headline} username={reviews[2]?.username} review={reviews[2]?.review} />
         </div>
-        <p className='flex flex-col py-2 text-white mt-4'>{reviews[2]?.review}</p>
-      </div>
-    </Swiper>
+      </Swiper>
+    </div>
   )
 }
 

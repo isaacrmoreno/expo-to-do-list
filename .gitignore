@@ -61,6 +61,8 @@ local.properties
 logs
 *.log
 npm-debug.log*
+yarn.lock
+yarn-error.log
 yarn-debug.log*
 yarn-error.log*
 
