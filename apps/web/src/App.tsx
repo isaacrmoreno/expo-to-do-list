@@ -9,7 +9,7 @@ function App() {
     <>
       <div className='h-screen bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-col'>
         <a
-          className='absolute text-2xl text-white font-bold left-4 top-4'
+          className='absolute text-2xl text-white font-bold left-4 top-4 umami--click--github-button'
           href='https://github.com/isaacrmoreno/expo-to-do-list'>
           Github
         </a>
@@ -21,12 +21,12 @@ function App() {
             </p>
             <div className='flex flex-row justify-center'>
               <a
-                className='mx-4 hover:scale-105 ease-in-out duration-300'
+                className='mx-4 hover:scale-105 ease-in-out duration-300 umami--click--app-store-button'
                 href='https://apps.apple.com/us/app/quail-to-do-list/id1630267516'>
                 <img src={appleBadge} alt='Apple App Store Badge' width={250} height={200} />
               </a>
               <a
-                className='mx-4 hover:scale-105 ease-in-out duration-300'
+                className='mx-4 hover:scale-105 ease-in-out duration-300 umami--click--play-store-button'
                 href='https://play.google.com/store/apps/details?id=com.expotodolist.prod'>
                 <img src={googleBadge} alt='Google Play Store Badge' width={250} height={250} />
               </a>
