@@ -33,6 +33,7 @@ export default function TaskScreen() {
 
   const inputRef = useRef('')
   const colorScheme = useColorScheme()
+  const color = colorScheme === 'dark' ? 'white' : 'black'
 
   const colors = {
     odd: ['#40c9ff', '#e81cff'],
@@ -109,6 +110,7 @@ export default function TaskScreen() {
       })
       setSound(sound)
       await sound.playAsync()
+      setTask('')
       let UpdatedTaskList = [...taskList]
       UpdatedTaskList.splice(index, 1)
       setTaskList(UpdatedTaskList)
@@ -160,7 +162,7 @@ export default function TaskScreen() {
                       testID='delete-task-button-stylized'
                       name='check'
                       size={32}
-                      color={colorScheme === 'dark' ? 'white' : 'black'}
+                      color={color}
                       onPress={() => completeTask(index)}
                     />
                   </LinearGradient>
@@ -187,7 +189,7 @@ export default function TaskScreen() {
                     testID='delete-task-button'
                     name='check'
                     size={32}
-                    color={colorScheme === 'dark' ? 'white' : 'black'}
+                    color={color}
                     onPress={() => completeTask(index)}
                   />
                 </TouchableOpacity>

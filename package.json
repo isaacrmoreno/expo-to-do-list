@@ -30,8 +30,7 @@
     "type": "git",
     "url": "git+https://github.com/isaacrmoreno/expo-to-do-list.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Isaac Moreno",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/isaacrmoreno/expo-to-do-list/issues"
