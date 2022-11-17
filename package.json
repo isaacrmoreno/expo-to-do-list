@@ -3,9 +3,10 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "cd apps/mobile && npx expo start",
+    "start": "expo start --dev-client",
     "test": "cd apps/mobile && detox test --configuration ios",
-    "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && yarn",
+    "clean": "rm -rf node_modules && cd apps/* && rm -rf node_modules && rm -rf ios && rm -rf android && yarn",
+    "prebuild": "cd apps/mobile && npx expo prebuild",
     "build:detox": "cd apps/mobile && detox build --configuration ios",
     "build:dev:ios": "cd apps/mobile && eas build --profile development -p ios",
     "build:dev:android": "cd apps/mobile && eas build --profile development -p android",
@@ -20,7 +21,9 @@
     "ota:beta": "cd apps/mobile && eas update --release-channel beta --target managed",
     "ota:prod": "cd apps/mobile && eas update --release-channel production --target managed",
     "submit:android": "cd apps/mobile && eas submit -p android --latest",
-    "submit:ios": "cd apps/mobile && eas submit -p ios --latest"
+    "submit:ios": "cd apps/mobile && eas submit -p ios --latest",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "workspaces": [
     "apps/*",
@@ -35,5 +38,18 @@
   "bugs": {
     "url": "https://github.com/isaacrmoreno/expo-to-do-list/issues"
   },
-  "homepage": "https://github.com/isaacrmoreno/expo-to-do-list#readme"
+  "homepage": "https://github.com/isaacrmoreno/expo-to-do-list#readme",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "dependencies": {
+    "expo": "~46.0.17",
+    "expo-splash-screen": "~0.16.2",
+    "expo-status-bar": "~1.4.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.6",
+    "react-native-web": "~0.18.7"
+  }
 }
