@@ -88,7 +88,7 @@ const Menu = () => {
           <Text style={[tw`font-bold`, colorScheme === 'dark' ? tw`text-white` : tw`text-black`]}>Privacy Policy</Text>
         </TouchableOpacity>
         <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>|</Text>
-        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V2.1.0</Text>
+        <Text style={colorScheme === 'dark' ? tw`text-white` : tw`text-black`}>V2.1.1</Text>
       </View>
     </View>
   )
