@@ -36,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/isaacrmoreno/expo-to-do-list/issues"
   },
-  "homepage": "https://github.com/isaacrmoreno/expo-to-do-list#readme"
+  "homepage": "https://github.com/isaacrmoreno/expo-to-do-list#readme",
+  "dependencies": {
+    "react-native": "0.69.9"
+  }
 }
